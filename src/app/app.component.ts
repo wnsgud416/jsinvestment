@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import {FormControl, Validators} from '@angular/forms';
+import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet';
+import { JoinModalComponent } from './join-modal/join-modal.component';
+import { FindModalComponent } from './find-modal/find-modal.component';
+import * as $ from 'jquery';
+
+import {MatSidenav} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +14,61 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  public IDText;
+  public PasswordText;
+
   title = 'jsinvestment';
+  hide = true;
+  hide2 = true;
+  hide3 = true;
+
+
+  showFiller = false;
+
+
 
   constructor(
+	private MatBottomSheet: MatBottomSheet,
     private router: Router
   ){}
 
-  go() {
-    this.router.navigate(['/testpage']);
+	Login(){
+		$(".Login_Box").fadeOut(500);
+		$(".Main_PanelBox").fadeIn(300);
+		this.router.navigate(['/UserNotice']);
+	}
+	
+	Menu1(){
+		this.router.navigate(['/UserNotice']);
+		$(".mat-drawer-backdrop").click();
+	}
+	Menu2(){
+		this.router.navigate(['/UserRecommended']);
+		$(".mat-drawer-backdrop").click();
+	}
+	Menu3(){
+		this.router.navigate(['/UserCompletion']);
+		$(".mat-drawer-backdrop").click();
+	}
+
+
+
+  Join() {
+	  this.MatBottomSheet.open(JoinModalComponent, {
+      panelClass: 'Login_OptionModal',
+      data: {}
+    }).afterDismissed().subscribe((result) => {
+
+    });
+
+  }
+  Find_Info(){
+    this.MatBottomSheet.open(FindModalComponent, {
+      panelClass: 'Login_OptionModal',
+      data: {}
+    }).afterDismissed().subscribe((result) => {
+
+    });
   }
 }

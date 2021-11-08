@@ -1,1 +1,186 @@
-/* You can add global styles to this file, and also import other style files */
+/*최초 작성 날짜 : 2021.11.01*/
+
+/*작성 방법 :
+CSS변경 및 추가 사항은 필히 주석처리로 해당 내용 상세 기제
+스크립트 또는 Html 수정 후 출력화면 캡쳐 보관
+(주의)
+* 해당 CSS는 개발자가 직접 작성한 코드입니다.
+* 수정 및 변경, 삭제 시 관리자에게 문의하세요.
+* 메인컬러 : F48A30     * 하이라이트 : f8b175,de6c0c
+* 단색컬러 : EEE / CCC / efefef /333 ~ 999 / F5F5F5 / F9F9F9 / F7F7F7 ..
+*/
+
+:root {  
+	--main-color:#F48A30;
+	--mainwhite-color:#f8b175;
+	--maindark-color:#de6c0c;
+	--main-font-color:#333333;
+	--sub-font-color:#666666;
+	--main-whitefont-color:#eeeeee;
+	--sub-whitefont-color:#cccccc;
+}
+
+@font-face {font-family: 'NotoSansKR';font-style: normal;font-weight: 100;src: url(assets/fonts/NotoSansKr/NotoSansKR-Thin.woff2) format('woff2'),url(assets/fonts/NotoSansKr/NotoSansKR-Thin.woff) format('woff'),url(assets/fonts/NotoSansKr/NotoSansKR-Thin.otf) format('opentype');}
+@font-face {font-family: 'NotoSansKR';font-style: normal;font-weight: 300;src: url(assets/fonts/NotoSansKr/NotoSansKR-Light.woff2) format('woff2'),url(assets/fonts/NotoSansKr/NotoSansKR-Light.woff) format('woff'),url(assets/fonts/NotoSansKr/NotoSansKR-Light.otf) format('opentype');}
+@font-face {font-family: 'NotoSansKR';font-style: normal;font-weight: 400;src: url(assets/fonts/NotoSansKr/NotoSansKR-Regular.woff2) format('woff2'),url(assets/fonts/NotoSansKr/NotoSansKR-Regular.woff) format('woff'),url(assets/fonts/NotoSansKr/NotoSansKR-Regular.otf) format('opentype');}
+@font-face {font-family: 'NotoSansKR';font-style: normal;font-weight: 500;src: url(assets/fonts/NotoSansKr/NotoSansKR-Medium.woff2) format('woff2'),url(assets/fonts/NotoSansKr/NotoSansKR-Medium.woff) format('woff'),url(assets/fonts/NotoSansKr/NotoSansKR-Medium.otf) format('opentype');}
+@font-face {font-family: 'NotoSansKR';font-style: normal;font-weight: 700;src: url(assets/fonts/NotoSansKr/NotoSansKR-Bold.woff2) format('woff2'),url(assets/fonts/NotoSansKr/NotoSansKR-Bold.woff) format('woff'),url(assets/fonts/NotoSansKr/NotoSansKR-Bold.otf) format('opentype');}
+@font-face {font-family: 'NotoSansKR';font-style: normal;font-weight: 900;src: url(assets/fonts/NotoSansKr/NotoSansKR-Black.woff2) format('woff2'),url(assets/fonts/NotoSansKr/NotoSansKR-Black.woff) format('woff'),url(assets/fonts/NotoSansKr/NotoSansKR-Black.otf) format('opentype');}
+
+/*기본 설정*/
+* { margin:0; padding: 0;
+box-sizing:border-box; cursor: default;-ms-user-select: none;
+-moz-user-select: -moz-none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+user-select: none; ; font-size: 12px; font-family:'NotoSansKR' !important;}
+input[type = "text"]{cursor: text; }
+button{cursor: pointer; }
+a { color:inherit; text-decoration: none ; }
+img { border:none; max-width:100% }
+ol, ul { list-style-type: none }
+table { border-collapse:collapse; table-layout:fixed; }
+fieldset { border:none }
+legend, caption { text-indent:-99999px; display:none }
+address{font-style: normal; }
+html, body, div, span, p, a, del, em, img, ol, ul, li, fieldset, form, label {border: 0;font-size: 100%;font: inherit;vertical-align: baseline;}
+strong{font-weight: normal; }
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {display: block;}
+a{text-decoration: none;}
+li{list-style: none; }
+html, body {min-height:100%; }
+body {background: #f5f5f5;background: -webkit-linear-gradient(top, #f5f5f5, #cccccc 100%);background: -moz-linear-gradient(top, #f5f5f5, #cccccc 100%);background: -o-linear-gradient(top, #f5f5f5, #cccccc 100%);background: -ms-linear-gradient(top, #f5f5f5, #cccccc 100%);background: linear-gradient(top, #f5f5f5, #cccccc 100%);background-attachment:fixed; }
+mat-card.mat-card{}
+div.mat-line{}
+span.mat-checkbox-label{}
+span.mat-radio-label-content{}
+input.mat-input-element{}
+mat-form-field *{line-height: normal; font-size: 14px;}
+*.material-icons{font-family:'Material Icons' !important;}
+mat-icon{text-align: center; display: inline-block; position: relative; font-family:'Material Icons' !important;}
+.mat-icon{text-align: center; display: inline-block; position: relative; font-family:'Material Icons' !important;}
+.mat-form-field-ripple{background-color: var(--mainwhite-color);}
+.mat-form-field.mat-focused .mat-form-field-ripple{background-color: var(--main-color) !important;}
+.mat-form-field.mat-focused .mat-form-field-label{color: var(--maindark-color) !important;}
+.mat-hint{font-size: 12px; font-weight: 300; letter-spacing: 0.01vw;}
+.mat-error{font-size: 12px; font-weight: 300; letter-spacing: 0.01vw;}
+mat-bottom-sheet-container{padding: 0 !important;}
+.mat-list-single-selected-option{transition: .3s; border-right: 10px solid var(--main-color); background: #f9f9f9;}
+.mat-list-single-selected-option:focus{border-right: 10px solid var(--main-color); background: #f9f9f9;}
+.mat-list-item, .mat-list-option, .mat-list-item{transition: .3s;}
+.mat-list-item:hover, .mat-list-option:hover, .mat-list-item:hover{background-color: #f9f9f9;}
+
+/*크롬 테두리 삭제*/
+ *:focus {outline:none;}
+body,html{position: relative; width: 100%; height: auto; overflow: hidden;}
+body { margin: 0; font-family:'NotoSansKR'}
+
+/*스크롤 디자인*/
+body{-ms-overflow-style: none; }
+::-webkit-scrollbar {display: none;}
+::-webkit-scrollbar {-webkit-appearance: none;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);height: 5px;width: 5px;}
+::-webkit-scrollbar-track {background: none;}
+::-webkit-scrollbar-corner {background: none;}
+::-webkit-resizer {background: none;}
+::-webkit-scrollbar-thumb {background-color:  var(--main-color);border-radius: 2px;}
+
+/*버튼 디자인*/
+button.mat-stroked-button{background-color: var(--main-whitefont-color); color: var(--sub-font-color); border: 1px solid var(--sub-whitefont-color);letter-spacing: 0.1px;}
+button.mat-stroked-button:hover{color: var(--main-color); border-color: var(--main-color) !important;}
+button.mat-stroked-button.NextBtn{background-color: var(--main-color); color: var(--main-whitefont-color); font-weight: 500; transition: .3s;}
+button.mat-stroked-button.NextBtn:hover{background-color: var(--maindark-color); color: var(--main-whitefont-color);}
+button.mat-stroked-button.AddBtn{background-color: var(--sub-font-color); color: var(--main-whitefont-color); font-weight: 500; transition: .3s;}
+button.mat-stroked-button.AddBtn:hover{background-color: var(--main-font-color); color: var(--main-whitefont-color);}
+
+/*로그인 박스*/
+.Login_Box{position: relative; width: 100%; height: 100vh;}
+.Login_FormBox{position: absolute; left: 50%; right: 50%; top: 50%; transform: translate(-50%, -50%); width: 25vw; height: 80vh;  z-index: 1; background: var(--main-whitefont-color); box-shadow: 1px 1px 3px #666 !important; border: 1px solid #ccc; border-radius: 10px !important; transition: .3s;}
+.Login_BgBox{position: absolute; z-index: 0; width: 100%; height: 100vh; top: 0; left: 0;}
+.Login_Bg{position: absolute; z-index: 0; background: var(--main-font-color); width: 100%; height: 100vh; top: 0; left: 0; opacity: 0.5; transition: .3s;}
+.Login_FormBox img{width: 300px; margin: 0 auto; display: block; margin-top: 5vh !important; margin-bottom: 5vh;}
+.Login_FormBox mat-form-field{display: block; padding: 0 16px; margin-top: 2vh;}
+.Login_FormBox mat-form-field .mat-form-field-prefix .mat-icon{position: relative; top: 5px; margin-right: 5px; color: var(--mainwhite-color);;}
+.Login_FormBox mat-form-field .mat-form-field-suffix .mat-icon{position: relative; top: 0px; color: var(--main-font-color); opacity: 0.8}
+.Login_FormBox mat-form-field .mat-input-element{color: var(--main-font-color);}
+.Login_FormBox .Login_ButtonBox{display: block; padding: 0 16px; margin-top: 5vh;}
+.Login_FormBox .Login_ButtonBox button{display: block; width: 100%; margin-top: 3vh; border-radius: 10px; height: 45px; line-height: 45px; font-weight: 500; font-size: 14px;}
+.Login_FormBox .Login_ButtonBox > span{display: inline-block; width: auto; margin-top: 2vh; border-radius: 10px; height: 35px; line-height: 35px; text-align: center; transition: .2s; position: relative; left: 50%; transform: translateX(-50%);}
+.Login_FormBox .Login_ButtonBox > span:hover{font-weight: 500;}
+
+/*로그인 옵션 다이얼로그*/
+.Login_OptionPanelButtonBox{text-align: right; margin-bottom: 5vh; margin-top: 5vh;}
+.Login_OptionPanelButtonBox button {line-height: 36px ; height: 40px; width: auto; margin-right: 15px ; font-size: 14px; padding: 0 24px;}
+.Login_OptionPanelButtonBox button mat-icon{vertical-align: baseline !important;}
+
+.Login_OptionPanel h3{width: 100%; padding: 0 10px; height: 50px; line-height: 50px; font-size: 14px; background: var(--main-color); color: var(--main-whitefont-color); font-weight: 500; margin-bottom: 2vh;}
+.Login_OptionPanel h3 mat-icon{position: absolute; right: 0; top: 0; height: 50px !important; line-height: 50px !important; font-size: 20px; margin-right: 10px;}
+.Login_OptionPanel p{width: 100%; padding: 0 15px; height: 35px; line-height: 35px; font-size: 12px; color: var(--sub-font-color);}
+.Login_OptionPanel mat-form-field{display: block; padding: 0 24px; margin-top: 2vh; margin-bottom: 2vh;}
+.Login_OptionPanel mat-form-field .mat-form-field-prefix .mat-icon{position: relative; top: 5px; margin-right: 5px; color: var(--mainwhite-color);}
+.Login_OptionPanel mat-form-field .mat-form-field-suffix .mat-icon{position: relative; top: 0px; color: var(--main-font-color); opacity: 0.8}
+
+/*메인 패널 설정*/
+.Main_PanelBox{position: relative; width: 100%; height: 100vh; _display: none;}
+.Main_Panel{position: relative; width: 100%;  height: calc(100vh - 64px);}
+
+/*메뉴*/
+.Main_PanelBox .mat-toolbar{background: var(--main-font-color); position: relative; width: 100%;}
+.Main_PanelBox .mat-toolbar .Menu_Logo{flex: 1 1 auto; text-align: center;}
+.Main_PanelBox .mat-toolbar .Menu_Logo img{width: 165px; display: block; margin: 0 auto;}
+.Main_PanelBox .mat-toolbar > .mat-icon-button{color: var(--main-color); width: 37px; height: 37px; line-height: 37px;}
+.Main_PanelBox .mat-toolbar > .mat-icon-button .mat-icon{width: 37px; height: 37px; line-height: 37px; position: relative; top: -1px; font-size: 24px;}
+
+.Main_Menu{min-width: 300px;}
+.Main_Menu .mat-subheader{background: var(--main-whitefont-color); border-bottom: 1px solid var(--mainwhite-color); border-top: 1px solid var(--mainwhite-color); color: var(--sub-font-color); font-weight: 300; font-size: 12px;}
+.Main_Menu .mat-subheader mat-icon{margin-right: 10px;}
+
+
+.Main_Menu .mat-list-option{border-bottom: 1px solid #eee;}
+.Main_Menu .mat-list-option mat-icon{color: var(--sub-font-color); transition: .3s; font-size: 21px !important;}
+.Main_Menu mat-list-option .mat-list-text{color: var(--main-font-color); transition: .3s; font-size: 14px; font-weight: 500;}
+.Main_Menu .mat-list-option:hover mat-icon{color: var(--mainwhite-color);}
+.Main_Menu .mat-list-option:hover .mat-list-text{color: var(--mainwhite-color);}
+.Main_Menu .mat-list-single-selected-option mat-icon{color: var(--main-color);}
+.Main_Menu .mat-list-single-selected-option .mat-list-text{color: var(--main-color);}
+.Main_Menu .mat-list-single-selected-option:focus mat-icon{color: var(--main-color);}
+.Main_Menu .mat-list-single-selected-option:focus .mat-list-text{color: var(--main-color);}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb{background-color: var(--maindark-color);}
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar{background-color: var(--mainwhite-color);}
+.Main_Setting{min-width: 300px; height: auto !important; background: none !important; box-shadow: none !important;}
+.Main_Setting .Notification_Setting{height: 60px; line-height: 60px; text-align: center;}
+.Main_Setting .Notification_Setting::after{content: ''; display: block; clear: both;}
+.Main_Setting .Notification_Setting .mat-icon{height: 60px; line-height: 60px; width: 60px; text-align: center; float: left; color: var(--mainwhite-color);}
+.Main_Setting .Notification_Setting .mat-slide-toggle{height: 60px; line-height: 60px; float: right;}
+.Main_Setting .Notification_Setting .mat-slide-toggle .mat-slide-toggle-content{color: var(--sub-font-color); font-size: 12px;}
+
+.Main_Setting mat-form-field{display: block; margin-bottom: 1vh;}
+.Main_Setting mat-form-field .mat-form-field-prefix .mat-icon{position: relative; top: 5px; margin-right: 5px; color: var(--mainwhite-color);}
+.Main_Setting mat-form-field .mat-form-field-suffix .mat-icon{position: relative; top: 0px; color: var(--main-font-color); opacity: 0.8;}
+.Main_Setting .mat-expansion-panel{border-bottom: 1px solid var(--mainwhite-color);}
+.Main_Setting .mat-expansion-panel-spacing{margin: 0; border-radius: 0;}
+.Main_Setting .mat-expansion-panel-header mat-panel-title{font-size: 14px; color: var(--main-font-color); font-weight: 300;}
+.Main_Setting .mat-expansion-panel-header mat-panel-title mat-icon{font-size: 21px; color: var(--sub-font-color); margin-right: 10px;}
+.Main_Setting .Sub_Title{color: var(--main-font-color); font-weight: 300; font-size: 14px; margin-top: 4vh; margin-bottom: 2vh;}
+.Main_Setting .Sub_Title mat-icon{margin-right: 10px; font-size: 20px; position: relative; top: 4px; color: var(--sub-font-color);}
+
+.Main_SettingButtonBox{text-align: right; margin-bottom: 2vh; margin-top: 2vh;}
+.Main_SettingButtonBox button {line-height: 36px ; height: 40px; width: auto; margin-right: 5px; margin-left: 5px; font-size: 12px;}
+.Main_SettingButtonBox button mat-icon{vertical-align: baseline !important;}
+
+
+
+@media screen and (max-width: 1024px) {
+	
+.Login_FormBox{width: 95vw; height: 96vh;}
+.Login_Bg{opacity: 0.8;}	
+.Main_Panel{height: calc(100vh - 54px);}
+.Main_Menu{min-width: 100vw;}
+.Main_Setting{min-width: 100vw;}
+.Main_Setting{min-width: 100vw;}
+}
+
+
+
+
