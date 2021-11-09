@@ -9,6 +9,13 @@ import { FindModalComponent } from './find-modal/find-modal.component';
 import { UserNoticeComponent } from './user_menu/user-notice/user-notice.component';
 import { UserRecommendedComponent } from './user_menu/user-recommended/user-recommended.component';
 import { UserCompletionComponent } from './user_menu/user-completion/user-completion.component';
+import { UserNoticeDetailComponent } from './user_menu/dialog/user-notice-detail/user-notice-detail.component';
+import { AdminInformationComponent } from './admin_menu/admin-information/admin-information.component';
+import { AdminNoticeEditComponent } from './admin_menu/admin-notice-edit/admin-notice-edit.component';
+import { AdminGroupNoticeComponent } from './admin_menu/admin-group-notice/admin-group-notice.component';
+import { AdminGroupEditComponent } from './admin_menu/admin-group-edit/admin-group-edit.component';
+import { AdminUserEditComponent } from './admin_menu/admin-user-edit/admin-user-edit.component';
+
 
 // Angular Meterial
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,7 +31,12 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTabsModule} from '@angular/material/tabs';
 
+/*CDK Module*/
+import {TextFieldModule} from '@angular/cdk/text-field';
 
 // ngrx 관련
 // import {EffectsModule} from '@ngrx/effects';
@@ -42,7 +54,13 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     FindModalComponent,
     UserNoticeComponent,
     UserRecommendedComponent,
-    UserCompletionComponent
+    UserCompletionComponent,
+    UserNoticeDetailComponent,
+    AdminInformationComponent,
+    AdminNoticeEditComponent,
+    AdminGroupNoticeComponent,
+    AdminGroupEditComponent,
+    AdminUserEditComponent
   ],
   imports: [
 
@@ -62,6 +80,10 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 	MatListModule,
 	MatExpansionModule,
 	MatSlideToggleModule,
+	MatTableModule,
+	MatPaginatorModule,
+	MatTabsModule,
+	TextFieldModule,
 
     // StoreModule.forRoot(reducers, {
     //   metaReducers,

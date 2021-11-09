@@ -39,18 +39,54 @@ export class AppComponent {
 		this.router.navigate(['/UserNotice']);
 	}
 	
-	Menu1(){
+	UserMenu(MenuName){
+		if(MenuName == "notice"){
 		this.router.navigate(['/UserNotice']);
 		$(".mat-drawer-backdrop").click();
-	}
-	Menu2(){
+		}
+
+		else if(MenuName == "recommend"){
 		this.router.navigate(['/UserRecommended']);
 		$(".mat-drawer-backdrop").click();
-	}
-	Menu3(){
+		}
+		
+		else if(MenuName == "completion"){
 		this.router.navigate(['/UserCompletion']);
 		$(".mat-drawer-backdrop").click();
+		}
 	}
+	
+	AdminMenu(MenuName){
+		if(MenuName == "info"){
+		this.router.navigate(['/AdminInformation']);
+		$(".mat-drawer-backdrop").click();
+		}
+
+		else if(MenuName == "notice"){
+		this.router.navigate(['/AdminNoticeEdit']);
+		$(".mat-drawer-backdrop").click();
+		}
+		
+		else if(MenuName == "groupnotice"){
+		this.router.navigate(['/AdminGroupNotice']);
+		$(".mat-drawer-backdrop").click();
+		}
+		
+		else if(MenuName == "groupedit"){
+		this.router.navigate(['/AdminGroupEdit']);
+		$(".mat-drawer-backdrop").click();
+		}
+		
+		else if(MenuName == "useredit"){
+		this.router.navigate(['/AdminUserEdit']);
+		$(".mat-drawer-backdrop").click();
+		}
+	}
+
+
+
+
+
 
 
 
