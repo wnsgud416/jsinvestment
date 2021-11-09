@@ -1,4 +1,4 @@
-/*최초 작성 날짜 : 2021.11.01*/
+/*최초 작성 날짜 : 2021.11.01 */
 
 /*작성 방법 :
 CSS변경 및 추가 사항은 필히 주석처리로 해당 내용 상세 기제
@@ -233,11 +233,13 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 
 /*그룹별 알림 (관리자 메뉴)*/
 .Admin_notice{width: 100%; height: calc(100vh - 64px); overflow: hidden;}
+.Admin_notice .mat-tab-body-wrapper{height: calc(100vh - 182px);}
+.Admin_notice .mat-tab-body-content::-webkit-scrollbar{display: contents !important;}
 .Admin_notice_Title{height: 70px; width: 100%;}
 .Admin_notice_Title h3{font-size: 16px; color: #888; font-weight: 500; width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; border-bottom: 1px solid var(--sub-font-color);  height: 70px; line-height: 70px; padding: 0 16px; color: var(--main-font-color);}
 .Admin_notice_Title h3 mat-icon{position: relative; top: 5px; margin-right: 5px; color: var(--sub-font-color);}
-.Admin_Notice_SendBox{position: relative; min-height: 216px; max-height: 285px; margin-bottom: 30px;}
-.Admin_notice_UserList{position: relative; width: 100%; min-height: calc(100vh - 64px - 70px - 48px - 216px - 30px); max-height: calc(100vh - 64px - 70px - 48px - 285px - 30px); background: red;}
+.Admin_Notice_SendBox{position: relative; min-height: 220px; height: fit-content; max-height: 285px; margin-bottom: 30px;}
+.Admin_notice_UserList{position: relative; width: 100%; height: fit-content; min-height: calc(100vh - 212px - 220px); max-height: calc(100vh - 212px - 285px);}
 .Admin_Notice_SendBox mat-form-field{width: 100%; margin: 0 auto; padding: 0 16px; margin-top: 50px;}
 .Admin_Notice_SendBox .mat-form-field-flex{position: relative;}
 .Admin_Notice_SendBox .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
@@ -261,6 +263,7 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 	.User_notice_Search mat-form-field{width: 100%;}
 	.OptionModal.mat-bottom-sheet-container{max-height: calc(100vh - 54px);}
 	.User_notice_Dialog_Contant{max-height: calc(100vh - 142px - 4vh); }
+    .Admin_notice .mat-tab-body-wrapper{height: calc(100vh - 172px);}
 	
 }
 
