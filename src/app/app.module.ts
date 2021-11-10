@@ -15,7 +15,8 @@ import { AdminNoticeEditComponent } from './admin_menu/admin-notice-edit/admin-n
 import { AdminGroupNoticeComponent } from './admin_menu/admin-group-notice/admin-group-notice.component';
 import { AdminGroupEditComponent } from './admin_menu/admin-group-edit/admin-group-edit.component';
 import { AdminUserEditComponent } from './admin_menu/admin-user-edit/admin-user-edit.component';
-
+import { AdminUserRemoveComponent } from './admin_menu/dialog/admin-user-remove/admin-user-remove.component';
+import { AdminUserModifyComponent } from './admin_menu/dialog/admin-user-modify/admin-user-modify.component';
 
 // Angular Meterial
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,9 +35,13 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 /*CDK Module*/
 import {TextFieldModule} from '@angular/cdk/text-field';
+
 
 // ngrx 관련
 // import {EffectsModule} from '@ngrx/effects';
@@ -60,7 +65,9 @@ import {TextFieldModule} from '@angular/cdk/text-field';
     AdminNoticeEditComponent,
     AdminGroupNoticeComponent,
     AdminGroupEditComponent,
-    AdminUserEditComponent
+    AdminUserEditComponent,
+    AdminUserRemoveComponent,
+	AdminUserModifyComponent
   ],
   imports: [
 
@@ -84,6 +91,8 @@ import {TextFieldModule} from '@angular/cdk/text-field';
 	MatPaginatorModule,
 	MatTabsModule,
 	TextFieldModule,
+	MatCheckboxModule,
+	MatMenuModule,
 
     // StoreModule.forRoot(reducers, {
     //   metaReducers,

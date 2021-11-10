@@ -1,1 +1,131 @@
-<p>admin-group-edit works!</p>
+<div class="Admin_MenuPanel">
+
+	<div class="Admin_MenuPanel_Title">	
+		<h3><mat-icon>group</mat-icon> 그룹 관리</h3>
+	</div>
+	
+	<div class="Admin_Group_UserList">
+	    	<mat-accordion multi>
+			  <mat-expansion-panel>
+				<mat-expansion-panel-header>
+				  <mat-panel-title>
+					관리자
+				  </mat-panel-title>
+				  <mat-panel-description>
+					2021.07.12 오전 08:06:27
+				  </mat-panel-description>
+				</mat-expansion-panel-header>
+				<p><mat-icon>list</mat-icon>그룹 유저 리스트 <span><em>3</em>명</span></p>
+				<mat-list #Notice_Group1>
+				  <mat-list-item>
+						<div mat-line class="Admin_Group_UserList_ID">js1234@example.com</div>
+						<div mat-line class="Admin_Group_UserList_Name">홍길동 / 010-1234-5678</div>	
+				        <button mat-icon-button [matMenuTriggerFor]="Admin_Group_OptionMenu"><mat-icon mat-list-icon>more_vert</mat-icon></button>
+				  </mat-list-item>
+				  <mat-list-item>
+						<div mat-line class="Admin_Group_UserList_ID">js1234@example.com</div>
+						<div mat-line class="Admin_Group_UserList_Name">홍길동 / 010-1234-5678</div>	
+				        <button mat-icon-button [matMenuTriggerFor]="Admin_Group_OptionMenu"><mat-icon mat-list-icon>more_vert</mat-icon></button>
+				  </mat-list-item>
+				  <mat-list-item>
+						<div mat-line class="Admin_Group_UserList_ID">js1234@example.com</div>
+						<div mat-line class="Admin_Group_UserList_Name">홍길동 / 010-1234-5678</div>	
+				        <button mat-icon-button [matMenuTriggerFor]="Admin_Group_OptionMenu"><mat-icon mat-list-icon>more_vert</mat-icon></button>
+				  </mat-list-item>
+				</mat-list>
+			  </mat-expansion-panel>
+			  <mat-expansion-panel>
+				<mat-expansion-panel-header>
+				  <mat-panel-title>
+					일반회원
+				  </mat-panel-title>
+				  <mat-panel-description>
+					2021.07.12 오전 08:06:27
+				  </mat-panel-description>
+				</mat-expansion-panel-header>
+				<p><mat-icon>list</mat-icon>그룹 유저 리스트 <span><em>3</em>명</span></p>
+				<mat-list>
+				  <mat-list-item>
+						<div mat-line class="Admin_Group_UserList_ID">js1234@example.com</div>
+						<div mat-line class="Admin_Group_UserList_Name">홍길동 / 010-1234-5678</div>	
+				        <button mat-icon-button [matMenuTriggerFor]="Admin_Group_OptionMenu"><mat-icon mat-list-icon>more_vert</mat-icon></button>
+				  </mat-list-item>
+				  <mat-list-item>
+						<div mat-line class="Admin_Group_UserList_ID">js1234@example.com</div>
+						<div mat-line class="Admin_Group_UserList_Name">홍길동 / 010-1234-5678</div>	
+				        <button mat-icon-button [matMenuTriggerFor]="Admin_Group_OptionMenu"><mat-icon mat-list-icon>more_vert</mat-icon></button>
+				  </mat-list-item>
+				  <mat-list-item>
+						<div mat-line class="Admin_Group_UserList_ID">js1234@example.com</div>
+						<div mat-line class="Admin_Group_UserList_Name">홍길동 / 010-1234-5678</div>	
+				        <button mat-icon-button [matMenuTriggerFor]="Admin_Group_OptionMenu"><mat-icon mat-list-icon>more_vert</mat-icon></button>
+				  </mat-list-item>
+				</mat-list>
+			  </mat-expansion-panel>
+			  <mat-expansion-panel>
+				<mat-expansion-panel-header>
+				  <mat-panel-title>
+					특별회원
+				  </mat-panel-title>
+				  <mat-panel-description>
+					2021.07.12 오전 08:06:27
+				  </mat-panel-description>
+				</mat-expansion-panel-header>
+				<p><mat-icon>list</mat-icon>그룹 유저 리스트 <span><em>3</em>명</span></p>
+				<mat-list>
+				  <mat-list-item>
+						<div mat-line class="Admin_Group_UserList_ID">js1234@example.com</div>
+						<div mat-line class="Admin_Group_UserList_Name">홍길동 / 010-1234-5678</div>	
+				        <button mat-icon-button [matMenuTriggerFor]="Admin_Group_OptionMenu"><mat-icon mat-list-icon>more_vert</mat-icon></button>
+				  </mat-list-item>
+				  <mat-list-item>
+						<div mat-line class="Admin_Group_UserList_ID">js1234@example.com</div>
+						<div mat-line class="Admin_Group_UserList_Name">홍길동 / 010-1234-5678</div>	
+				        <button mat-icon-button [matMenuTriggerFor]="Admin_Group_OptionMenu"><mat-icon mat-list-icon>more_vert</mat-icon></button>
+				  </mat-list-item>
+				  <mat-list-item>
+						<div mat-line class="Admin_Group_UserList_ID">js1234@example.com</div>
+						<div mat-line class="Admin_Group_UserList_Name">홍길동 / 010-1234-5678</div>	
+				        <button mat-icon-button [matMenuTriggerFor]="Admin_Group_OptionMenu"><mat-icon mat-list-icon>more_vert</mat-icon></button>
+				  </mat-list-item>
+				</mat-list>
+			  </mat-expansion-panel>
+			</mat-accordion>
+	    </div>
+	
+	<div class="Admin_Group_EditBox">
+			<mat-form-field appearance="outline">
+				<mat-label>그룹명</mat-label>
+				<input  matInput placeholder="그룹명을 입력해주세요.">
+				<mat-hint>그룹명은 중복이 불가합니다.</mat-hint>
+			</mat-form-field>
+			<button mat-stroked-button class="NextBtn">그룹 생성</button>
+		</div>
+</div>
+
+<mat-menu #Admin_Group_OptionMenu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="Admin_Group_ListMenu">
+    <mat-icon>group_add</mat-icon>
+    <span>그룹 이동</span>
+  </button>
+  <button mat-menu-item (click)="User_Remove()">
+    <mat-icon>person_remove</mat-icon>
+    <span>회원 삭제</span>
+  </button>
+  <button mat-menu-item (click)="User_Edit()">
+    <mat-icon>account_box</mat-icon>
+    <span>회원 수정</span>
+  </button>
+</mat-menu>
+
+<mat-menu #Admin_Group_ListMenu="matMenu">
+  <button mat-menu-item>   
+    <span>관리자</span>
+  </button>
+  <button mat-menu-item>
+    <span>일반회원</span>
+  </button>
+  <button mat-menu-item>
+    <span>특별회원</span>
+  </button>
+</mat-menu>
