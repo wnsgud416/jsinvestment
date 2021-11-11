@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~12.2.13",
     "@angular/platform-browser-dynamic": "~12.2.13",
     "@angular/router": "~12.2.13",
+    "@kolkov/angular-editor": "^1.2.0",
     "@ngrx/effects": "^12.5.1",
     "@ngrx/entity": "^12.5.1",
     "@ngrx/store": "^12.5.1",

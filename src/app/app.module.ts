@@ -37,11 +37,18 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatSelectModule} from '@angular/material/select';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 /*CDK Module*/
 import {TextFieldModule} from '@angular/cdk/text-field';
 
+/*Angular Editor*/
+import { HttpClientModule} from '@angular/common/http';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 // ngrx 관련
 // import {EffectsModule} from '@ngrx/effects';
@@ -93,6 +100,12 @@ import {TextFieldModule} from '@angular/cdk/text-field';
 	TextFieldModule,
 	MatCheckboxModule,
 	MatMenuModule,
+	MatSelectModule,
+	MatNativeDateModule,
+	MatDatepickerModule,
+	MatBadgeModule,
+	HttpClientModule, 
+	AngularEditorModule,
 
     // StoreModule.forRoot(reducers, {
     //   metaReducers,
