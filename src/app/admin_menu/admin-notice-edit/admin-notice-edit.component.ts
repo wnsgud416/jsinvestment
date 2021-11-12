@@ -5,6 +5,10 @@ import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet'
 import { AdminUserModifyComponent } from '../dialog/admin-user-modify/admin-user-modify.component';
 import { AdminUserRemoveComponent } from '../dialog/admin-user-remove/admin-user-remove.component';
 import { UserNoticeDetailComponent } from '../../user_menu/dialog/user-notice-detail/user-notice-detail.component';
+import { AdminNoticeAddComponent } from '../dialog/admin-notice-add/admin-notice-add.component';
+import { AdminNoticeDeleteComponent } from '../dialog/admin-notice-delete/admin-notice-delete.component';
+import { AdminNoticeModifyComponent } from '../dialog/admin-notice-modify/admin-notice-modify.component';
+
 
 export interface PeriodicElement {
 	Position : string;
@@ -51,7 +55,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 
 @Component({
-  selector: 'app-admin-notice-edit',
+  selector: 'app-admin-notice-modify',
   templateUrl: './admin-notice-edit.component.html',
   styleUrls: ['./admin-notice-edit.component.css']
 })
@@ -95,9 +99,19 @@ export class AdminNoticeEditComponent implements OnInit {
     private MatBottomSheet: MatBottomSheet,
 			  ) { }
 
-  ngOnInit(): void {	  
-	  
+  ngOnInit(): void {
+
   }
+	Notice_Add(){
+		this.MatBottomSheet.open(AdminNoticeAddComponent, {
+     panelClass: 'OptionModal',
+     data: {}
+   }).afterDismissed().subscribe((result) => {
+
+   });
+
+	}
+
 
   Notice_Detail(){
     this.MatBottomSheet.open(UserNoticeDetailComponent, {
@@ -106,8 +120,23 @@ export class AdminNoticeEditComponent implements OnInit {
    }).afterDismissed().subscribe((result) => {
 
    });
-
  }
+	Notice_Modify(){
+		this.MatBottomSheet.open(AdminNoticeModifyComponent, {
+     panelClass: 'OptionModal',
+     data: {}
+   }).afterDismissed().subscribe((result) => {
+
+   });
+	}
+    Notice_Delete(){
+		this.MatBottomSheet.open(AdminNoticeDeleteComponent, {
+     panelClass: 'OptionModal',
+     data: {}
+   }).afterDismissed().subscribe((result) => {
+
+   });
+	}
 
 
 }

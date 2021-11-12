@@ -17,6 +17,10 @@ import { AdminGroupEditComponent } from './admin_menu/admin-group-edit/admin-gro
 import { AdminUserEditComponent } from './admin_menu/admin-user-edit/admin-user-edit.component';
 import { AdminUserRemoveComponent } from './admin_menu/dialog/admin-user-remove/admin-user-remove.component';
 import { AdminUserModifyComponent } from './admin_menu/dialog/admin-user-modify/admin-user-modify.component';
+import { AdminNoticeAddComponent } from './admin_menu/dialog/admin-notice-add/admin-notice-add.component';
+import { AdminNoticeDeleteComponent } from './admin_menu/dialog/admin-notice-delete/admin-notice-delete.component';
+import { AdminNoticeModifyComponent } from './admin_menu/dialog/admin-notice-modify/admin-notice-modify.component';
+
 
 // Angular Meterial
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -50,6 +54,7 @@ import {TextFieldModule} from '@angular/cdk/text-field';
 import { HttpClientModule} from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
+
 // ngrx 관련
 // import {EffectsModule} from '@ngrx/effects';
 // import { StoreModule } from '@ngrx/store';
@@ -74,7 +79,10 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     AdminGroupEditComponent,
     AdminUserEditComponent,
     AdminUserRemoveComponent,
-	AdminUserModifyComponent
+    AdminUserModifyComponent,
+    AdminNoticeAddComponent,
+    AdminNoticeDeleteComponent,
+    AdminNoticeModifyComponent,
   ],
   imports: [
 
@@ -104,7 +112,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 	MatNativeDateModule,
 	MatDatepickerModule,
 	MatBadgeModule,
-	HttpClientModule, 
+	HttpClientModule,
 	AngularEditorModule,
 
     // StoreModule.forRoot(reducers, {

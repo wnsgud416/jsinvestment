@@ -333,6 +333,7 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 .Admin_Group_UserList p mat-icon{color: var(--main-font-color); position: relative; top: 7px; margin-right: 5px;}
 
 /*관리자 dialog 기본설정*/
+.Admin_Option_Dialog::-webkit-scrollbar{display: contents !important;}
 .Admin_Option_DialogButtonBox{text-align: right; margin-bottom: 2vh; margin-top: 2vh;}
 .Admin_Option_DialogButtonBox button {line-height: 36px ; height: 40px; width: auto; margin-right: 15px ; font-size: 14px; padding: 0 24px;}
 .Admin_Option_DialogButtonBox button mat-icon{vertical-align: baseline !important;}
@@ -435,6 +436,31 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 .Admin_Notice_Edit_SeachBox .mat-form-field.mat-focused .mat-form-field-label mat-label{ position: relative;top: -5px; font-size: 14px; right: 1px;}
 .Admin_Notice_Edit_SeachBox .mat-form-field-suffix .mat-icon{font-size: 21px !important; color: var(--sub-font-color); position: relative; top: -4px;}
 
+/*공지사항 관리 - 공지사항 삭제 모달*/
+.Notice_DeletePanel{position: relative;height: auto; padding: 0px;}
+.Notice_DeletePanel_Text{margin-top: 2vh; padding: 0 16px;}
+.Notice_DeletePanel_Left{float: left;line-height: 60px; height: 60px; text-align: center;}
+.Notice_DeletePanel_Left mat-icon{width: 100px; line-height: 50px; font-size: 50px; height: 50px; color: var(--sub-font-color);}
+.Notice_DeletePanel_Right{float: left; width: calc(100% - 100px);}
+.Notice_DeletePanel_Text::after{content: ''; display: block; clear: both;}
+.Notice_DeletePanel p{margin-left: 5px; position: relative; height: 25px; line-height: 25px; font-size: 12px;letter-spacing: 0.1px; font-weight: 400; color: var(--main-font-color); width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+.Notice_DeletePanel p em{margin-right: 5px; display: inline-block; position: relative; top: -8px;}
+.Notice_DeletePanel p span{color: var(--maindark-color); font-size: 12px; margin-right: 10px; display: inline-block; text-align: center; max-width: 100px; text-overflow: ellipsis;  white-space: nowrap; overflow-x: hidden; font-weight: 500;}
+.Notice_DeletePanel h3{margin-left: 5px; position: relative; height: 25px; line-height: 25px; font-size: 14px; color: var(--red-color); letter-spacing: 0.1px; font-weight: 400; width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+
+.Admin_Notice_ModifyBox{position: relative; width: 100%; max-height: calc(100vh - 64px - 50px);}
+.Admin_Notice_ModifyBox::-webkit-scrollbar{display: contents !important;}
+.Admin_Notice_ModifyBox mat-form-field{width: 50%; margin: 3vh auto; padding: 0 16px;}
+.Admin_Notice_ModifyBox .mat-form-field-flex{position: relative;}
+.Admin_Notice_ModifyBox .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.Admin_Notice_ModifyBox .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+.Admin_Notice_ModifyBox .mat-form-field-label mat-label{ position: relative;top: -5px; font-size: 14px; right: 0; border-right: 0.5vw solid #fff; background: #fff}
+.Admin_Notice_ModifyBox div.angular-editor{padding: 16px;  overflow: auto; height: calc(100vh - 64px - 50px - 122px - 10vh);}
+.Admin_Notice_ModifyBox div.angular-editor-textarea{height: calc(100vh - 64px - 50px - 210px - 10vh);}
+.Admin_Notice_ModifyBox div.angular-editor::-webkit-scrollbar{display: contents !important;}
+.Admin_Notice_ModifyBox div.angular-editor-textarea::-webkit-scrollbar{display: contents !important;}
+
+
 @media screen and (max-width: 1024px) {
 	
 	.Login_FormBox{width: 95vw; height: 96vh;}
@@ -451,9 +477,12 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
     .Admin_MenuPanel .mat-tab-body-wrapper{height: calc(100vh - 172px);}
 	.Admin_notice_UserList{max-height: calc(100vh - 212px - 275px);}
 	.Admin_Group_UserList{max-height: calc(100vh - 230px - 54px - 70px);}
-	.Admin_User_EditBox{height: calc(100vh - 204px); }
+	.Admin_User_EditBox{height: calc(100vh - 206px);}
+	.Admin_Notice_EditBox{height: calc(100vh - 206px);}
 	.Admin_NoticeEdit_TableBox{height: calc(100vh - 254px);}
-	
+	.Admin_Notice_ModifyBox div.angular-editor{height: calc(100vh - 54px - 50px - 122px - 10vh);}
+	.Admin_Notice_ModifyBox div.angular-editor-textarea{height: calc(100vh - 54px - 50px - 280px - 10vh);}
+	.Admin_Notice_ModifyBox{max-height: calc(100vh - 54px - 50px);}
 }
 
 
