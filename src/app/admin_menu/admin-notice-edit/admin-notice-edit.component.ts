@@ -113,7 +113,7 @@ export class AdminNoticeEditComponent implements OnInit {
 	}
 
 
-  Notice_Detail(){
+  Notice_Detail(data){
     this.MatBottomSheet.open(UserNoticeDetailComponent, {
      panelClass: 'OptionModal',
      data: {}
@@ -121,7 +121,7 @@ export class AdminNoticeEditComponent implements OnInit {
 
    });
  }
-	Notice_Modify(){
+	Notice_Modify(data){
 		this.MatBottomSheet.open(AdminNoticeModifyComponent, {
      panelClass: 'OptionModal',
      data: {}
@@ -129,7 +129,7 @@ export class AdminNoticeEditComponent implements OnInit {
 
    });
 	}
-    Notice_Delete(){
+    Notice_Delete(data){
 		this.MatBottomSheet.open(AdminNoticeDeleteComponent, {
      panelClass: 'OptionModal',
      data: {}

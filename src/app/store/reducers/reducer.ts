@@ -3,12 +3,12 @@ import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 import * as StoreActions from '../actions/action'
 
 export const ReducerKey = 'Datasource';
-export class DatasourceState{
+export class StoreState{
 }
-export interface State extends EntityState<DatasourceState> {
+export interface State extends EntityState<StoreState> {
   datasources;
 }
-export const adapter: EntityAdapter<DatasourceState> = createEntityAdapter<DatasourceState>({
+export const adapter: EntityAdapter<StoreState> = createEntityAdapter<StoreState>({
 });
 
 export const initialState: State = adapter.getInitialState({

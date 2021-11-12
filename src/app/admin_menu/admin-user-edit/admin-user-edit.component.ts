@@ -15,7 +15,7 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-	
+
   {email: "js1234@example.com", name: '홍길동', phone: "010-1234-5678", group: '일반회원', data: '2021-11-11', Subscription: '2021-12-31'},
 	{email: "js1234@example.com", name: '홍길동', phone: "010-1234-5678", group: '일반회원', data: '2021-11-11', Subscription: '2021-12-31'},
 	{email: "js1234@example.com", name: '홍길동', phone: "010-1234-5678", group: '일반회원', data: '2021-11-11', Subscription: '2021-12-31'},
@@ -82,8 +82,8 @@ export class AdminUserEditComponent implements OnInit {
 
   ngOnInit(): void {
   }
-	
-	User_Remove(){
+
+	User_Remove(data){
 	  this.MatBottomSheet.open(AdminUserRemoveComponent, {
       panelClass: 'OptionModal',
       data: {}
@@ -92,7 +92,7 @@ export class AdminUserEditComponent implements OnInit {
     });
 
   }
-	User_Edit(){
+	User_Edit(data){
 	  this.MatBottomSheet.open(AdminUserModifyComponent, {
       panelClass: 'OptionModal',
       data: {}

@@ -51,17 +51,17 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {TextFieldModule} from '@angular/cdk/text-field';
 
 /*Angular Editor*/
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule,HttpClient} from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 // ngrx 관련
-// import {EffectsModule} from '@ngrx/effects';
-// import { StoreModule } from '@ngrx/store';
-// import {reducers, metaReducers} from './store'
-// import { DataSourceEffects } from './store/effects/effect'
-// import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-// import { environment } from 'src/environments/environment';
+import {EffectsModule} from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import {reducers, metaReducers} from './store'
+import { StoreEffects } from './store/effects/effect'
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -85,7 +85,6 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     AdminNoticeModifyComponent,
   ],
   imports: [
-
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -93,47 +92,48 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
-	MatInputModule,
-	MatIconModule,
-	MatButtonModule,
-	MatBottomSheetModule,
-	MatToolbarModule,
-	MatSidenavModule,
-	MatListModule,
-	MatExpansionModule,
-	MatSlideToggleModule,
-	MatTableModule,
-	MatPaginatorModule,
-	MatTabsModule,
-	TextFieldModule,
-	MatCheckboxModule,
-	MatMenuModule,
-	MatSelectModule,
-	MatNativeDateModule,
-	MatDatepickerModule,
-	MatBadgeModule,
-	HttpClientModule,
-	AngularEditorModule,
-
-    // StoreModule.forRoot(reducers, {
-    //   metaReducers,
-    //   runtimeChecks: {
-    //     strictStateImmutability: true,
-    //     strictActionImmutability: true,
-    //     strictStateSerializability: true,
-    //     strictActionSerializability: true,
-    //     strictActionWithinNgZone: true,
-    //     strictActionTypeUniqueness: true,
-    //   },
-    // }),
-    //   EffectsModule.forRoot([DataSourceEffects]),
-    //   StoreDevtoolsModule.instrument({
-    //     maxAge: 25,
-    //     logOnly: environment.production,
-    //   }),
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatBottomSheetModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatExpansionModule,
+    MatSlideToggleModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatTabsModule,
+    TextFieldModule,
+    MatCheckboxModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatBadgeModule,
+    HttpClientModule,
+    AngularEditorModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: true,
+        strictActionSerializability: true,
+        strictActionWithinNgZone: true,
+        strictActionTypeUniqueness: true,
+      },
+    }),
+    //EffectsModule.forFeature([StoreEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
 
   ],
-  providers: [],
+  providers: [
+    HttpClient,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

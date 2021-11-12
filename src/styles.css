@@ -1,3 +1,5 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 /*최초 작성 날짜 : 2021.11.01 */
 
 /*작성 방법 :
@@ -10,7 +12,7 @@ CSS변경 및 추가 사항은 필히 주석처리로 해당 내용 상세 기�
 * 단색컬러 : EEE / CCC / efefef /333 ~ 999 / F5F5F5 / F9F9F9 / F7F7F7 ..
 */
 
-:root {  
+:root {
 	--main-color:#61acdf;
 	--mainwhite-color:#0099cc;
 	--maindark-color:#528db6;
@@ -462,9 +464,9 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 
 
 @media screen and (max-width: 1024px) {
-	
+
 	.Login_FormBox{width: 95vw; height: 96vh;}
-	.Login_Bg{opacity: 0.8;}	
+	.Login_Bg{opacity: 0.8;}
 	.Main_Panel{height: calc(100vh - 54px);}
 	.Main_Menu{min-width: 100vw;}
 	.Main_Setting{min-width: 100vw;}

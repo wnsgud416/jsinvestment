@@ -73,6 +73,8 @@ export class UserNoticeComponent implements OnInit {
 			  ) { }
 
   ngOnInit(): void {
+    console.log("222");
+
   }
 
 	Notice_Detail(){
