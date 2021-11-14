@@ -5,8 +5,16 @@ import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet'
 import { JoinModalComponent } from './join-modal/join-modal.component';
 import { FindModalComponent } from './find-modal/find-modal.component';
 import * as $ from 'jquery';
-
-
+import { AppState } from './store';
+import { Store } from '@ngrx/store';
+import { Actions, ofType } from '@ngrx/effects';
+import { SessionService } from './service/sessionService';
+import * as Action from './store/actions/action';
+import { take } from 'rxjs';
+import { Firestore, collectionData, collection, doc, getDoc } from '@angular/fire/firestore';
+import { getDocs, query } from '@firebase/firestore';
+import { browserSessionPersistence, getAuth, GoogleAuthProvider, inMemoryPersistence, setPersistence, signInWithEmailAndPassword, signInWithRedirect, signOut } from "firebase/auth";
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +25,7 @@ export class AppComponent {
 
   public IDText: any;
   public PasswordText: any;
+  @ViewChild('settings') settingsDrawer: MatDrawer;
 
   title = 'jsinvestment';
   hide = true;
@@ -26,58 +35,69 @@ export class AppComponent {
 
   showFiller = false;
 
-
+  loginSuccess = true;
 
   constructor(
-	private MatBottomSheet: MatBottomSheet,
+    private MatBottomSheet: MatBottomSheet,
     private router: Router,
-
+    private store: Store<AppState>,
+    private actions$: Actions,
+    private session: SessionService,
+    private firestore: Firestore
   ){}
 
-	Login(){
-		$(".Login_Box").fadeOut(500);
-    $(".Main_PanelBox").fadeIn(300);
-    console.log(this.IDText);
-    console.log(this.PasswordText);
+  ngOnInit(){
+    // 로딩 필요
 
-    // this.store.dispatch(Action.login({ id: this.IDText, passwd: this.PasswordText }));
-    // this.actions$.pipe(ofType(Action.loginSuccess)).pipe(take(1)).subscribe((data) => {
-    //   console.log(data.result);
-    //   if (data.result[0]) {
-    //     this.session.setInfo(this.IDText);
-    //     this.session.setAuth(data.result[0].menuAuth);
-    //     this.router.navigate(['/UserNotice']);
-    //     // this.store.dispatch(Action.menuAuth({ id: data.result[0].menuAuth }));
-    //     // this.actions$.pipe(ofType(Action.menuAuthSuccess)).pipe(take(1)).subscribe((data) => {
-    //     //   for(let i=0; i < data.result.length; i++){
-    //     //     if(data.result[i] == "데이터 커넥션"){
-    //     //       sessionStorage.setItem(data.result[i],"true");
-    //     //     }else if(data.result[i] == "데이터 정제"){
-    //     //       sessionStorage.setItem(data.result[i],"true");
-    //     //     }else if(data.result[i] == "데이터 분석"){
-    //     //       sessionStorage.setItem(data.result[i],"true");
-    //     //     }else if(data.result[i] == "관리자"){
-    //     //       sessionStorage.setItem(data.result[i],"true");
-    //     //     }else if(data.result[i] == "카탈로그"){
-    //     //       sessionStorage.setItem(data.result[i],"true");
-    //     //     }else if(data.result[i] == "마이페이지"){
-    //     //       sessionStorage.setItem(data.result[i],"true");
-    //     //     }
-    //     //   }
-    //     //   // window.alert('BMSMetaweaver 로그인을 환영합니다');
-    //     //   this.router.navigate(['/cleansing/table'])
-    //     //     .then(() => {
-    //     //     $("app-loading").show();
-    //     //     window.location.reload();
-    //     //   });
+    const auth = getAuth();
+    var user;
+    setTimeout(() => {
+      user = auth.currentUser;
+      console.log(user);
+      if (user ==null) {
+        console.log("로그인 정보없음");
+        this.loginSuccess = false;
+        // this.router.navigate(['/']);
+      } else {
+        console.log("로그인 정보있음");
+        this.loginSuccess =true;
+        this.router.navigate(['/UserNotice']);
+      }
+    }, 500);
 
-    //     //   console.log(data.result);
-    //     // })
-    //   } else {
-    //     window.alert('아이디/비밀번호가 틀렸습니다.');
+
+  }
+
+	async Login(userid, password){
+
+    const auth = getAuth();
+    setPersistence(auth, browserSessionPersistence)
+    .then(() => {
+      return  signInWithEmailAndPassword(auth, userid, password)
+      .then((userCredential) => {
+        $(".Login_Box").fadeOut(500);
+        $(".Main_PanelBox").fadeIn(300);
+        this.router.navigate(['/UserNotice']);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+
+    // var item = await getDocs(collection(this.firestore, 'users'));
+    // item.forEach((doc) => {
+    //   if(doc.id === userid){
+    //     console.log("id맞음");
+
     //   }
+    //   console.log(doc.id, " => ", doc.data());
     // });
-
 
 	}
 
@@ -149,4 +169,16 @@ export class AppComponent {
 
     });
   }
+  logout(){
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      window.alert('로그아웃을 완료했습니다.')
+      this.settingsDrawer.close();
+      this.router.navigate(['/']);
+      this.loginSuccess = false;
+    }).catch((error) => {
+      // An error happened.
+    });
+  }
+
 }

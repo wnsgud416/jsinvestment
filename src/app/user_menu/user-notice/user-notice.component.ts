@@ -3,6 +3,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet';
 import { UserNoticeDetailComponent } from '../dialog/user-notice-detail/user-notice-detail.component';
+import { getAuth } from '@firebase/auth';
 
 
 export interface PeriodicElement {
@@ -74,7 +75,6 @@ export class UserNoticeComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("222");
-
   }
 
 	Notice_Detail(){

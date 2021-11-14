@@ -1,33 +1,33 @@
 <div class="Login_OptionPanel">
 	<h3>회원가입 <mat-icon (click)="close()">close</mat-icon></h3>
 	<p>회원 정보를 입력해주세요.</p>
-	
+
 	<mat-form-field appearance="legacy">
     <mat-label>아이디</mat-label>
     <mat-icon matPrefix>person</mat-icon>
-    <input matInput placeholder="js1234@example.com" required>
+    <input matInput placeholder="js1234@example.com" [(ngModel)]="IDText" required>
     <mat-hint>이메일를 입력해주세요.</mat-hint>
     </mat-form-field>
-    
+
     <mat-form-field appearance="legacy">
     <mat-label>비밀번호</mat-label>
     <mat-icon matPrefix>lock</mat-icon>
-    <input matInput [type]="hide ? 'password' : 'text'" required minlength="6">
+    <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="PasswordText" required minlength="6">
     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide Password'" [attr.aria-pressed]="hide">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
     <mat-hint>비밀번호를 6글자 이상 입력해주세요.</mat-hint>
    </mat-form-field>
-   
+
    <mat-form-field appearance="legacy">
     <mat-label>비밀번호 확인</mat-label>
     <mat-icon matPrefix>enhanced_encryption</mat-icon>
-    <input matInput type="password" required minlength="6">
+    <input matInput type="password" [(ngModel)]="PasswordCheck" required minlength="6">
     <mat-hint>비밀번호를 다시 한번 입력해주세요.</mat-hint>
    </mat-form-field>
-   
+
     <div class="Login_OptionPanelButtonBox">
 		<button mat-stroked-button (click)="close()">취소</button>
-		<button mat-stroked-button class="NextBtn">회원가입</button>
+		<button mat-stroked-button (click)="join(IDText,PasswordCheck)"class="NextBtn">회원가입</button>
 	</div>
 </div>

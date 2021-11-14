@@ -1,19 +1,21 @@
-import {HttpClient, HttpErrorResponse, HttpEvent, HttpParams, HttpRequest} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpEvent, HttpHeaders, HttpParams, HttpRequest} from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 
-
-export class Service {
+@Injectable()
+export class Actionservice {
 
   constructor(private http: HttpClient) {
   }
 
   login(id, passwd) {
-    const headers = { 'content-type': 'application/json' }
+    // const headers = { 'content-type': 'application/json' }
+    const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
     const data = { id: id, passwd:passwd}
     const body = JSON.stringify(data)
 
-    return this.http.post("/action/login", body,{'headers':headers}).pipe(
+    return this.http.post("/action/login", body,{headers, responseType: 'text'}).pipe(
       catchError(this.handleError)
     );
   }
@@ -30,7 +32,7 @@ export class Service {
         `body was: ${error.error}`);
     }
     // Return an observable with a user-facing error message.
-    return throwError(
+    return throwError(()=>
       'Something bad happened; please try again later.');
   }
 

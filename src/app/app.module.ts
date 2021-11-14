@@ -62,6 +62,15 @@ import {reducers, metaReducers} from './store'
 import { StoreEffects } from './store/effects/effect'
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
+import { Actionservice } from './service/actionservice';
+
+// firebase 관련
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
+
 
 @NgModule({
   declarations: [
@@ -85,6 +94,11 @@ import { environment } from 'src/environments/environment';
     AdminNoticeModifyComponent,
   ],
   imports: [
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
+    provideStorage(() => getStorage()),
+    provideAnalytics(() => getAnalytics()),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -124,7 +138,7 @@ import { environment } from 'src/environments/environment';
         strictActionTypeUniqueness: true,
       },
     }),
-    //EffectsModule.forFeature([StoreEffects]),
+    EffectsModule.forRoot([StoreEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
@@ -132,6 +146,7 @@ import { environment } from 'src/environments/environment';
 
   ],
   providers: [
+    Actionservice,
     HttpClient,
   ],
   bootstrap: [AppComponent]

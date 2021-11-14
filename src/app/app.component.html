@@ -1,5 +1,5 @@
 <!-- 로그인 -->
-<div class="Login_Box">
+<div class="Login_Box" *ngIf="loginSuccess ==false">
 	<div class="Login_BgBox">
 		<video loop muted autoplay oncanplay="this.play()" onloadedmetadata="this.muted = true" id="LoginVideo">
 			<source src="/assets/img/loginbg/login_bg1.mp4" type="video/mp4">
@@ -29,7 +29,7 @@
 		</mat-form-field>
 
 		<div class="Login_ButtonBox">
-			<button mat-stroked-button class="NextBtn" (click)="Login()">로그인</button>
+			<button mat-stroked-button class="NextBtn" (click)="Login(IDText,PasswordText)">로그인</button>
 			<button mat-stroked-button (click)="Join()">회원가입</button>
 			<span (click)="Find_Info()">아이디 / 비밀번호 찾기</span>
 		</div>
@@ -130,7 +130,7 @@
 			<button mat-stroked-button class="NextBtn">저장</button>
 		   </div>
 		   <p class="Main_Setting_Logout">
-				<button mat-stroked-button class="RedBtn">로그아웃</button>
+				<button mat-stroked-button class="RedBtn" (click)="logout()">로그아웃</button>
 			</p>
 
 
