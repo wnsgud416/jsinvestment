@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
 @Component({
@@ -28,24 +28,26 @@ export class JoinModalComponent implements OnInit {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, userId, password)
   .then(async (userCredential) => {
-    // Signed in
-    const user = userCredential.user;
-    await setDoc(doc(this.firestore, "users", user.uid), {
-      created_at:user.metadata.creationTime,
-      id: user.uid,
-      name: null,
-      phone: null,
-      updated_at: user.metadata.lastSignInTime
-    });
-    this.bottomSheetRef.dismiss()
-    // 회원가입이 완료되었다는 메시지
-    window.alert('회원가입이 완료되었습니다.')
-    //
+    sendEmailVerification (userCredential.user).then(async ()=>{
+      window.alert('이메일에서 승인하면 회원가입이 완료됩니다.')
+          // Signed in
+      const user = userCredential.user;
+      await setDoc(doc(this.firestore, "users", user.uid), {
+        created_at:user.metadata.creationTime,
+        id: user.uid,
+        name: null,
+        phone: null,
+        updated_at: user.metadata.lastSignInTime
+      });
+      this.bottomSheetRef.dismiss()
+    })
+
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
     // ..
+    window.alert('회원가입중에 오류가 발생했습니다.')
   });
   }
 	close() {

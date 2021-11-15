@@ -27,7 +27,6 @@
     "@ngrx/store": "^12.5.1",
     "@ngrx/store-devtools": "^12.5.1",
     "firebase": "^9.4.1",
-    "firebase-admin": "^10.0.0",
     "jquery": "^3.6.0",
     "rxfire": "^6.0.0",
     "rxjs": "~7.4.0",

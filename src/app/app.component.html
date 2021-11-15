@@ -87,7 +87,7 @@
 			<mat-form-field appearance="legacy">
 			<mat-label>이름</mat-label>
 			<mat-icon matPrefix>person</mat-icon>
-			<input matInput #input1 maxlength="10" placeholder="홍길동" [(ngModel)]="userName">
+			<input matInput #input1 maxlength="10" placeholder="홍길동" value={{userName}} [(ngModel)]="userName">
 			<mat-hint align="end">{{input1.value?.length || 0}}/7</mat-hint>
 			<button mat-icon-button matSuffix >
 			  <mat-icon>edit</mat-icon>
@@ -97,7 +97,7 @@
 			<mat-form-field appearance="legacy" hintLabel="- 을 제외하고 입력해주세요.">
 			<mat-label>전화번호</mat-label>
 			<mat-icon matPrefix>call</mat-icon>
-			<input matInput #input2 placeholder="01012345678" maxlength="11" type="tel"  pattern="[0-9]{3}[0-9]{4}[0-9]{4}" [(ngModel)]="userPhone">
+			<input matInput #input2 placeholder="01012345678" maxlength="11" type="tel" value={{userPhone}}  pattern="[0-9]{3}[0-9]{4}[0-9]{4}" [(ngModel)]="userPhone">
 			<mat-hint align="end">{{input2.value?.length || 0}}/11</mat-hint>
 			<button mat-icon-button matSuffix >
 			  <mat-icon>edit</mat-icon>
@@ -127,7 +127,7 @@
 		   <div class="Main_SettingButtonBox">
 			<button mat-stroked-button>회원 탈퇴</button>
 			<button mat-stroked-button class="AddBtn" (click)="passwdReSave()">비밀번호 재설정</button>
-			<button mat-stroked-button class="NextBtn" (click)="save()">저장</button>
+			<button mat-stroked-button class="NextBtn" (click)="save(userName,userPhone)">저장</button>
 		   </div>
 		   <p class="Main_Setting_Logout">
 				<button mat-stroked-button class="RedBtn" (click)="logout()">로그아웃</button>

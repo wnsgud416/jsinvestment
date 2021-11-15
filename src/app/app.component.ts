@@ -12,8 +12,8 @@ import { SessionService } from './service/sessionService';
 import * as Action from './store/actions/action';
 import { take } from 'rxjs';
 import { Firestore, collectionData, collection, doc, getDoc } from '@angular/fire/firestore';
-import { getDocs, query } from '@firebase/firestore';
-import { browserSessionPersistence, getAuth, GoogleAuthProvider, inMemoryPersistence, setPersistence, signInWithEmailAndPassword, signInWithRedirect, signOut } from "firebase/auth";
+import { getDocs, query, updateDoc } from '@firebase/firestore';
+import { browserSessionPersistence, getAuth, GoogleAuthProvider, inMemoryPersistence, setPersistence, signInWithEmailAndPassword, signInWithRedirect, signOut, updatePassword, updateProfile } from "firebase/auth";
 import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
@@ -36,8 +36,10 @@ export class AppComponent {
 
   showFiller = false;
 
-  loginSuccess = true;
+  loginSuccess;
 
+  user;
+  userUid;
   userEmail;
   userName;
   userPhone;
@@ -54,29 +56,41 @@ export class AppComponent {
   ngOnInit(){
     // 로딩 필요
     const auth = getAuth();
-    var user;
+    setTimeout(async () => {
+      this.user = auth.currentUser;
 
-    setTimeout(() => {
-      user = auth.currentUser;
-      console.log(user);
-      if (user ==null) {
-        console.log("로그인 정보없음");
+      console.log(this.user);
+      if (this.user ==null) {
         this.loginSuccess = false;
+        console.log("로그인 정보없음");
+        window.alert('로그인이 필요합니다.')
+
         // this.router.navigate(['/']);
       } else {
         console.log("로그인 정보있음");
         this.loginSuccess = true;
-        this.userEmail = user.email;
-        if (user.displayName == undefined || user.displayName == null) {
-          this.userName = ""
+        this.userUid = this.user.uid;
+        this.userEmail = this.user.email;
+
+        const docRef = doc(this.firestore, "users", this.userUid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          if (docSnap.data()['name'] == undefined || docSnap.data()['name'] == null || docSnap.data()['name'] == "") {
+            this.userName = ""
+          } else {
+            this.userName = docSnap.data()['name']
+          }
+          if (docSnap.data()['phone'] == undefined || docSnap.data()['phone'] == null || docSnap.data()['phone']== "") {
+            this.userPhone = ""
+          } else {
+            this.userPhone = docSnap.data()['phone']
+          }
         } else {
-          this.userName = user.displayName
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
         }
-        if (user.phoneNumber == undefined || user.phoneNumber == null) {
-          this.userPhone = ""
-        } else {
-          this.userPhone = user.phoneNumber
-        }
+        console.log(this.userName);
+        console.log(this.userPhone);
         //this.router.navigate(['/UserNotice']);
       }
     }, 1000);
@@ -90,33 +104,46 @@ export class AppComponent {
     setPersistence(auth, browserSessionPersistence)
     .then(() => {
       return  signInWithEmailAndPassword(auth, userid, password)
-      .then((userCredential) => {
-        $(".Login_Box").fadeOut(500);
-        $(".Main_PanelBox").fadeIn(300);
-        console.log("지나감");
+      .then(async (userCredential) => {
+        if(userCredential.user.emailVerified ==true){
+          $(".Login_Box").fadeOut(500);
+          $(".Main_PanelBox").fadeIn(300);
+          console.log("지나감");
 
-        console.log(userCredential.user);
-        this.userEmail = userCredential.user.email;
-        if (userCredential.user.displayName == undefined || userCredential.user.displayName == null) {
-          this.userName = ""
-        } else {
-          this.userName = userCredential.user.displayName
+          console.log(userCredential.user);
+          this.user = userCredential.user
+          this.userUid = userCredential.user.uid;
+          this.userEmail = userCredential.user.email;
+          const docRef = doc(this.firestore, "users", this.userUid);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            if (docSnap.data()['name'] == undefined || docSnap.data()['name'] == null || docSnap.data()['name'] == "") {
+              this.userName = ""
+            } else {
+              this.userName = docSnap.data()['name']
+            }
+            if (docSnap.data()['phone'] == undefined || docSnap.data()['phone'] == null || docSnap.data()['phone']== "") {
+              this.userPhone = ""
+            } else {
+              this.userPhone = docSnap.data()['phone']
+            }
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+          }
+          console.log(userCredential.user.toJSON());
+
+
+          this.router.navigate(['/UserNotice']);
+        }else{
+          window.alert('이메일 인증을 완료해주세요.')
         }
-        if (userCredential.user.phoneNumber == undefined || userCredential.user.phoneNumber == null) {
-          this.userPhone = ""
-        } else {
-          this.userPhone = userCredential.user.phoneNumber
-        }
-        console.log(userCredential.user.toJSON());
 
-
-        this.router.navigate(['/UserNotice']);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         window.alert('아이디나 비밀번호가 틀렸습니다.')
-        this.router.navigate(['/']);
       });
     })
     .catch((error) => {
@@ -182,12 +209,6 @@ export class AppComponent {
 	}
 
 
-
-
-
-
-
-
   Join() {
 	  this.MatBottomSheet.open(JoinModalComponent, {
       panelClass: 'Login_OptionModal',
@@ -208,12 +229,9 @@ export class AppComponent {
   logout(){
     const auth = getAuth();
     signOut(auth).then(() => {
-      this.loginSuccess = false;
-      window.alert('로그아웃을 완료했습니다.')
-      this.settingsDrawer.close();
-      this.router.navigate(['/']);
       window.location.reload()
-
+      this.settingsDrawer.close();
+      window.alert('로그아웃을 완료했습니다.')
 
     }).catch((error) => {
       // An error happened.
@@ -221,15 +239,37 @@ export class AppComponent {
   }
 
   passwdReSave() {
-    console.log(this.PasswordText);
-    console.log(this.PasswordCheck);
+    const newPassword = this.PasswordCheck;
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, this.userEmail, this.PasswordText)
+      .then(async (userCredential) => {
+        updatePassword(this.user, newPassword).then(() => {
+          window.alert('비밀번호 수정을 완료했습니다.')
+        }).catch((error) => {
+          console.log(error);
+          window.alert('비밀번호 수정중에 오류가 발생했습니다.')
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+
+        window.alert('현재 비밀번호가 틀렸습니다.')
+      });
+
   }
 
-  save() {
-    console.log(this.userName);
-    console.log(this.userPhone);
-    const auth = getAuth();
-    var user = auth.currentUser
+  async save(userName,userPhone) {
+    const washingtonRef = doc(this.firestore, "users", this.userUid);
+
+    await updateDoc(washingtonRef, {
+      name: userName,
+      phone : userPhone
+    })
+    .then(()=>{
+      window.alert('정보 수정을 완료했습니다.')
+    }).catch((error) =>{
+      window.alert('정보 수정중에 오류가 발생했습니다.')
+    })
 
   }
 
