@@ -25,6 +25,7 @@ export class AppComponent {
 
   public IDText: any;
   public PasswordText: any;
+  public PasswordCheck
   @ViewChild('settings') settingsDrawer: MatDrawer;
 
   title = 'jsinvestment';
@@ -37,6 +38,10 @@ export class AppComponent {
 
   loginSuccess = true;
 
+  userEmail;
+  userName;
+  userPhone;
+
   constructor(
     private MatBottomSheet: MatBottomSheet,
     private router: Router,
@@ -48,9 +53,9 @@ export class AppComponent {
 
   ngOnInit(){
     // 로딩 필요
-
     const auth = getAuth();
     var user;
+
     setTimeout(() => {
       user = auth.currentUser;
       console.log(user);
@@ -60,10 +65,21 @@ export class AppComponent {
         // this.router.navigate(['/']);
       } else {
         console.log("로그인 정보있음");
-        this.loginSuccess =true;
-        this.router.navigate(['/UserNotice']);
+        this.loginSuccess = true;
+        this.userEmail = user.email;
+        if (user.displayName == undefined || user.displayName == null) {
+          this.userName = ""
+        } else {
+          this.userName = user.displayName
+        }
+        if (user.phoneNumber == undefined || user.phoneNumber == null) {
+          this.userPhone = ""
+        } else {
+          this.userPhone = user.phoneNumber
+        }
+        //this.router.navigate(['/UserNotice']);
       }
-    }, 500);
+    }, 1000);
 
 
   }
@@ -77,17 +93,37 @@ export class AppComponent {
       .then((userCredential) => {
         $(".Login_Box").fadeOut(500);
         $(".Main_PanelBox").fadeIn(300);
+        console.log("지나감");
+
+        console.log(userCredential.user);
+        this.userEmail = userCredential.user.email;
+        if (userCredential.user.displayName == undefined || userCredential.user.displayName == null) {
+          this.userName = ""
+        } else {
+          this.userName = userCredential.user.displayName
+        }
+        if (userCredential.user.phoneNumber == undefined || userCredential.user.phoneNumber == null) {
+          this.userPhone = ""
+        } else {
+          this.userPhone = userCredential.user.phoneNumber
+        }
+        console.log(userCredential.user.toJSON());
+
+
         this.router.navigate(['/UserNotice']);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        window.alert('아이디나 비밀번호가 틀렸습니다.')
+        this.router.navigate(['/']);
       });
     })
     .catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
+      window.alert('잠시후 다시 시도해주세요.')
     });
 
     // var item = await getDocs(collection(this.firestore, 'users'));
@@ -172,13 +208,29 @@ export class AppComponent {
   logout(){
     const auth = getAuth();
     signOut(auth).then(() => {
+      this.loginSuccess = false;
       window.alert('로그아웃을 완료했습니다.')
       this.settingsDrawer.close();
       this.router.navigate(['/']);
-      this.loginSuccess = false;
+      window.location.reload()
+
+
     }).catch((error) => {
       // An error happened.
     });
+  }
+
+  passwdReSave() {
+    console.log(this.PasswordText);
+    console.log(this.PasswordCheck);
+  }
+
+  save() {
+    console.log(this.userName);
+    console.log(this.userPhone);
+    const auth = getAuth();
+    var user = auth.currentUser
+
   }
 
 }

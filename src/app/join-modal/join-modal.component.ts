@@ -33,8 +33,8 @@ export class JoinModalComponent implements OnInit {
     await setDoc(doc(this.firestore, "users", user.uid), {
       created_at:user.metadata.creationTime,
       id: user.uid,
-      name: "수정바람",
-      phone: "수정바람",
+      name: null,
+      phone: null,
       updated_at: user.metadata.lastSignInTime
     });
     this.bottomSheetRef.dismiss()
