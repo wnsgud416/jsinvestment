@@ -125,7 +125,7 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 .Login_Box{position: relative; width: 100%; height: 100vh;}
 .Login_FormBox{position: absolute; left: 50%; right: 50%; top: 50%; transform: translate(-50%, -50%); width: 25vw; height: 80vh;  z-index: 1; background: var(--main-whitefont-color); box-shadow: 1px 1px 3px #666 !important; border: 1px solid #ccc; border-radius: 10px !important; transition: .3s;}
 .Login_BgBox{position: absolute; z-index: 0; width: 100%; height: 100vh; top: 0; left: 0; text-align: center;}
-.Login_BgBox video{}
+.Login_BgBox video{display: none;}
 .Login_Bg{position: absolute; z-index: 0; background: var(--main-font-color); width: 100%; height: 100vh; top: 0; left: 0; opacity: 0.1; transition: .3s;}
 .Login_FormBox img{width: 300px; margin: 0 auto; display: block; margin-top: 5vh !important; margin-bottom: 5vh;}
 .Login_FormBox mat-form-field{display: block; padding: 0 16px; margin-top: 2vh;}
@@ -518,14 +518,14 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 .Admin_Stock_OptionBox mat-form-field{width: 50%; margin: 0 auto; margin-top: 2vh; padding: 0 16px;}
 .Admin_Stock_OptionBox mat-form-field .mat-form-field-prefix span{ color: var(--sub-font-color); position: relative; top: -10px;}
 .Admin_Stock_OptionBox mat-form-field .mat-form-field-suffix span{ color: var(--sub-font-color); position: relative; top: -10px;}
-.Admin_Stock_OptionBox mat-form-field:nth-child(1){width: 30%;}
-.Admin_Stock_OptionBox mat-form-field:nth-child(2){width: 50%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(1){width: 20%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(2){width: 40%;}
 .Admin_Stock_OptionBox mat-form-field:nth-child(3){width: 20%;}
-.Admin_Stock_OptionBox mat-form-field:nth-child(4){width: 25%;}
-.Admin_Stock_OptionBox mat-form-field:nth-child(5){width: 25%;}
-.Admin_Stock_OptionBox mat-form-field:nth-child(6){width: 25%;}
-.Admin_Stock_OptionBox mat-form-field:nth-child(6) .mat-form-field-flex{line-height: 70px; height: 70px; position: relative; top: -9px;}
-.Admin_Stock_OptionBox mat-form-field:nth-child(7){width: 25%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(4){width: 20%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(5){width: 33.33%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(6){width: 33.33%;}
+.Admin_Stock_OptionBox mat-form-field.SeletedOpiton .mat-form-field-flex{line-height: 70px; height: 70px; position: relative; top: -8px;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(7){width: 33.33%;}
 
 .Admin_Stock_OptionBox mat-form-field input{white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; height: 30px; line-height: 30px; width: 100%; text-align: right;}
 .Admin_Stock_OptionBox mat-form-field .mat-select-value{white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; height: 30px; line-height: 30px; width: 100%; text-align: center;}

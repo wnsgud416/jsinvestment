@@ -9,8 +9,11 @@ import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 export class AdminStockAddComponent implements OnInit {
 
 constructor(private bottomSheetRef: MatBottomSheetRef<AdminStockAddComponent>) { }
+	
+ selectedObjects : any[];
 
-  ngOnInit(): void {
+  ngOnInit(): void {	 
+	  this.selectedObjects = ['Group0'];
   }
 	
 	close() {
