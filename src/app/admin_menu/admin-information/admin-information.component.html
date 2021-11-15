@@ -1,8 +1,169 @@
 <div class="Admin_MenuPanel">
 
-	<div class="Admin_MenuPanel_Title">	
+	<div class="Admin_MenuPanel_Title">
 		<h3><mat-icon>query_stats</mat-icon> 종목 정보</h3>
 	</div>
-	
-	
+
+	<div class="Admin_Information_SeachBox">
+			<mat-form-field appearance="outline"  class="AdminInformation_SearchFiled">
+			  <mat-label>주식 검색</mat-label>
+			  <mat-icon matPrefix>query_stats</mat-icon>
+			  <input matInput (keyup)="applyFilter($event)" placeholder="검색어" #input>
+			  <button mat-icon-button matSuffix >
+   				  <mat-icon>search</mat-icon>
+   				</button>
+			</mat-form-field>
+			<button mat-stroked-button class="AddBtn" (click)="Stock_Add()">주식 추가</button>
+
+		 <mat-form-field appearance="outline"  class="AdminInformation_SubFiled">
+			<mat-label>권한 변경</mat-label>
+			<mat-select multiple>
+			  <mat-option value="Group0">전체</mat-option>
+			  <mat-option value="Group1">관리자</mat-option>
+			  <mat-option value="Group2">특별회원</mat-option>
+			  <mat-option value="Group3">일반회원</mat-option>
+			</mat-select>
+		  </mat-form-field>
+
+		  <button mat-stroked-button  class="NextBtn" matBadge="{{selection.selected.length}}" [matBadgeHidden]="selection.selected.length===0" matBadgePosition="after">적용</button>
+
+
+		  <mat-form-field appearance="outline" class="AdminInformation_SubFiled">
+			<mat-label>일괄 기능</mat-label>
+			<mat-select>
+			  <mat-option value="User Delete">주식 삭제</mat-option>
+			</mat-select>
+		  </mat-form-field>
+		  <button mat-stroked-button  class="NextBtn" matBadge="{{selection.selected.length}}" [matBadgeHidden]="selection.selected.length===0" matBadgePosition="after">적용</button>
+		  
+		  <mat-form-field appearance="outline" class="AdminInformation_SubFiled Total_Filed">
+			<mat-label>총 수익률</mat-label>
+			  <mat-icon matPrefix>query_stats</mat-icon>
+			 	<input matInput value="0" readonly>
+					<span matSuffix>&nbsp;%</span>
+		  </mat-form-field>
+		  <button mat-stroked-button  class="RedBtn" [matMenuTriggerFor]="AdminInformation_OptionMenu2">옵션</button>
+
+
+
+		</div>
+
+			<div class="Admin_InformationBox">
+
+	<table mat-table [dataSource]="dataSource">
+
+	   <ng-container matColumnDef="select" sticky>
+		<th mat-header-cell *matHeaderCellDef class="Table_AllCheckBox" style="text-align: center;">
+		  <mat-checkbox (change)="$event ? masterToggle() : null"
+						[checked]="selection.hasValue() && isAllSelected()"
+						[indeterminate]="selection.hasValue() && !isAllSelected()"
+						[aria-label]="checkboxLabel()">
+		  </mat-checkbox>
+		</th>
+		<td mat-cell *matCellDef="let row" class="Table_CheckBox" style="text-align: center;">
+		  <mat-checkbox (click)="$event.stopPropagation()"
+						(change)="$event ? selection.toggle(row) : null"
+						[checked]="selection.isSelected(row)"
+						[aria-label]="checkboxLabel(row)">
+		  </mat-checkbox>
+		</td>
+  </ng-container>
+
+	  <ng-container matColumnDef="code" sticky>
+		<th mat-header-cell *matHeaderCellDef style="width: 12.5vw; text-align: center; padding: 0 2vw;"> 종목코드 </th>
+		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;"> {{element.code}} </td>
+	  </ng-container>
+
+	  <ng-container matColumnDef="codename">
+		<th mat-header-cell *matHeaderCellDef style="width: 12.5vw; text-align: center; padding: 0 2vw;"> 종목명 </th>
+		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;"> {{element.codename}} </td>
+	  </ng-container>
+
+
+	  <ng-container matColumnDef="price">
+		<th mat-header-cell *matHeaderCellDef style="width: 12.5vw; text-align: center; padding: 0 2vw;"> 현재가 </th>
+		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;"> {{element.price}} </td>
+	  </ng-container>
+
+
+	  <ng-container matColumnDef="purchase">
+		<th mat-header-cell *matHeaderCellDef style="width: 12.5vw; text-align: center; padding: 0 2vw;"> 매입 단가 </th>
+		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;"> {{element.purchase}} </td>
+	  </ng-container>
+
+	  <ng-container matColumnDef="profits">
+		<th mat-header-cell *matHeaderCellDef style="width: 12.5vw; text-align: center; padding: 0 2vw;"> 수익률 </th>
+		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;"> {{element.profits}} </td>
+	  </ng-container>
+
+	  <ng-container matColumnDef="grouping">
+		<th mat-header-cell *matHeaderCellDef style="width: calc(12.5vw - 50px); text-align: center; padding: 0 2vw;"> 그룹 권한 </th>
+		<td mat-cell *matCellDef="let element" style="width: calc(12.5vw - 50px); text-align: center; padding: 0 2vw;"> {{element.grouping}} </td>
+	  </ng-container>
+
+
+	  <ng-container matColumnDef="selling">
+		<th mat-header-cell *matHeaderCellDef style="width: 12.5vw; text-align: center; padding: 0 2vw;"> 매도 단가 </th>
+		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;" class="selling_Filed">
+		<mat-form-field appearance="outline" (click)="$event.stopPropagation()">
+		<span matPrefix>₩&nbsp;</span>
+		<input matInput value="{{element.selling}}">
+		<span matSuffix>&nbsp;원</span>
+		</mat-form-field>
+
+        <button mat-stroked-button class="NextBtn" (click)="$event.stopPropagation()">매도 하기</button>
+		</td>
+	  </ng-container>
+
+	  <ng-container matColumnDef="action" sticky>
+		<th mat-header-cell *matHeaderCellDef style="width: 12.5vw; text-align: center; padding: 0 2vw;"> 기능 </th>
+		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;">
+
+		<button mat-stroked-button (click)="$event.stopPropagation()" [matMenuTriggerFor]="AdminInformation_OptionMenu">그룹 권한</button>
+		<button mat-stroked-button (click)="Stock_Modify($event.stopPropagation())" class="AddBtn" >주식 수정</button>
+		<button mat-stroked-button (click)="Stock_Remove($event.stopPropagation())" class="RedBtn" >주식 삭제</button>
+
+
+
+		</td>
+	  </ng-container>
+
+	  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+	  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
+
+
+	  <tr class="Search_resulttext" *matNoDataRow>
+				<td class="mat-cell" colspan="9">
+				<mat-icon>search_off</mat-icon>
+				<p>"{{input.value}}"에 대한 검색결과가 없습니다.</p>
+				</td>
+	</tr>
+	</table>
+
+	</div>
 </div>
+
+
+<mat-menu #AdminInformation_OptionMenu="matMenu" class="AdminInformation_OptionFiled">
+  <mat-form-field appearance="outline">
+			<mat-label>권한 부여</mat-label>
+			<mat-select multiple>
+			  <mat-option value="Group0">전체</mat-option>
+			  <mat-option value="Group1">관리자</mat-option>
+			  <mat-option value="Group2">특별회원</mat-option>
+			  <mat-option value="Group3">일반회원</mat-option>
+			</mat-select>
+		  </mat-form-field>
+</mat-menu>
+
+<mat-menu #AdminInformation_OptionMenu2="matMenu" class="AdminInformation_OptionFiled">
+  <mat-form-field appearance="outline">
+			<mat-label>권한 선택</mat-label>
+			<mat-select value="Group0">
+			  <mat-option value="Group0">전체</mat-option>
+			  <mat-option value="Group1">관리자</mat-option>
+			  <mat-option value="Group2">특별회원</mat-option>
+			  <mat-option value="Group3">일반회원</mat-option>
+			</mat-select>
+		  </mat-form-field>
+</mat-menu>

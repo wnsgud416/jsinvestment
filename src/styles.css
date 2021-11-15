@@ -90,7 +90,8 @@ mat-bottom-sheet-container{padding: 0 !important;}
 .mat-datepicker-toggle-active{color: var(--maindark-color);}
 .mat-badge-content{background-color: var(--red-color); font-size: 10px; width: 20px !important;height: 20px !important; line-height: 20px !important; border-radius: 3px;}
 .mat-badge-medium.mat-badge-overlap.mat-badge-after .mat-badge-content{right: -8px !important; top: -8px !important;}
-
+.mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate{background: var(--main-color);}
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled){color: var(--main-color);}
 .Table_AllCheckBox{min-width: 50px; width: 50px; padding: 0 !important; background: var(--maindark-color);}
 .Table_AllCheckBox .mat-checkbox-checked.mat-accent .mat-checkbox-background{background: var(--red-color) !important;}
 .Table_AllCheckBox .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background{background: var(--red-color) !important;}
@@ -125,7 +126,7 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 .Login_FormBox{position: absolute; left: 50%; right: 50%; top: 50%; transform: translate(-50%, -50%); width: 25vw; height: 80vh;  z-index: 1; background: var(--main-whitefont-color); box-shadow: 1px 1px 3px #666 !important; border: 1px solid #ccc; border-radius: 10px !important; transition: .3s;}
 .Login_BgBox{position: absolute; z-index: 0; width: 100%; height: 100vh; top: 0; left: 0; text-align: center;}
 .Login_BgBox video{}
-.Login_Bg{position: absolute; z-index: 0; background: var(--main-font-color); width: 100%; height: 100vh; top: 0; left: 0; opacity: 0.5; transition: .3s;}
+.Login_Bg{position: absolute; z-index: 0; background: var(--main-font-color); width: 100%; height: 100vh; top: 0; left: 0; opacity: 0.1; transition: .3s;}
 .Login_FormBox img{width: 300px; margin: 0 auto; display: block; margin-top: 5vh !important; margin-bottom: 5vh;}
 .Login_FormBox mat-form-field{display: block; padding: 0 16px; margin-top: 2vh;}
 .Login_FormBox mat-form-field .mat-form-field-prefix .mat-icon{position: relative; top: 5px; margin-right: 5px; color: var(--main-color);;}
@@ -243,6 +244,7 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 
 /*공지사항 (유저 메뉴) - 세부내용*/
 .OptionModal.mat-bottom-sheet-container{max-height: calc(100vh - 64px);}
+.OptionModal.mat-bottom-sheet-container::-webkit-scrollbar{display: contents !important;}
 .User_notice_DialogButtonBox{text-align: right; margin-bottom: 2vh; margin-top: 2vh;}
 .User_notice_DialogButtonBox button {line-height: 36px ; height: 40px; width: auto; margin-right: 15px ; font-size: 14px; padding: 0 24px;}
 .User_notice_DialogButtonBox button mat-icon{vertical-align: baseline !important;}
@@ -462,6 +464,88 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 .Admin_Notice_ModifyBox div.angular-editor::-webkit-scrollbar{display: contents !important;}
 .Admin_Notice_ModifyBox div.angular-editor-textarea::-webkit-scrollbar{display: contents !important;}
 
+/*종목 정보 (관리자 메뉴)*/
+.Admin_InformationBox{position: relative; width: 100%; height: calc(100vh - 214px); overflow: auto; background: var(--main-whitefont-color);}
+.Admin_InformationBox::-webkit-scrollbar{display: contents !important;}
+.Admin_InformationBox table{min-width: 100%; max-width: 200%;}
+.Admin_InformationBox table thead {background: var(--maindark-color); height: 5vh;}
+.Admin_InformationBox table thead tr{border-color: var(--main-font-color); height: 5vh;}
+.Admin_InformationBox table thead tr th{height: 5vh; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color: var(--main-whitefont-color);}
+.Admin_InformationBox table tbody tr:nth-child(odd){background: #f5f5f5;}
+.Admin_InformationBox table tbody tr:nth-child(even){background: var(--main-whitefont-color);}
+.Admin_InformationBox table tbody tr{height: 5vh; transition: .3s; }
+.Admin_InformationBox table tbody tr td{color:  var(--sub-font-color); height: 5vh; white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; cursor: pointer;}
+.Admin_InformationBox table button{margin-left: 5px; margin-right: 5px; position: relative; z-index: 1; font-size: 10px; height: 30px; line-height: 30px; padding: 0 4px; font-weight: 500; min-width: 55px;}
+.Action_Backgournd{position: relative; z-index: 1;}
+.Admin_InformationBox table tbody tr:nth-child(odd) .Action_Backgournd{background: #f5f5f5;}
+.Admin_InformationBox table tbody tr:nth-child(even) .Action_Backgournd{background: var(--main-whitefont-color);}
+.Admin_InformationBox .selling_Filed mat-form-field *{padding: 0 !important; margin: 0 !important; border-top: none; border-right: none; border-left: none; border-radius: 0px;}
+.Admin_InformationBox .selling_Filed mat-form-field{margin-right: 10px;}
+.Admin_InformationBox input{white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; height: 30px; line-height: 30px; width: 150px; text-align: right;}
+.Admin_InformationBox .mat-form-field-wrapper{width: 150px; height: 30px; line-height: 30px}
+.Admin_InformationBox .mat-form-field-appearance-outline .mat-form-field-flex{width: 150px; height: 30px; line-height: 30px}
+
+.Admin_Information_SeachBox{height: 80px; width: 100%; line-height: 80px; background: var(--main-whitefont-color); text-align: center; overflow-x: auto; white-space: nowrap; overflow-y: hidden;}
+.selling_Filed button{position: relative; top: -5px;}
+.selling_Filed .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.selling_Filed .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+.selling_Filed .mat-form-field-prefix span{ color: var(--sub-font-color); position: relative; top: -10px;}
+.selling_Filed .mat-form-field-suffix span{ color: var(--sub-font-color); position: relative; top: -10px;}
+
+.Admin_Information_SeachBox::-webkit-scrollbar{display: contents !important;}
+.Admin_Information_SeachBox .mat-form-field-flex{position: relative; top: 5px;}
+.Admin_Information_SeachBox mat-form-field{margin: 0 auto; padding: 0 16px;}
+.Admin_Information_SeachBox mat-form-field.AdminInformation_SearchFiled{width: 20%; margin-right: 16px; min-width: 200px;}
+.Admin_Information_SeachBox mat-form-field.AdminInformation_SubFiled{width: 20%; min-width: 200px;}
+.Admin_Information_SeachBox > button{min-width: 55px; margin-right: 16px; height: 55px; line-height: 55px;}
+.Admin_Information_SeachBox mat-form-field .mat-form-field-prefix .mat-icon{position: relative; top: -2px; margin-right: 5px; color: var(--main-color);}
+.Admin_Information_SeachBox mat-form-field .mat-form-field-suffix .mat-icon{position: relative; top: -2px; color: var(--main-font-color); opacity: 0.8;}
+.Admin_Information_SeachBox mat-form-field .mat-form-field-suffix span{ color: var(--sub-font-color); position: relative; top: -10px;}
+.Admin_Information_SeachBox .Total_Filed input{white-space: nowrap; font-size: 14px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; text-align: right; position: relative; top: -5px;}
+.Admin_Information_SeachBox .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.Admin_Information_SeachBox .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+.Admin_Information_SeachBox .mat-form-field.mat-focused .mat-form-field-label mat-label{ position: relative;top: -5px; font-size: 14px; right: 1px;}
+.Admin_Information_SeachBox .mat-form-field-suffix .mat-icon{font-size: 21px !important; color: var(--sub-font-color); position: relative; top: -4px;}
+
+.AdminInformation_OptionFiled.mat-menu-panel{min-height: inherit; padding: 4px;}
+.AdminInformation_OptionFiled .mat-form-field-appearance-outline .mat-form-field-wrapper{margin: 0; padding: 0;}
+.AdminInformation_OptionFiled .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.AdminInformation_OptionFiled .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+
+/*주식 추가 dialog*/
+.Admin_Stock_OptionBox{position: relative; width: 100%; max-height: calc(100vh - 64px - 50px); overflow: auto;}
+.Admin_Stock_OptionBox::-webkit-scrollbar{display: contents !important;}
+.Admin_Stock_OptionBox mat-form-field{width: 50%; margin: 0 auto; margin-top: 2vh; padding: 0 16px;}
+.Admin_Stock_OptionBox mat-form-field .mat-form-field-prefix span{ color: var(--sub-font-color); position: relative; top: -10px;}
+.Admin_Stock_OptionBox mat-form-field .mat-form-field-suffix span{ color: var(--sub-font-color); position: relative; top: -10px;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(1){width: 30%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(2){width: 50%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(3){width: 20%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(4){width: 25%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(5){width: 25%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(6){width: 25%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(6) .mat-form-field-flex{line-height: 70px; height: 70px; position: relative; top: -9px;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(7){width: 25%;}
+
+.Admin_Stock_OptionBox mat-form-field input{white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; height: 30px; line-height: 30px; width: 100%; text-align: right;}
+.Admin_Stock_OptionBox mat-form-field .mat-select-value{white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; height: 30px; line-height: 30px; width: 100%; text-align: center;}
+.Admin_Stock_OptionBox .mat-form-field-flex{position: relative;}
+.Admin_Stock_OptionBox .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.Admin_Stock_OptionBox .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+.Admin_Stock_OptionBox .mat-form-field-label mat-label{ position: relative;top: -5px; font-size: 14px; right: 0; border-right: 0.5vw solid #fff; background: #fff}
+
+/*주식 삭제  dialog*/
+.Stock_RemovePanel{position: relative;height: auto; padding: 0px;}
+.Stock_RemovePanel_Text{margin-top: 2vh; padding: 0 16px;}
+.Stock_RemovePanel_Left{float: left;line-height: 60px; height: 60px; text-align: center;}
+.Stock_RemovePanel_Left mat-icon{width: 100px; line-height: 50px; font-size: 50px; height: 50px; color: var(--sub-font-color);}
+.Stock_RemovePanel_Right{float: left; width: calc(100% - 100px);}
+.Stock_RemovePanel_Text::after{content: ''; display: block; clear: both;}
+.Stock_RemovePanel p{margin-left: 5px; position: relative; height: 25px; line-height: 25px; font-size: 12px;letter-spacing: 0.1px; font-weight: 400; color: var(--main-font-color); width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+.Stock_RemovePanel p em{margin-right: 5px; display: inline-block; position: relative; top: -8px;}
+.Stock_RemovePanel p span{color: var(--maindark-color); font-size: 12px; margin-right: 10px; display: inline-block; text-align: center; max-width: 100px; text-overflow: ellipsis;  white-space: nowrap; overflow-x: hidden; font-weight: 500;}
+.Stock_RemovePanel h3{margin-left: 5px; position: relative; height: 25px; line-height: 25px; font-size: 14px; color: var(--red-color); letter-spacing: 0.1px; font-weight: 400; width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+
 
 @media screen and (max-width: 1024px) {
 
@@ -480,11 +564,15 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 	.Admin_notice_UserList{max-height: calc(100vh - 212px - 275px);}
 	.Admin_Group_UserList{max-height: calc(100vh - 230px - 54px - 70px);}
 	.Admin_User_EditBox{height: calc(100vh - 206px);}
+	.Admin_InformationBox{height: calc(100vh - 206px);}
 	.Admin_Notice_EditBox{height: calc(100vh - 206px);}
 	.Admin_NoticeEdit_TableBox{height: calc(100vh - 254px);}
 	.Admin_Notice_ModifyBox div.angular-editor{height: calc(100vh - 54px - 50px - 122px - 10vh);}
 	.Admin_Notice_ModifyBox div.angular-editor-textarea{height: calc(100vh - 54px - 50px - 280px - 10vh);}
 	.Admin_Notice_ModifyBox{max-height: calc(100vh - 54px - 50px);}
+	.Admin_Stock_OptionBox{max-height: calc(100vh - 54px - 90px - 4vh);}
+	.Admin_Stock_OptionBox mat-form-field:nth-child(1){margin-top: 1.5vh;}
+	.Admin_Stock_OptionBox mat-form-field{margin-top: 0vh; width: 100% !important;}
 }
 
 

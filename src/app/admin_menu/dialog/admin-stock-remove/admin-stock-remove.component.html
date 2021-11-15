@@ -1,0 +1,22 @@
+
+<div class="Admin_Option_Dialog">
+	<h3><mat-icon class="Dialog_TitleIcon">warning</mat-icon> <strong>정말 삭제하시겠습니까?</strong> <mat-icon (click)="close()" class="Dialog_closeBtn">close</mat-icon></h3>
+	
+	<div class="Stock_RemovePanel">
+		<div class="Stock_RemovePanel_Text">
+			<div class="Stock_RemovePanel_Left">
+				<mat-icon>delete_outline</mat-icon>
+			</div>
+			<div class="Stock_RemovePanel_Right">
+				<p><em>[290520]</em> <span>신도기연</span> <em>수익률 : - 10.60%</em></p>
+				<h3>삭제 후에는 복구할 수 없습니다.</h3>
+			</div>
+		</div>
+
+	</div>
+   
+    <div class="Admin_Option_DialogButtonBox">
+		<button mat-stroked-button (click)="close()">취소</button>
+		<button mat-stroked-button class="AddBtn"(click)="close()">삭제</button>
+	</div>
+</div>

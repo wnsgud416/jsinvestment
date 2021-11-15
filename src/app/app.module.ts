@@ -20,6 +20,9 @@ import { AdminUserModifyComponent } from './admin_menu/dialog/admin-user-modify/
 import { AdminNoticeAddComponent } from './admin_menu/dialog/admin-notice-add/admin-notice-add.component';
 import { AdminNoticeDeleteComponent } from './admin_menu/dialog/admin-notice-delete/admin-notice-delete.component';
 import { AdminNoticeModifyComponent } from './admin_menu/dialog/admin-notice-modify/admin-notice-modify.component';
+import { AdminStockAddComponent } from './admin_menu/dialog/admin-stock-add/admin-stock-add.component';
+import { AdminStockRemoveComponent } from './admin_menu/dialog/admin-stock-remove/admin-stock-remove.component';
+import { AdminStockModifyComponent } from './admin_menu/dialog/admin-stock-modify/admin-stock-modify.component';
 
 
 // Angular Meterial
@@ -72,6 +75,7 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,6 +96,9 @@ import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
     AdminNoticeAddComponent,
     AdminNoticeDeleteComponent,
     AdminNoticeModifyComponent,
+    AdminStockAddComponent,
+    AdminStockRemoveComponent,
+    AdminStockModifyComponent,
   ],
   imports: [
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
