@@ -2,6 +2,88 @@
 
 	<div class="User_MenuPanel_Title">	
 		<h3><mat-icon>trending_up</mat-icon> 추천주</h3>
+		
+		<div class="User_Recommended_Allbox">
+			<mat-form-field appearance="outline">
+				<mat-label>총 수익률</mat-label>
+				  <mat-icon matPrefix>point_of_sale</mat-icon>
+				 	<input matInput value="0" readonly disabled>
+						<span matSuffix>&nbsp;%</span>
+			  </mat-form-field>
+			  <button mat-stroked-button  class="AddBtn">새로고침</button>
+		</div>
+		
+	</div>	
+
+	<div class="User_Recommended_TableBox">
+
+	<table mat-table [dataSource]="dataSource">
+	  
+	  <ng-container matColumnDef="number" sticky>
+		<th mat-header-cell *matHeaderCellDef style="width: 35px; text-align: center; padding: 0 2vw;"> # </th>
+		<td mat-cell *matCellDef="let element" style="width: 35px; text-align: center; padding: 0 2vw;"> {{element.number}} </td>
+	  </ng-container>
+	  
+
+	  <ng-container matColumnDef="code" sticky>
+		<th mat-header-cell *matHeaderCellDef style="width: calc(15vw); text-align: center; padding: 0 2vw;"> 종목코드 </th>
+		<td mat-cell *matCellDef="let element" style="width: calc(15vw); text-align: center; padding: 0 2vw;"> {{element.code}} </td>
+	  </ng-container>
+
+	  <ng-container matColumnDef="codename">
+		<th mat-header-cell *matHeaderCellDef style="width: calc(40vw - 35px); text-align: center; padding: 0 2vw;"> 종목명 </th>
+		<td mat-cell *matCellDef="let element" style="width: calc(40vw - 35px); text-align: center; padding: 0 2vw;"> {{element.codename}} </td>
+	  </ng-container>
+
+
+	  <ng-container matColumnDef="price">
+		<th mat-header-cell *matHeaderCellDef style="width: 15vw; text-align: center; padding: 0 2vw;"> 현재가 </th>
+		<td mat-cell *matCellDef="let element" style="width: 15vw; text-align: center; padding: 0 2vw;"> {{element.price}} </td>
+	  </ng-container>
+
+
+	  <ng-container matColumnDef="purchase">
+		<th mat-header-cell *matHeaderCellDef style="width: 15vw; text-align: center; padding: 0 2vw;"> 매입 단가 </th>
+		<td mat-cell *matCellDef="let element" style="width: 15vw; text-align: center; padding: 0 2vw;"> {{element.purchase}} </td>
+	  </ng-container>
+
+	  <ng-container matColumnDef="profits">
+		<th mat-header-cell *matHeaderCellDef style="width: 15vw; text-align: center; padding: 0 2vw;"> 수익률 </th>
+		<td mat-cell *matCellDef="let element" style="width: 15vw; text-align: center; padding: 0 2vw;"> {{element.profits}} </td>
+	  </ng-container>
+
+
+	  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+	  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
+
+
+	  <tr class="Search_resulttext" *matNoDataRow>
+				<td class="mat-cell" colspan="6">
+				<mat-icon>search_off</mat-icon>
+				<p>"{{input.value}}"에 대한 검색결과가 없습니다.</p>
+				</td>
+	</tr>
+	</table>
 	</div>
+		
+	<div class="User_Recommended_Search">
+		<mat-form-field appearance="outline">
+			<mat-label>검색</mat-label>
+			<input matInput (keyup)="applyFilter($event)" placeholder="검색어를 입력해주세요." #input>
+			<button mat-icon-button matSuffix >
+			  <mat-icon>search</mat-icon>
+			</button>
+		</mat-form-field>
+		
+		
+	</div>
+
+	<mat-paginator [pageSize]="12" showFirstLastButtons>
+	</mat-paginator>
+
 	
 </div>
+
+
+
+

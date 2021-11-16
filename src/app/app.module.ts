@@ -10,6 +10,8 @@ import { UserNoticeComponent } from './user_menu/user-notice/user-notice.compone
 import { UserRecommendedComponent } from './user_menu/user-recommended/user-recommended.component';
 import { UserCompletionComponent } from './user_menu/user-completion/user-completion.component';
 import { UserNoticeDetailComponent } from './user_menu/dialog/user-notice-detail/user-notice-detail.component';
+import { UserCompletionDetailComponent } from './user_menu/dialog/user-completion-detail/user-completion-detail.component';
+
 import { AdminInformationComponent } from './admin_menu/admin-information/admin-information.component';
 import { AdminNoticeEditComponent } from './admin_menu/admin-notice-edit/admin-notice-edit.component';
 import { AdminGroupNoticeComponent } from './admin_menu/admin-group-notice/admin-group-notice.component';
@@ -76,6 +78,7 @@ import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -99,6 +102,7 @@ import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
     AdminStockAddComponent,
     AdminStockRemoveComponent,
     AdminStockModifyComponent,
+    UserCompletionDetailComponent,
   ],
   imports: [
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
