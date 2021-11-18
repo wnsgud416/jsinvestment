@@ -7,7 +7,7 @@
 			<mat-form-field appearance="outline">
 				<mat-label>총 수익률</mat-label>
 				  <mat-icon matPrefix>point_of_sale</mat-icon>
-				 	<input matInput value="0" readonly disabled>
+				 	<input matInput value="0" readonly disabled class="User_Total_Value">
 						<span matSuffix>&nbsp;%</span>
 			  </mat-form-field>
 			  <button mat-stroked-button  class="AddBtn">새로고침</button>
@@ -49,7 +49,7 @@
 
 	  <ng-container matColumnDef="profits">
 		<th mat-header-cell *matHeaderCellDef style="width: 15vw; text-align: center; padding: 0 2vw;"> 수익률 </th>
-		<td mat-cell *matCellDef="let element" style="width: 15vw; text-align: center; padding: 0 2vw;"> {{element.profits}} </td>
+		<td mat-cell *matCellDef="let element" style="width: 15vw; text-align: center; padding: 0 2vw; font-weight: bold;" class="{{element.profits >0? 'PlusNumber' : 'MinusNumber'}}"> {{element.profits}} %</td>
 	  </ng-container>
 
 

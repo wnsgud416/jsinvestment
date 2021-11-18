@@ -19,7 +19,7 @@
 
 			<ng-container matColumnDef="TotalFiled">
 				<th mat-header-cell *matHeaderCellDef style="width: 20vw; text-align: center"> 총 수익률 </th>
-				<td mat-cell *matCellDef="let element" style="width: 20vw; text-align: center; font-weight: bold;"> {{element.TotalFiled}} </td>
+				<td mat-cell *matCellDef="let element" style="width: 20vw; text-align: center; font-weight: bold;" class="{{element.TotalFiled >0? 'PlusNumber' : 'MinusNumber'}}"> {{element.TotalFiled}} %</td>
 			</ng-container>
 
 			<ng-container matColumnDef="Data">

@@ -38,7 +38,8 @@ box-sizing:border-box; cursor: default;-ms-user-select: none;
 -webkit-user-select: none;
 -khtml-user-select: none;
 user-select: none; ; font-size: 12px; font-family:'NotoSansKR' !important;}
-input[type = "text"]{cursor: text; }
+input[type = "text"]{cursor: text; user-select: text;}
+input.mat-input-element{cursor: text; user-select: text;}
 button{cursor: pointer; }
 a { color:inherit; text-decoration: none ; }
 img { border:none; max-width:100% }
@@ -97,6 +98,11 @@ mat-bottom-sheet-container{padding: 0 !important;}
 .Table_AllCheckBox .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background{background: var(--red-color) !important;}
 .Table_CheckBox{min-width: 50px; width: 50px; padding: 0 !important;}
 .Table_CheckBox:nth-child(even){background: var(--main-whitefont-color);}
+.User_Total_Value{font-weight: bold !important;}
+.User_Total_Value.PlusNumber{color: var(--mainwhite-color) !important;}
+.User_Total_Value.MinusNumber{color: var(--red-color) !important;}
+.PlusNumber{color: var(--mainwhite-color) !important;}
+.MinusNumber{color: var(--red-color) !important;}
 /*크롬 테두리 삭제*/
  *:focus {outline:none;}
 body,html{position: relative; width: 100%; height: auto; overflow: hidden;}
@@ -252,7 +258,6 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 .User_Recommended_TableBox table tbody tr:nth-child(odd){background: #f5f5f5;}
 .User_Recommended_TableBox table tbody tr:nth-child(even){background: var(--main-whitefont-color);}
 .User_Recommended_TableBox table tbody tr{height: 5vh; transition: .3s; }
-/*.User_Recommended_TableBox table tbody tr:hover{background: var(--sub-whitefont-color);}*/
 .User_Recommended_TableBox table tbody tr td{color:  var(--sub-font-color); height: 5vh; white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
 
 .User_Recommended_Search{height: 80px; width: 100%; line-height: 80px; background: var(--main-whitefont-color); text-align: center;}
@@ -311,6 +316,17 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 .User_notice_Dialog_Contant{width: 100%; padding: 0 16px; max-height: calc(100vh - 155px - 4vh); overflow: auto;}
 .User_notice_Dialog_Contant::-webkit-scrollbar{display: contents !important;}
 
+/*완료 수익률 (유저 메뉴) - 세부내용*/
+.User_Completion_Detail_TableBox{position: relative; width: auto; height: calc(100vh - 264px); overflow-x: hidden; overflow-y: auto; background: var(--main-whitefont-color);}
+.User_Completion_Detail_TableBox::-webkit-scrollbar{display: contents !important;}
+.User_Completion_Detail_TableBox table{width: 100%;}
+.User_Completion_Detail_TableBox table thead {background: var(--maindark-color); height: 5vh;}
+.User_Completion_Detail_TableBox table thead tr{border-color: var(--main-font-color); height: 5vh;}
+.User_Completion_Detail_TableBox table thead tr th{height: 5vh; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color: var(--main-whitefont-color);}
+.User_Completion_Detail_TableBox table tbody tr:nth-child(odd){background: #f5f5f5;}
+.User_Completion_Detail_TableBox table tbody tr:nth-child(even){background: var(--main-whitefont-color);}
+.User_Completion_Detail_TableBox table tbody tr{height: 5vh; transition: .3s; }
+.User_Completion_Detail_TableBox table tbody tr td{color:  var(--sub-font-color); height: 5vh; white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
 
 
 
@@ -616,8 +632,11 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 	.User_Recommended_TableBox{height: calc(100vh - 254px);}
 	.User_Completion_TableBox{height: calc(100vh - 254px);}
 	.User_notice_Search mat-form-field{width: 100%;}
-	.OptionModal.mat-bottom-sheet-container{max-height: calc(100vh - 54px);}
+	.User_Recommended_Search mat-form-field{width: 100%;}
+	.User_Completion_Search mat-form-field{width: 100%;}
+	.OptionModal.mat-bottom-sheet-container{max-height: calc(100vh - 48px);}
 	.User_notice_Dialog_Contant{max-height: calc(100vh - 142px - 4vh); }
+	.User_Completion_Detail_TableBox{height: calc(100vh - 188px - 4vh); }
 	.Admin_MenuPanel{height: calc(100vh - 54px);}
     .Admin_MenuPanel .mat-tab-body-wrapper{height: calc(100vh - 172px);}
 	.Admin_notice_UserList{max-height: calc(100vh - 212px - 275px);}
