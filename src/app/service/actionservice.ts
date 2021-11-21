@@ -9,13 +9,13 @@ export class Actionservice {
   constructor(private http: HttpClient) {
   }
 
-  login(id, passwd) {
+  userDelete(id) {
     // const headers = { 'content-type': 'application/json' }
     const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
-    const data = { id: id, passwd:passwd}
+    const data = { id: id}
     const body = JSON.stringify(data)
 
-    return this.http.post("/action/login", body,{headers, responseType: 'text'}).pipe(
+    return this.http.post("/action/userDelete", body,{headers, responseType: 'text'}).pipe(
       catchError(this.handleError)
     );
   }

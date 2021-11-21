@@ -12,11 +12,11 @@ export class StoreEffects {
     private actionService: Actionservice
   ) { }
 
-  login$ = createEffect(() => this.actions$.pipe(
-    ofType(StoreActions.login),
-    mergeMap((action) => this.actionService.login(action.id,action.passwd).pipe(
-      map(data => ({ type: '[Data API] login Success', result : data})),
-      catchError(() => of({ type: '[Data API] login Fail'}))
+  userDelete$ = createEffect(() => this.actions$.pipe(
+    ofType(StoreActions.userDelete),
+    mergeMap((action) => this.actionService.userDelete(action.id).pipe(
+      map(data => ({ type: '[Data API] userDelete Success', result : data})),
+      catchError(() => of({ type: '[Data API] userDelete Fail'}))
     ))
   ))
 

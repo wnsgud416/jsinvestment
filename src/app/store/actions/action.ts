@@ -1,15 +1,15 @@
 import { createAction, props } from '@ngrx/store';
 
 //test
-export const login = createAction(
-  '[Data Source] login',
-  props<{id,passwd}>()
+export const userDelete = createAction(
+  '[Data Source] userDelete',
+  props<{id}>()
 )
-export const loginSuccess = createAction(
-  '[Data API] login Success',
+export const userDeleteSuccess = createAction(
+  '[Data API] userDelete Success',
   props<{result}>()
 )
-export const loginFail = createAction(
-  '[Data API] login Fail',
+export const userDeleteFail = createAction(
+  '[Data API] userDelete Fail',
   props<{error: any}>()
 )

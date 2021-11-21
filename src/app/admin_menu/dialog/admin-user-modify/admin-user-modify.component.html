@@ -1,29 +1,29 @@
 
 <div class="Admin_Option_Dialog">
 	<h3><mat-icon class="Dialog_TitleIcon2">edit</mat-icon> <strong>회원 정보 수정</strong> <mat-icon (click)="close()" class="Dialog_closeBtn">close</mat-icon></h3>
-   
+
    <div class="Admin_User_ModifyBox">
-   
+
 				<mat-form-field appearance="legacy">
 				<mat-label>아이디</mat-label>
 				<mat-icon matPrefix>person</mat-icon>
-				<input matInput #input1  value="js1234@example.com" readonly disabled>
+				<input matInput #input1  readonly disabled [(ngModel)]="email">
 				</mat-form-field>
-			
+
    				<mat-form-field appearance="legacy">
    				<mat-label>이름</mat-label>
    				<mat-icon matPrefix>person</mat-icon>
-   				<input matInput #input1 maxlength="10" placeholder="홍길동" value="홍길동">
+   				<input matInput #input1 maxlength="10" placeholder="홍길동" [(ngModel)]="userName">
    				<mat-hint align="end">{{input1.value?.length || 0}}/4</mat-hint>
    				<button mat-icon-button matSuffix >
    				  <mat-icon>edit</mat-icon>
    				</button>
    				</mat-form-field>
-   				
+
    				<mat-form-field appearance="legacy" hintLabel="- 을 제외하고 입력해주세요.">
    				<mat-label>전화번호</mat-label>
    				<mat-icon matPrefix>call</mat-icon>
-   				<input matInput #input2 placeholder="01012345678" value="01012345678" maxlength="11" type="tel" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}">
+   				<input matInput #input2 placeholder="01012345678" [(ngModel)]="phone" maxlength="11" type="tel" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}">
    				<mat-hint align="end">{{input2.value?.length || 0}}/11</mat-hint>
    				<button mat-icon-button matSuffix >
    				  <mat-icon>edit</mat-icon>
@@ -31,9 +31,9 @@
    				</mat-form-field>
    </div>
 
-   
+
     <div class="Admin_Option_DialogButtonBox">
 		<button mat-stroked-button (click)="close()">취소</button>
-		<button mat-stroked-button class="AddBtn"(click)="close()">적용</button>
+		<button mat-stroked-button class="AddBtn"(click)="save()">적용</button>
 	</div>
 </div>

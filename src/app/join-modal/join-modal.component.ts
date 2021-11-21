@@ -31,17 +31,25 @@ export class JoinModalComponent implements OnInit {
     sendEmailVerification (userCredential.user).then(async ()=>{
       window.alert('이메일에서 승인하면 회원가입이 완료됩니다.')
           // Signed in
+      var today = new Date();
+
+      var year = today.getFullYear();
+      var month = ('0' + (today.getMonth() + 1)).slice(-2);
+      var day = ('0' + today.getDate()).slice(-2);
+
+      var dateString = year + '-' + month  + '-' + day
       const user = userCredential.user;
       await setDoc(doc(this.firestore, "users", user.uid), {
-        created_at:user.metadata.creationTime,
+        created_at:dateString,
         id: user.uid,
-        name: null,
-        phone: null,
-        updated_at: user.metadata.lastSignInTime
+        email: user.email,
+        group: "일반회원",
+        name: "null",
+        phone: "null",
+        updated_at: dateString
       });
       this.bottomSheetRef.dismiss()
     })
-
   })
   .catch((error) => {
     const errorCode = error.code;
