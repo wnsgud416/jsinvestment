@@ -5,7 +5,7 @@ import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet'
 import { AdminUserModifyComponent } from '../dialog/admin-user-modify/admin-user-modify.component';
 import { AdminUserRemoveComponent } from '../dialog/admin-user-remove/admin-user-remove.component';
 import { collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from '@firebase/firestore';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, onSnapshot } from '@angular/fire/firestore';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store';
 import { Actions, ofType } from '@ngrx/effects';
@@ -47,16 +47,16 @@ export class AdminUserEditComponent implements OnInit {
 
     async ngOnInit(): Promise<void> {
 
-       await getDocs(collection(this.firestore, "users")).then((collection)=>{
-        collection.forEach((doc) => {
-
-          this.userTableData.push(doc.data());
-
+      onSnapshot(
+        collection(this.firestore, "users"), { includeMetadataChanges: true }, (collection) => {
+          this.selection = new SelectionModel<PeriodicElement>(true, []);
+          this.userTableData = []
+          collection.forEach((doc) => {
+            this.userTableData.push(doc.data());
+          });
+          this.tableRowData = new MatTableDataSource(this.userTableData);
         });
-        console.log(this.userTableData);
 
-        this.tableRowData = new MatTableDataSource(this.userTableData);
-      });
     }
 
 
@@ -122,7 +122,6 @@ export class AdminUserEditComponent implements OnInit {
     })
     .then(()=>{
       window.alert('그룹 수정을 완료했습니다.')
-      window.location.reload()
     }).catch((error) =>{
       window.alert('그룹 수정중에 오류가 발생했습니다.')
     })
@@ -130,6 +129,7 @@ export class AdminUserEditComponent implements OnInit {
 
   checkGroup(){
     console.log(this.selectedGroup);
+    var index = this.selection.selected.length-1
     if(this.selectedGroup == undefined){
       window.alert('이동할 그룹을 선택해 주세요.')
     }else{
@@ -140,9 +140,8 @@ export class AdminUserEditComponent implements OnInit {
           group: this.selectedGroup,
         })
         .then(()=>{
-          if(i ==this.selection.selected.length-1){
+          if(i ==index){
             window.alert('그룹 수정을 완료했습니다.')
-            window.location.reload()
           }
         }).catch((error) =>{
           window.alert('그룹 수정중에 오류가 발생했습니다.')
@@ -153,7 +152,8 @@ export class AdminUserEditComponent implements OnInit {
   quickAction(){
     if(this.quickActionValue==undefined){
       window.alert('일괄 기능을 선택해 주세요.')
-    }else{
+    } else {
+      var index = this.selection.selected.length-1
       if(this.quickActionValue==="user_Delete"){
         var userIds:any = [];
         this.selection.selected.forEach(data=>{
@@ -164,9 +164,8 @@ export class AdminUserEditComponent implements OnInit {
           this.selection.selected.forEach(async (data,i)=>{
             await deleteDoc(doc(this.firestore, "users", data.id))
             .then(()=>{
-              if(i ==this.selection.selected.length-1){
+              if(i ==index){
                 window.alert('회원 삭제를 완료했습니다.')
-                window.location.reload()
               }
             }).catch((error) =>{
               window.alert('회원 삭제중에 오류가 발생했습니다.')
@@ -177,16 +176,14 @@ export class AdminUserEditComponent implements OnInit {
         this.selection.selected.forEach(async (data,i)=>{
           const washingtonRef = doc(this.firestore, "users", data.id);
           await updateDoc(washingtonRef, {
-            updated_at: "expired",
+            updated_at: "구독종료",
           })
           .then(()=>{
-            if(i ==this.selection.selected.length-1){
+            if(i ==index){
               window.alert('구독 종료를 완료했습니다.')
-              window.location.reload()
             }
           }).catch((error) =>{
             window.alert('구독 종료중에 오류가 발생했습니다.')
-            window.location.reload()
           })
         })
       }
@@ -210,10 +207,8 @@ export class AdminUserEditComponent implements OnInit {
     })
     .then(()=>{
         window.alert('구독 날짜 수정을 완료했습니다.')
-        window.location.reload()
     }).catch((error) =>{
       window.alert('구독 날짜 수정중에 오류가 발생했습니다.')
-      window.location.reload()
     })
 
   }
@@ -223,7 +218,8 @@ export class AdminUserEditComponent implements OnInit {
 
     if(this.checkSubscriptionValue == undefined){
       window.alert('구독 날짜를 선택해 주세요.')
-    }else{
+    } else {
+      var index = this.selection.selected.length-1
       var year = this.checkSubscriptionValue.getFullYear();
       var month = ('0' + (this.checkSubscriptionValue.getMonth() + 1)).slice(-2);
       var day = ('0' + this.checkSubscriptionValue.getDate()).slice(-2);
@@ -238,13 +234,11 @@ export class AdminUserEditComponent implements OnInit {
           updated_at: dateString,
         })
         .then(()=>{
-          if(i ==this.selection.selected.length-1){
+          if(i ==index){
             window.alert('구독 날짜 수정을 완료했습니다.')
-            window.location.reload()
           }
         }).catch((error) =>{
           window.alert('구독 날짜 수정중에 오류가 발생했습니다.')
-          window.location.reload()
         })
       });
 

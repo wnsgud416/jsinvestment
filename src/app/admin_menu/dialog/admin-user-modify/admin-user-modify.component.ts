@@ -39,7 +39,6 @@ export class AdminUserModifyComponent implements OnInit {
     .then(()=>{
       window.alert('회원 정보 수정을 완료했습니다.')
       this.bottomSheetRef.dismiss()
-      window.location.reload()
     }).catch((error) =>{
       window.alert('회원 정보 수정중에 오류가 발생했습니다.')
     })

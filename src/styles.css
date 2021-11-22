@@ -458,6 +458,8 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 .Admin_User_EditBox input{white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; height: 30px; line-height: 30px; width: 100px; text-align: center;}
 .Admin_User_EditBox .mat-form-field-wrapper{width: 100px; height: 30px; line-height: 30px}
 .Admin_User_EditBox .mat-form-field-appearance-outline .mat-form-field-flex{width: 100px; height: 30px; line-height: 30px}
+.Subscription_Filed .Subscription_Result{color: var(--maindark-color); font-weight: bold; position:relative; top: 5px; display: inline-block; white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; height: 30px; line-height: 30px; width: 100px; text-align: center;}
+.Subscription_Filed .Subscription_Result.구독종료{color: var(--red-color);}
 .Subscription_Filed .mat-input-element{color: var(--maindark-color);}
 .Admin_User_Edit_SeachBox{height: 80px; width: 100%; line-height: 80px; background: var(--main-whitefont-color); text-align: center; overflow-x: auto; white-space: nowrap; overflow-y: hidden;}
 .Subscription_Filed button{position: relative; top: -5px;}

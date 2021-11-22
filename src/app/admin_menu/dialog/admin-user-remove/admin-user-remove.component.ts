@@ -42,7 +42,6 @@ export class AdminUserRemoveComponent implements OnInit {
       .then(()=>{
         window.alert('회원 삭제를 완료했습니다.')
         this.bottomSheetRef.dismiss()
-        window.location.reload()
       }).catch((error) =>{
         window.alert('회원 삭제중에 오류가 발생했습니다.')
       })
