@@ -1,39 +1,39 @@
 <div class="User_MenuPanel">
 
-	<div class="User_MenuPanel_Title">	
+	<div class="User_MenuPanel_Title">
 		<h3><mat-icon>campaign</mat-icon> 공지사항</h3>
 	</div>
 
 	<div class="User_notice_TableBox">
-		<table mat-table [dataSource]="dataSource">
-			
+		<table mat-table [dataSource]="tableRowData">
+
 			<ng-container matColumnDef="Number">
 				<th mat-header-cell *matHeaderCellDef style="width: 50px; text-align: center"> # </th>
-				<td mat-cell *matCellDef="let element" style="width: 50px; text-align: center"> {{element.Number}} </td>
+				<td mat-cell *matCellDef="let element; let i =index" style="width: 50px; text-align: center"> {{i}} </td>
 			</ng-container>
 
-			<ng-container matColumnDef="Position">
+			<ng-container matColumnDef="classification">
 				<th mat-header-cell *matHeaderCellDef style="width: calc(20vw); text-align: center"> 분류 </th>
-				<td mat-cell *matCellDef="let element" style="width: calc(20vw); text-align: center"> {{element.Position}} </td>
+				<td mat-cell *matCellDef="let element" style="width: calc(20vw); text-align: center"> {{element.classification}} </td>
 			</ng-container>
 
-			<ng-container matColumnDef="Name">
+			<ng-container matColumnDef="title">
 				<th mat-header-cell *matHeaderCellDef style="width: calc(40vw - 50px)"> 제목 </th>
-				<td mat-cell *matCellDef="let element" style="width: calc(40vw - 50px)"> {{element.Name}} </td>
+				<td mat-cell *matCellDef="let element" style="width: calc(40vw - 50px)"> {{element.title}} </td>
 			</ng-container>
 
-			<ng-container matColumnDef="Writer">
+			<ng-container matColumnDef="author">
 				<th mat-header-cell *matHeaderCellDef style="width: 20vw; text-align: center"> 게시자 </th>
-				<td mat-cell *matCellDef="let element" style="width: 20vw; text-align: center"> {{element.Writer}} </td>
+				<td mat-cell *matCellDef="let element" style="width: 20vw; text-align: center"> {{element.author}} </td>
 			</ng-container>
 
-			<ng-container matColumnDef="Data">
+			<ng-container matColumnDef="created_at">
 				<th mat-header-cell *matHeaderCellDef style="width: 20vw; text-align: center"> 게시일 </th>
-				<td mat-cell *matCellDef="let element" style="width: 20vw; text-align: center"> {{element.Data}} </td>
+				<td mat-cell *matCellDef="let element" style="width: 20vw; text-align: center"> {{element.created_at}} </td>
 			</ng-container>
 
 			<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-			<tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="Notice_Detail()"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="Notice_Detail(row)"></tr>
 
 			<tr class="Search_resulttext" *matNoDataRow>
 				<td class="mat-cell" colspan="5">

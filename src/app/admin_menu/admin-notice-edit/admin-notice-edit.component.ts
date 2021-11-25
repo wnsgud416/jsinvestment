@@ -8,52 +8,19 @@ import { UserNoticeDetailComponent } from '../../user_menu/dialog/user-notice-de
 import { AdminNoticeAddComponent } from '../dialog/admin-notice-add/admin-notice-add.component';
 import { AdminNoticeDeleteComponent } from '../dialog/admin-notice-delete/admin-notice-delete.component';
 import { AdminNoticeModifyComponent } from '../dialog/admin-notice-modify/admin-notice-modify.component';
+import { collection, deleteDoc, doc, onSnapshot, updateDoc } from '@firebase/firestore';
+import { Firestore } from '@angular/fire/firestore';
 
 
 export interface PeriodicElement {
-	Numer : number;
-	Position : string;
-	Name : string;
-	Writer : string;
-	Data : string;
+	Number : number;
+	classification : string;
+	title : string;
+	author : string;
+	created_at : string;
+  id:string;
 
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-
-  {Numer:1,Position: "[공모주]", Name: '실리콘투', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:2,Position: "[공모주]", Name: '바이오플러스', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:3,Position: "[공모주]", Name: '현대중공업', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:4,Position: "[공모주]", Name: '9월청약일정', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:5,Position: "[수익인증]", Name: '8월', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:6,Position: "[공모주]", Name: '와이엠텍', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:7,Position: "[공모주]", Name: '일진하이솔루션', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:8,Position: "[일정]", Name: '8월 4주차', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:9,Position: "[공모주]", Name: '와이엠텍', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:10,Position: "[공모주]", Name: '아주스틸', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:11,Position: "[일정]", Name: '8월 3주차', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:12,Position: "[공모주]", Name: '아주스틸', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:13,Position: "[공모주]", Name: '실리콘투', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:14,Position: "[공모주]", Name: '현대중공업', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:15,Position: "[공모주]", Name: '실리콘투', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:16,Position: "[공모주]", Name: '바이오플러스', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:17,Position: "[공모주]", Name: '현대중공업', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:18,Position: "[공모주]", Name: '9월청약일정', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:19,Position: "[수익인증]", Name: '8월', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:20,Position: "[공모주]", Name: '와이엠텍', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:21,Position: "[공모주]", Name: '일진하이솔루션', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:22,Position: "[일정]", Name: '8월 4주차', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:23,Position: "[공모주]", Name: '와이엠텍', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:24,Position: "[공모주]", Name: '아주스틸', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:25,Position: "[일정]", Name: '8월 3주차', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:26,Position: "[공모주]", Name: '아주스틸', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:27,Position: "[공모주]", Name: '실리콘투', Writer: "관리자", Data: '2021.09.01'},
-  {Numer:28,Position: "[공모주]", Name: '현대중공업', Writer: "관리자", Data: '2021.09.01'},
-
-
-
-];
-
 
 @Component({
   selector: 'app-admin-notice-modify',
@@ -62,19 +29,38 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class AdminNoticeEditComponent implements OnInit {
 
-  displayedColumns: string[] = ['select','Numer','Position', 'Name', 'Writer', 'Data', 'action'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumns: string[] = ['select','Number','classification', 'title', 'author', 'created_at', 'action'];
+  public noticeTableData :any =[];
+  public tableRowData = new MatTableDataSource ([]);
+  classification
+  quickActionValue
+  constructor(
+    private MatBottomSheet: MatBottomSheet,
+    private firestore: Firestore,
+			  ) { }
 
+  ngOnInit(): void {
+    onSnapshot(
+      collection(this.firestore, "/notices/public/posts"), { includeMetadataChanges: true }, (collection) => {
+        this.selection = new SelectionModel<PeriodicElement>(true, []);
+        this.noticeTableData = []
+        collection.forEach((doc) => {
+          this.noticeTableData.push(doc.data());
+        });
+        this.tableRowData = new MatTableDataSource(this.noticeTableData);
+      });
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.tableRowData.filter = filterValue.trim().toLowerCase();
   }
 	selection = new SelectionModel<PeriodicElement>(true, []);
 
   isAllSelected() {
+
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = this.tableRowData.data.length;
     return numSelected === numRows;
   }
 
@@ -84,7 +70,7 @@ export class AdminNoticeEditComponent implements OnInit {
       return;
     }
 
-    this.selection.select(...this.dataSource.data);
+    this.selection.select(...this.tableRowData.data);
   }
 
 
@@ -93,16 +79,10 @@ export class AdminNoticeEditComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.Numer + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.Number + 1}`;
   }
 
-  constructor(
-    private MatBottomSheet: MatBottomSheet,
-			  ) { }
 
-  ngOnInit(): void {
-
-  }
 	Notice_Add(){
 		this.MatBottomSheet.open(AdminNoticeAddComponent, {
      panelClass: 'OptionModal',
@@ -114,30 +94,79 @@ export class AdminNoticeEditComponent implements OnInit {
 	}
 
 
-  Notice_Detail(data){
+  Notice_Detail(data,classification,title,content){
     this.MatBottomSheet.open(UserNoticeDetailComponent, {
      panelClass: 'OptionModal',
-     data: {}
+     data: {classification:classification,title:title,content:content}
    }).afterDismissed().subscribe((result) => {
 
    });
  }
-	Notice_Modify(data){
+	Notice_Modify(data,classification,title,content,id){
 		this.MatBottomSheet.open(AdminNoticeModifyComponent, {
      panelClass: 'OptionModal',
-     data: {}
+     data: {classification:classification,title:title,content:content,id:id}
    }).afterDismissed().subscribe((result) => {
 
    });
 	}
-    Notice_Delete(data){
+    Notice_Delete(data,classification,title,name,created_at,id){
 		this.MatBottomSheet.open(AdminNoticeDeleteComponent, {
      panelClass: 'OptionModal',
-     data: {}
+     data: {classification:classification,title:title,name:name,created_at:created_at,id:id}
    }).afterDismissed().subscribe((result) => {
 
    });
 	}
+
+  CheckClassification(){
+    if(this.classification==undefined){
+      window.alert('분류를 선택해 주세요.')
+    } else {
+      var index = this.selection.selected.length-1
+      var today = new Date();
+      var year = today.getFullYear();
+      var month = ('0' + (today.getMonth() + 1)).slice(-2);
+      var day = ('0' + today.getDate()).slice(-2);
+      var dateTimeString = year + '-' + month  + '-' + day;
+
+      this.selection.selected.forEach(async (data,i)=>{
+        const washingtonRef = doc(this.firestore, "notices/public/posts", data.id);
+
+        await updateDoc(washingtonRef, {
+          classification: this.classification,
+          updated_at:dateTimeString
+        })
+        .then(()=>{
+          if(i ==index){
+            window.alert('분류 이동을 완료했습니다.')
+          }
+        }).catch((error) =>{
+          window.alert('분류 이동중에 오류가 발생했습니다.')
+        })
+      })
+
+    }
+  }
+  CheckQuickAction(){
+    if(this.quickActionValue==undefined){
+      window.alert('일괄 기능을 선택해 주세요.')
+    } else {
+      var index = this.selection.selected.length-1
+      if(this.quickActionValue==="삭제"){
+        this.selection.selected.forEach(async (data,i)=>{
+          await deleteDoc(doc(this.firestore, "/notices/public/posts", data.id))
+          .then(()=>{
+            if(i ==index){
+              window.alert('공지사항 삭제를 완료했습니다.')
+            }
+          }).catch((error) =>{
+            window.alert('공지사항 삭제중에 오류가 발생했습니다.')
+          })
+        })
+      }
+    }
+  }
 
 
 }

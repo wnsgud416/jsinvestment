@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 
 @Component({
@@ -9,11 +10,33 @@ import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 })
 
 export class UserNoticeDetailComponent implements OnInit {
- 
 
-  constructor(private bottomSheetRef: MatBottomSheetRef<UserNoticeDetailComponent>) { }
+  content
+  constructor(private bottomSheetRef: MatBottomSheetRef<UserNoticeDetailComponent>,
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: any
+    ) { }
+
+  config: AngularEditorConfig = {
+    editable: false,
+    placeholder: '공지사항을 확인해주세요.',
+    translate: 'no',
+    showToolbar: false,
+
+    defaultFontName: 'NotoSansKR',
+  fonts: [
+  {class: 'NotoSansKR', name: 'NotoSansKR'},
+
+    ],
+
+    toolbarHiddenButtons: [
+      ['removeFormat' ,'fontSize']
+      ],
+
+  };
+
 
   ngOnInit(): void {
+    this.content = this.data.content
   }
 
 	close() {
