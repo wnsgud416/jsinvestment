@@ -35,12 +35,26 @@
 			<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
 			<tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="Notice_Detail(row)"></tr>
 
-			<tr class="Search_resulttext" *matNoDataRow>
-				<td class="mat-cell" colspan="5">
-				<mat-icon>search_off</mat-icon>
-				<p>"{{input.value}}"에 대한 검색결과가 없습니다.</p>
-				</td>
-			</tr>
+      <div *ngIf="tableRowData.filteredData.length>0">
+        <tr class="Search_resulttext" *matNoDataRow>
+          <td class="mat-cell" colspan="5">
+          <mat-icon>search_off</mat-icon>
+          <p>"{{input.value}}"에 대한 검색결과가 없습니다.</p>
+          </td>
+        </tr>
+      </div>
+      <div *ngIf="tableRowData.filteredData.length==0">
+        <tr class="Search_resulttext" *matNoDataRow>
+          <td class="mat-cell" colspan="5">
+            <mat-icon>search_off</mat-icon>
+            <!-- <mat-progress-spinner
+            color="primary"
+            mode="indeterminate" >
+          </mat-progress-spinner> -->
+          <p>공지사항을 불러오는 중입니다.</p>
+          </td>
+        </tr>
+      </div>
 		</table>
 	</div>
 	<div class="User_notice_Search">

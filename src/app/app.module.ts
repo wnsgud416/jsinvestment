@@ -50,6 +50,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 /*CDK Module*/
 import {TextFieldModule} from '@angular/cdk/text-field';
@@ -104,6 +105,7 @@ import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
     UserCompletionDetailComponent,
   ],
   imports: [
+    MatProgressSpinnerModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),

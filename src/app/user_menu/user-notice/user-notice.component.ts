@@ -32,7 +32,7 @@ export class UserNoticeComponent implements OnInit {
   displayedColumns: string[] = ['Number','classification', 'title', 'author', 'created_at'];
   public noticeTableData :any =[];
   public tableRowData = new MatTableDataSource ([]);
-
+  isLoading = true;
 
   constructor(
     private MatBottomSheet: MatBottomSheet,
@@ -47,6 +47,7 @@ export class UserNoticeComponent implements OnInit {
             this.noticeTableData.push(doc.data());
           });
           this.tableRowData = new MatTableDataSource(this.noticeTableData);
+          this.isLoading = false;
         });
 
     }
