@@ -8,7 +8,7 @@ import { UserNoticeDetailComponent } from '../../user_menu/dialog/user-notice-de
 import { AdminNoticeAddComponent } from '../dialog/admin-notice-add/admin-notice-add.component';
 import { AdminNoticeDeleteComponent } from '../dialog/admin-notice-delete/admin-notice-delete.component';
 import { AdminNoticeModifyComponent } from '../dialog/admin-notice-modify/admin-notice-modify.component';
-import { collection, deleteDoc, doc, onSnapshot, updateDoc } from '@firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, onSnapshot, updateDoc } from '@firebase/firestore';
 import { Firestore } from '@angular/fire/firestore';
 
 
@@ -39,16 +39,24 @@ export class AdminNoticeEditComponent implements OnInit {
     private firestore: Firestore,
 			  ) { }
 
-  ngOnInit(): void {
-    onSnapshot(
-      collection(this.firestore, "/notices/public/posts"), { includeMetadataChanges: true }, (collection) => {
-        this.selection = new SelectionModel<PeriodicElement>(true, []);
-        this.noticeTableData = []
-        collection.forEach((doc) => {
-          this.noticeTableData.push(doc.data());
-        });
-        this.tableRowData = new MatTableDataSource(this.noticeTableData);
+  async ngOnInit(): Promise<void> {
+    await getDocs(collection(this.firestore, "/notices/public/posts")).then((querySnapshot)=>{
+      this.noticeTableData = []
+      querySnapshot.forEach((doc) => {
+        this.noticeTableData.push(doc.data());
       });
+      this.tableRowData = new MatTableDataSource(this.noticeTableData);
+      // this.isLoading = false;
+    })
+    // onSnapshot(
+    //   collection(this.firestore, "/notices/public/posts"), { includeMetadataChanges: true }, (collection) => {
+    //     this.noticeTableData = []
+    //     collection.forEach((doc) => {
+    //       this.noticeTableData.push(doc.data());
+    //     });
+    //     this.tableRowData = new MatTableDataSource(this.noticeTableData);
+    //     this.isLoading = false;
+    //   });
   }
 
   applyFilter(event: Event) {

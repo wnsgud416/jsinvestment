@@ -43,18 +43,18 @@
           </td>
         </tr>
       </div>
-      <div *ngIf="tableRowData.filteredData.length==0">
-        <tr class="Search_resulttext" *matNoDataRow>
-          <td class="mat-cell" colspan="5">
-            <mat-icon>search_off</mat-icon>
-            <!-- <mat-progress-spinner
-            color="primary"
-            mode="indeterminate" >
-          </mat-progress-spinner> -->
-          <p>공지사항을 불러오는 중입니다.</p>
-          </td>
-        </tr>
-      </div>
+    <div *ngIf="tableRowData.filteredData.length==0">
+      <tr class="Search_resulttext" *matNoDataRow>
+        <td class="mat-cell" colspan="7">
+          <mat-icon>search_off</mat-icon>
+          <!-- <mat-progress-spinner
+          color="primary"
+          mode="indeterminate" >
+        </mat-progress-spinner> -->
+        <p>공지사항을 불러오는 중입니다.</p>
+        </td>
+      </tr>
+    </div>
 		</table>
 	</div>
 	<div class="User_notice_Search">

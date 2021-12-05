@@ -62,6 +62,7 @@ export class AdminInformationComponent implements OnInit {
 			  ) { }
 
   ngOnInit(): void {
+
   }
 
 

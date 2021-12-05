@@ -5,7 +5,7 @@ import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet'
 import { UserNoticeDetailComponent } from '../dialog/user-notice-detail/user-notice-detail.component';
 import { getAuth } from '@firebase/auth';
 import { Firestore } from '@angular/fire/firestore';
-import { collection, onSnapshot } from '@firebase/firestore';
+import { collection, getDocs, onSnapshot } from '@firebase/firestore';
 
 
 export interface PeriodicElement {
@@ -39,16 +39,25 @@ export class UserNoticeComponent implements OnInit {
     private firestore: Firestore,
           ) { }
 
-    ngOnInit(): void {
-      onSnapshot(
-        collection(this.firestore, "/notices/public/posts"), { includeMetadataChanges: true }, (collection) => {
-          this.noticeTableData = []
-          collection.forEach((doc) => {
-            this.noticeTableData.push(doc.data());
-          });
-          this.tableRowData = new MatTableDataSource(this.noticeTableData);
-          this.isLoading = false;
+    async ngOnInit(): Promise<void> {
+
+      await getDocs(collection(this.firestore, "/notices/public/posts")).then((querySnapshot)=>{
+        this.noticeTableData = []
+        querySnapshot.forEach((doc) => {
+          this.noticeTableData.push(doc.data());
         });
+        this.tableRowData = new MatTableDataSource(this.noticeTableData);
+        this.isLoading = false;
+      })
+      // onSnapshot(
+      //   collection(this.firestore, "/notices/public/posts"), { includeMetadataChanges: true }, (collection) => {
+      //     this.noticeTableData = []
+      //     collection.forEach((doc) => {
+      //       this.noticeTableData.push(doc.data());
+      //     });
+      //     this.tableRowData = new MatTableDataSource(this.noticeTableData);
+      //     this.isLoading = false;
+      //   });
 
     }
 
