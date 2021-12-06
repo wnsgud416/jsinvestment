@@ -7,10 +7,10 @@
 
 	<mat-tab-group>
 
-	  <mat-tab label="전체">
+	  <mat-tab *ngFor="let groupData of AllGroupUserData" label="{{groupData.name}}">
 	    <div class="Admin_notice_UserList">
 	    	<mat-selection-list #Notice_AllUser>
-			  <mat-list-option *ngFor="let userData of AllUserData">
+			  <mat-list-option *ngFor="let userData of groupData.groupMember">
           <span mat-list-icon>{{userData.group}}</span>
 					<div mat-line class="Admin_notcie_UserList_ID">{{userData.email}}</div>
 					<div mat-line class="Admin_notcie_UserList_Name">{{userData.name}} / {{userData.phone}}</div>
@@ -30,7 +30,7 @@
 			<button mat-stroked-button class="NextBtn">메세지 전송</button>
 		</div>
 	  </mat-tab>
-
+<!--
 	  <mat-tab label="관리자">
 	   <div class="Admin_notice_UserList">
 	    	<mat-selection-list #Notice_Group1>
@@ -102,7 +102,7 @@
 			<button mat-stroked-button class="NextBtn">메세지 전송</button>
 		</div>
 
-	  </mat-tab>
+	  </mat-tab> -->
 
 	</mat-tab-group>
 
