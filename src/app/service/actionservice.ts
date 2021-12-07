@@ -9,6 +9,18 @@ export class Actionservice {
   constructor(private http: HttpClient) {
   }
 
+  cmdTest() {
+      // const headers = { 'content-type': 'application/json' }
+      const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+      const data = {}
+      const body = JSON.stringify(data)
+
+    console.log("수행");
+
+      return this.http.post("/bms/cmdtest", body,{headers, responseType: 'text'}).pipe(
+        catchError(this.handleError)
+      );
+  }
   userDelete(id) {
     // const headers = { 'content-type': 'application/json' }
     const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');

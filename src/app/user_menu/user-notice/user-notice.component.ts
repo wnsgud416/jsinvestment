@@ -3,9 +3,9 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet';
 import { UserNoticeDetailComponent } from '../dialog/user-notice-detail/user-notice-detail.component';
-import { getAuth } from '@firebase/auth';
 import { Firestore } from '@angular/fire/firestore';
 import { collection, getDocs, onSnapshot } from '@firebase/firestore';
+
 
 
 export interface PeriodicElement {
@@ -39,8 +39,7 @@ export class UserNoticeComponent implements OnInit {
     private firestore: Firestore,
           ) { }
 
-    async ngOnInit(): Promise<void> {
-
+  async ngOnInit(): Promise<void> {
       await getDocs(collection(this.firestore, "/notices/public/posts")).then((querySnapshot)=>{
         this.noticeTableData = []
         querySnapshot.forEach((doc) => {

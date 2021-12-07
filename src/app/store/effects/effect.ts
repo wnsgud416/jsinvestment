@@ -12,6 +12,14 @@ export class StoreEffects {
     private actionService: Actionservice
   ) { }
 
+  cmdTest$ = createEffect(() => this.actions$.pipe(
+    ofType(StoreActions.cmdTest),
+    mergeMap((action) => this.actionService.cmdTest().pipe(
+      map(data => ({ type: '[Data API] cmdTest Success', result : data})),
+      catchError(() => of({ type: '[Data API] cmdTest Fail'}))
+    ))
+  ))
+
   userDelete$ = createEffect(() => this.actions$.pipe(
     ofType(StoreActions.userDelete),
     mergeMap((action) => this.actionService.userDelete(action.id).pipe(

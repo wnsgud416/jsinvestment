@@ -1,40 +1,37 @@
 
 <div class="Admin_Option_Dialog">
 	<h3><mat-icon class="Dialog_TitleIcon2">addchart</mat-icon> <strong>주식 추가</strong> <mat-icon (click)="close()" class="Dialog_closeBtn">close</mat-icon></h3>
-	
+
 	<div class="Admin_Stock_OptionBox">
 				<mat-form-field appearance="outline">
    				<mat-label>종목코드</mat-label>
-   				<input matInput placeholder="종목코드" required>
+   				<input matInput placeholder="종목코드" [(ngModel)]="stockCode" required>
    				</mat-form-field>
-			
+
    				<mat-form-field appearance="outline">
    				<mat-label>종목명</mat-label>
-   				<input matInput placeholder="종목명" required>
+   				<input matInput placeholder="종목명" [(ngModel)]="stockName" required>
    				</mat-form-field>
-   				
+
    				<mat-form-field appearance="outline">
    				<mat-label>매수 단가</mat-label>
    					<span matPrefix>₩&nbsp;</span>
-					<input matInput placeholder="0" value="0">
+					<input matInput placeholder="0" [(ngModel)]="buyingPrice" value="0">
 					<span matSuffix>&nbsp;원</span>
    				</mat-form-field>
-   				
+
    				<mat-form-field appearance="outline" class="SeletedOpiton">
 					<mat-label>그룹 권한</mat-label>
 					<mat-select multiple required [(ngModel)]="selectedObjects">
-					  <mat-option value="Group0">전체</mat-option>
-					  <mat-option value="Group1">관리자</mat-option>
-					  <mat-option value="Group2">특별회원</mat-option>
-					  <mat-option value="Group3">일반회원</mat-option>
+					  <mat-option *ngFor="let group of GroupData" value="{{group}}">{{group}}</mat-option>
 					</mat-select>
 				  </mat-form-field>
 
-	
+
 	</div>
-   
+
     <div class="Admin_Option_DialogButtonBox">
 		<button mat-stroked-button (click)="close()">취소</button>
-		<button mat-stroked-button class="NextBtn"(click)="close()">적용</button>
+		<button mat-stroked-button class="NextBtn"(click)="add()">적용</button>
 	</div>
 </div>
