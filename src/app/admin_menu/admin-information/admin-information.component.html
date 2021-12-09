@@ -17,25 +17,22 @@
 
 		 <mat-form-field appearance="outline"  class="AdminInformation_SubFiled">
 			<mat-label>권한 변경</mat-label>
-			<mat-select multiple>
-			  <mat-option value="Group0">전체</mat-option>
-			  <mat-option value="Group1">관리자</mat-option>
-			  <mat-option value="Group2">특별회원</mat-option>
-			  <mat-option value="Group3">일반회원</mat-option>
+			<mat-select multiple [(ngModel)]="manyGroupAuth">
+        <mat-option *ngFor="let group of GroupData" value="{{group}}">{{group}}</mat-option>
 			</mat-select>
 		  </mat-form-field>
 
-		  <button mat-stroked-button  class="NextBtn" matBadge="{{selection.selected.length}}" [matBadgeHidden]="selection.selected.length===0" matBadgePosition="after">적용</button>
+		  <button mat-stroked-button  class="NextBtn" (click)="manyGroupAuthClick()" matBadge="{{selection.selected.length}}" [matBadgeHidden]="selection.selected.length===0" matBadgePosition="after">적용</button>
 
 
 		  <mat-form-field appearance="outline" class="AdminInformation_SubFiled">
 			<mat-label>일괄 기능</mat-label>
-			<mat-select>
-			  <mat-option value="User Delete">주식 삭제</mat-option>
+			<mat-select [(ngModel)]="quickMenu">
+			  <mat-option value="stockDelete">주식 삭제</mat-option>
 			</mat-select>
 		  </mat-form-field>
-		  <button mat-stroked-button  class="NextBtn" matBadge="{{selection.selected.length}}" [matBadgeHidden]="selection.selected.length===0" matBadgePosition="after">적용</button>
-		  
+		  <button mat-stroked-button  class="NextBtn" (click)="quickMenuClick()" matBadge="{{selection.selected.length}}" [matBadgeHidden]="selection.selected.length===0" matBadgePosition="after">적용</button>
+
 		  <mat-form-field appearance="outline" class="AdminInformation_SubFiled Total_Filed">
 			<mat-label>총 수익률</mat-label>
 			  <mat-icon matPrefix>point_of_sale</mat-icon>
@@ -50,7 +47,7 @@
 
 			<div class="Admin_InformationBox">
 
-	<table mat-table [dataSource]="dataSource">
+	<table mat-table [dataSource]="tableRowData">
 
 	   <ng-container matColumnDef="select" sticky>
 		<th mat-header-cell *matHeaderCellDef class="Table_AllCheckBox" style="text-align: center;">
@@ -74,40 +71,40 @@
 		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;"> {{element.code}} </td>
 	  </ng-container>
 
-	  <ng-container matColumnDef="codename">
+	  <ng-container matColumnDef="name">
 		<th mat-header-cell *matHeaderCellDef style="width: 12.5vw; text-align: center; padding: 0 2vw;"> 종목명 </th>
-		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;"> {{element.codename}} </td>
+		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;"> {{element.name}} </td>
 	  </ng-container>
 
 
-	  <ng-container matColumnDef="price">
+	  <ng-container matColumnDef="currentPrice">
 		<th mat-header-cell *matHeaderCellDef style="width: 12.5vw; text-align: center; padding: 0 2vw;"> 현재가 </th>
-		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;"> {{element.price}} </td>
+		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;"> {{element.currentPrice}}원 </td>
 	  </ng-container>
 
 
-	  <ng-container matColumnDef="purchase">
+	  <ng-container matColumnDef="buyingPrice">
 		<th mat-header-cell *matHeaderCellDef style="width: 12.5vw; text-align: center; padding: 0 2vw;"> 매입 단가 </th>
-		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;"> {{element.purchase}} </td>
+		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;"> {{element.buyingPrice}}원 </td>
 	  </ng-container>
 
-	  <ng-container matColumnDef="profits">
+	  <ng-container matColumnDef="yield">
 		<th mat-header-cell *matHeaderCellDef style="width: 12.5vw; text-align: center; padding: 0 2vw;"> 수익률 </th>
-		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw; font-weight: bold;" class="{{element.profits >0? 'PlusNumber' : 'MinusNumber'}}"> {{element.profits}} %</td>
+		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw; font-weight: bold;" class="{{element.yield >0? 'PlusNumber' : 'MinusNumber'}}"> {{element.yield}} %</td>
 	  </ng-container>
 
-	  <ng-container matColumnDef="grouping">
+	  <ng-container matColumnDef="group">
 		<th mat-header-cell *matHeaderCellDef style="width: calc(12.5vw - 50px); text-align: center; padding: 0 2vw;"> 그룹 권한 </th>
-		<td mat-cell *matCellDef="let element" style="width: calc(12.5vw - 50px); text-align: center; padding: 0 2vw;"> {{element.grouping}} </td>
+		<td mat-cell *matCellDef="let element" style="width: calc(12.5vw - 50px); text-align: center; padding: 0 2vw;"> {{element.group}} </td>
 	  </ng-container>
 
 
-	  <ng-container matColumnDef="selling">
+	  <ng-container matColumnDef="sellingPrice">
 		<th mat-header-cell *matHeaderCellDef style="width: 12.5vw; text-align: center; padding: 0 2vw;"> 매도 단가 </th>
 		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;" class="selling_Filed">
 		<mat-form-field appearance="outline" (click)="$event.stopPropagation()">
 		<span matPrefix>₩&nbsp;</span>
-		<input matInput value="{{element.selling}}">
+		<input matInput value="{{element.sellingPrice}}">
 		<span matSuffix>&nbsp;원</span>
 		</mat-form-field>
 
@@ -119,9 +116,9 @@
 		<th mat-header-cell *matHeaderCellDef style="width: 12.5vw; text-align: center; padding: 0 2vw;"> 기능 </th>
 		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;">
 
-		<button mat-stroked-button (click)="$event.stopPropagation()" [matMenuTriggerFor]="AdminInformation_OptionMenu">그룹 권한</button>
-		<button mat-stroked-button (click)="Stock_Modify($event.stopPropagation())" class="AddBtn" >주식 수정</button>
-		<button mat-stroked-button (click)="Stock_Remove($event.stopPropagation())" class="RedBtn" >주식 삭제</button>
+		<!-- <button mat-stroked-button (click)="$event.stopPropagation()" [matMenuTriggerFor]="AdminInformation_OptionMenu">그룹 권한</button> -->
+		<button mat-stroked-button (click)="Stock_Modify(element,$event.stopPropagation())" class="AddBtn" >주식 수정</button>
+		<button mat-stroked-button (click)="Stock_Remove(element,$event.stopPropagation())" class="RedBtn" >주식 삭제</button>
 
 
 
@@ -132,12 +129,26 @@
 	  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
 
 
-	  <tr class="Search_resulttext" *matNoDataRow>
-				<td class="mat-cell" colspan="9">
-				<mat-icon>search_off</mat-icon>
-				<p>"{{input.value}}"에 대한 검색결과가 없습니다.</p>
-				</td>
-	</tr>
+	  <div *ngIf="tableRowData.filteredData.length>0">
+      <tr class="Search_resulttext" *matNoDataRow>
+        <td class="mat-cell" colspan="9">
+        <mat-icon>search_off</mat-icon>
+        <p>"{{input.value}}"에 대한 검색결과가 없습니다.</p>
+        </td>
+      </tr>
+    </div>
+    <div *ngIf="tableRowData.filteredData.length==0">
+      <tr class="Search_resulttext" *matNoDataRow>
+        <td class="mat-cell" colspan="9">
+          <mat-icon>search_off</mat-icon>
+          <!-- <mat-progress-spinner
+          color="primary"
+          mode="indeterminate" >
+        </mat-progress-spinner> -->
+        <p>공지사항을 불러오는 중입니다.</p>
+        </td>
+      </tr>
+    </div>
 	</table>
 
 	</div>
@@ -147,11 +158,8 @@
 <mat-menu #AdminInformation_OptionMenu="matMenu" class="AdminInformation_OptionFiled">
   <mat-form-field appearance="outline">
 			<mat-label>권한 부여</mat-label>
-			<mat-select multiple>
-			  <mat-option value="Group0">전체</mat-option>
-			  <mat-option value="Group1">관리자</mat-option>
-			  <mat-option value="Group2">특별회원</mat-option>
-			  <mat-option value="Group3">일반회원</mat-option>
+			<mat-select multiple [(ngModel)]="oneGroupAuth">
+			  <mat-option *ngFor="let group of GroupData" value="{{group}}">{{group}}</mat-option>
 			</mat-select>
 		  </mat-form-field>
 </mat-menu>
@@ -159,11 +167,8 @@
 <mat-menu #AdminInformation_OptionMenu2="matMenu" class="AdminInformation_OptionFiled">
   <mat-form-field appearance="outline">
 			<mat-label>권한 선택</mat-label>
-			<mat-select value="Group0">
-			  <mat-option value="Group0">전체</mat-option>
-			  <mat-option value="Group1">관리자</mat-option>
-			  <mat-option value="Group2">특별회원</mat-option>
-			  <mat-option value="Group3">일반회원</mat-option>
+			<mat-select [(ngModel)]="yieldGroup">
+        <mat-option *ngFor="let group of GroupData" value="{{group}}">{{group}}</mat-option>
 			</mat-select>
 		  </mat-form-field>
 </mat-menu>

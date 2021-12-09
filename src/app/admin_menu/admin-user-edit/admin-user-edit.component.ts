@@ -38,6 +38,8 @@ export class AdminUserEditComponent implements OnInit {
   public selectedGroup;
   public quickActionValue;
   public checkSubscriptionValue;
+  GroupData:any = [];
+
   constructor(
     private MatBottomSheet: MatBottomSheet,
     private firestore: Firestore,
@@ -55,7 +57,19 @@ export class AdminUserEditComponent implements OnInit {
             this.userTableData.push(doc.data());
           });
           this.tableRowData = new MatTableDataSource(this.userTableData);
+      });
+
+      await getDocs(collection(this.firestore, "groups")).then((querySnapshot) => {
+        var group: any = [];
+        querySnapshot.forEach((doc) => {
+          group.push(doc.data());
         });
+        console.log(group);
+
+        group.forEach(element => {
+          this.GroupData.push(element.name);
+        });
+      })
 
     }
 
@@ -128,67 +142,74 @@ export class AdminUserEditComponent implements OnInit {
   }
 
   checkGroup(){
-    console.log(this.selectedGroup);
-    var index = this.selection.selected.length-1
-    if(this.selectedGroup == undefined){
-      window.alert('이동할 그룹을 선택해 주세요.')
-    }else{
-      this.selection.selected.forEach(async (data,i)=>{
-        const washingtonRef = doc(this.firestore, "users", data.id);
-
-        await updateDoc(washingtonRef, {
-          group: this.selectedGroup,
-        })
-        .then(()=>{
-          if(i ==index){
-            window.alert('그룹 수정을 완료했습니다.')
-          }
-        }).catch((error) =>{
-          window.alert('그룹 수정중에 오류가 발생했습니다.')
-        })
-      })
-    }
-  }
-  quickAction(){
-    if(this.quickActionValue==undefined){
-      window.alert('일괄 기능을 선택해 주세요.')
+    if (this.selection.selected.length == 0) {
+      window.alert('이동할 유저를 선택해 주세요.')
     } else {
       var index = this.selection.selected.length-1
-      if(this.quickActionValue==="user_Delete"){
-        var userIds:any = [];
-        this.selection.selected.forEach(data=>{
-          userIds.push(data.id)
-        })
-        this.store.dispatch(Action.userDelete({ id:userIds}))
-        this.actions$.pipe(ofType(Action.userDeleteSuccess)).pipe(take(1)).subscribe(async () => {
-          this.selection.selected.forEach(async (data,i)=>{
-            await deleteDoc(doc(this.firestore, "users", data.id))
-            .then(()=>{
-              if(i ==index){
-                window.alert('회원 삭제를 완료했습니다.')
-              }
-            }).catch((error) =>{
-              window.alert('회원 삭제중에 오류가 발생했습니다.')
-            })
-          })
-        });
-      }else if(this.quickActionValue==="SubscriptionEnd"){
+      if(this.selectedGroup == undefined){
+        window.alert('이동할 그룹을 선택해 주세요.')
+      }else{
         this.selection.selected.forEach(async (data,i)=>{
           const washingtonRef = doc(this.firestore, "users", data.id);
+
           await updateDoc(washingtonRef, {
-            updated_at: "구독종료",
+            group: this.selectedGroup,
           })
           .then(()=>{
             if(i ==index){
-              window.alert('구독 종료를 완료했습니다.')
+              window.alert('그룹 수정을 완료했습니다.')
             }
           }).catch((error) =>{
-            window.alert('구독 종료중에 오류가 발생했습니다.')
+            window.alert('그룹 수정중에 오류가 발생했습니다.')
           })
         })
       }
     }
 
+  }
+  quickAction() {
+    if (this.selection.selected.length == 0) {
+      window.alert('이동할 유저를 선택해 주세요.')
+    } else {
+      if(this.quickActionValue==undefined){
+        window.alert('일괄 기능을 선택해 주세요.')
+      } else {
+        var index = this.selection.selected.length-1
+        if(this.quickActionValue==="user_Delete"){
+          var userIds:any = [];
+          this.selection.selected.forEach(data=>{
+            userIds.push(data.id)
+          })
+          this.store.dispatch(Action.userDelete({ id:userIds}))
+          this.actions$.pipe(ofType(Action.userDeleteSuccess)).pipe(take(1)).subscribe(async () => {
+            this.selection.selected.forEach(async (data,i)=>{
+              await deleteDoc(doc(this.firestore, "users", data.id))
+              .then(()=>{
+                if(i ==index){
+                  window.alert('회원 삭제를 완료했습니다.')
+                }
+              }).catch((error) =>{
+                window.alert('회원 삭제중에 오류가 발생했습니다.')
+              })
+            })
+          });
+        }else if(this.quickActionValue==="SubscriptionEnd"){
+          this.selection.selected.forEach(async (data,i)=>{
+            const washingtonRef = doc(this.firestore, "users", data.id);
+            await updateDoc(washingtonRef, {
+              updated_at: "구독종료",
+            })
+            .then(()=>{
+              if(i ==index){
+                window.alert('구독 종료를 완료했습니다.')
+              }
+            }).catch((error) =>{
+              window.alert('구독 종료중에 오류가 발생했습니다.')
+            })
+          })
+        }
+      }
+    }
 
   }
   async subscription(event,id){

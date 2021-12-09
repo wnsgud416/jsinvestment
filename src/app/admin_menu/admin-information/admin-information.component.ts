@@ -5,50 +5,19 @@ import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet'
 import { AdminStockAddComponent } from '../dialog/admin-stock-add/admin-stock-add.component';
 import { AdminStockModifyComponent } from '../dialog/admin-stock-modify/admin-stock-modify.component';
 import { AdminStockRemoveComponent } from '../dialog/admin-stock-remove/admin-stock-remove.component';
+import { collection, deleteDoc, doc, getDocs, onSnapshot, updateDoc } from 'firebase/firestore';
+import { Firestore } from '@angular/fire/firestore';
 
 export interface PeriodicElement {
 	code : string;
-	codename : string;
-	price : string;
-	purchase : string;
-	profits : number;
-	grouping : string;
-	selling : string;
+	name : string;
+	currentPrice : string;
+	buyingPrice : string;
+	yield : number;
+	group : string;
+  sellingPrice: string;
+  id: string;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-
-  {code: "290520", codename: '신도기연', price: "16,000원", purchase: '17,000원', profits: - 10.60, grouping:'관리자, 특별회원', selling: '0'},
-  {code: "093320", codename: '케이아이엔엑스', price: "44,000원", purchase: '72,000원', profits: - 38.60, grouping:'전체', selling: '0'},
-  {code: "102710", codename: '이엔에프테크놀로지', price: "29,000원", purchase: '44,000원', profits: - 34.60, grouping:'일반회원', selling: '0'},
-  {code: "192440", codename: '슈피겐코리아', price: "48,000원", purchase: '62,500원', profits: - 22.60, grouping:'특별회원', selling: '0'},
-  {code: "187870", codename: '디바이스이엔지', price: "30,400원", purchase: '38,100원', profits: - 20.20, grouping:'특별회원', selling: '0'},
-  {code: "294090", codename: '이오플로우', price: "55,800원", purchase: '55,100원', profits: + 1.5, grouping:'일반회원', selling: '0'},
-  {code: "200130", codename: '콜마비앤에이치', price: "35,800원", purchase: '49,100원', profits: - 29.10, grouping:'특별회원', selling: '0'},
-  {code: "353200", codename: '대덕전자', price: "17,050원", purchase: '18,200원', profits: - 6.30, grouping:'전체', selling: '0'},
-  {code: "030210", codename: 'KTB투자증권', price: "6,500원", purchase: '72,000원', profits: - 9.70, grouping:'관리자', selling: '0'},
-  {code: "003530", codename: '한화투자증권', price: "5,800원", purchase: '4,780원', profits: + 23.00, grouping:'전체', selling: '0'},
-  {code: "001450", codename: '현대해상', price: "28,800원", purchase: '25,200원', profits: + 11.30, grouping:'전체', selling: '0'},
-  {code: "066970", codename: '엘엔에프', price: "214,400원", purchase: '185,500원', profits: + 16.60, grouping:'일반회원', selling: '0'},
-  {code: "032640", codename: 'LG유플러스', price: "14,800원", purchase: '14,300원', profits: + 3.50, grouping:'특별회원', selling: '0'},
-  {code: "096240", codename: '청담러닝', price: "31,800원", purchase: '27,200원', profits: + 14.40, grouping:'일반회원', selling: '0'},
-  {code: "290524", codename: '신도기연', price: "16,000원", purchase: '17,000원', profits: - 10.60, grouping:'관리자, 특별회원', selling: '0'},
-  {code: "093321", codename: '케이아이엔엑스', price: "44,000원", purchase: '72,000원', profits: - 38.60, grouping:'전체', selling: '0'},
-  {code: "102711", codename: '이엔에프테크놀로지', price: "29,000원", purchase: '44,000원', profits: - 34.60, grouping:'일반회원', selling: '0'},
-  {code: "192442", codename: '슈피겐코리아', price: "48,000원", purchase: '62,500원', profits: - 22.60, grouping:'특별회원', selling: '0'},
-  {code: "187873", codename: '디바이스이엔지', price: "30,400원", purchase: '38,100원', profits: - 20.20, grouping:'특별회원', selling: '0'},
-  {code: "294094", codename: '이오플로우', price: "55,800원", purchase: '55,100원', profits: + 1.5, grouping:'일반회원', selling: '0'},
-  {code: "200135", codename: '콜마비앤에이치', price: "35,800원", purchase: '49,100원', profits: - 29.10, grouping:'특별회원', selling: '0'},
-  {code: "353201", codename: '대덕전자', price: "17,050원", purchase: '18,200원', profits: - 6.30, grouping:'전체', selling: '0'},
-  {code: "030212", codename: 'KTB투자증권', price: "6,500원", purchase: '72,000원', profits: - 9.70, grouping:'관리자', selling: '0'},
-  {code: "003533", codename: '한화투자증권', price: "5,800원", purchase: '4,780원', profits: + 23.00, grouping:'전체', selling: '0'},
-  {code: "001454", codename: '현대해상', price: "28,800원", purchase: '25,200원', profits: + 11.30, grouping:'전체', selling: '0'},
-  {code: "066975", codename: '엘엔에프', price: "214,400원", purchase: '185,500원', profits: + 16.60, grouping:'일반회원', selling: '0'},
-  {code: "032646", codename: 'LG유플러스', price: "14,800원", purchase: '14,300원', profits: + 3.50, grouping:'특별회원', selling: '0'},
-  {code: "096247", codename: '청담러닝', price: "31,800원", purchase: '27,200원', profits: + 14.40, grouping:'일반회원', selling: '0'},
-
-
-];
 
 @Component({
   selector: 'app-admin-information',
@@ -57,27 +26,69 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class AdminInformationComponent implements OnInit {
 
+  displayedColumns: string[] = ['select', 'code', 'name', 'currentPrice', 'buyingPrice', 'yield', 'group', 'sellingPrice', 'action'];
+  public tableRowData = new MatTableDataSource([]);
+
+  stockInfoData: any = [];
+  GroupData: any = [];
+  oneGroupAuth: any = [];
+  yieldGroup: any = [];
+  manyGroupAuth: any = [];
+
+  quickMenu
+
    constructor(
-	private MatBottomSheet: MatBottomSheet,
+     private MatBottomSheet: MatBottomSheet,
+     private firestore: Firestore,
 			  ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+
+    onSnapshot(
+      collection(this.firestore, "stockInfo"), { includeMetadataChanges: true }, (collectionGroupData) => {
+        this.stockInfoData = [];
+        this.tableRowData = new MatTableDataSource([]);
+        collectionGroupData.forEach((doc) => {
+          this.stockInfoData.push(doc.data());
+        });
+        this.stockInfoData.forEach((element,i) => {
+          //현재가 찾아서 각자 이름에 적용
+          //수익률 계산해서 추가
+          this.stockInfoData[i]['currentPrice'] = 0
+          this.stockInfoData[i]['yield'] = 0
+          this.stockInfoData[i]['sellingPrice'] = 0
+
+        });
+        this.tableRowData = new MatTableDataSource(this.stockInfoData);
+    });
+
+    await getDocs(collection(this.firestore, "groups")).then((querySnapshot) => {
+      var group: any = [];
+      querySnapshot.forEach((doc) => {
+        group.push(doc.data());
+      });
+      group.forEach(element => {
+        this.GroupData.push(element.name);
+      });
+      // this.GroupData.unshift('전체');
+    })
+    this.yieldGroup = [this.GroupData[0]]
 
   }
 
 
-  displayedColumns: string[] = ['select', 'code', 'codename', 'price', 'purchase', 'profits', 'grouping', 'selling', 'action'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+
+  //dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.tableRowData.filter = filterValue.trim().toLowerCase();
   }
 	selection = new SelectionModel<PeriodicElement>(true, []);
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = this.tableRowData.data.length;
     return numSelected === numRows;
   }
 
@@ -87,7 +98,7 @@ export class AdminInformationComponent implements OnInit {
       return;
     }
 
-    this.selection.select(...this.dataSource.data);
+    this.selection.select(...this.tableRowData.data);
   }
 
   checkboxLabel(row?: PeriodicElement): string {
@@ -100,30 +111,85 @@ export class AdminInformationComponent implements OnInit {
   Stock_Add() {
     this.MatBottomSheet.open(AdminStockAddComponent, {
       panelClass: 'OptionModal',
-      data: {}
+      data: {groupData: this.GroupData}
     }).afterDismissed().subscribe((result) => {
 
     });
 
   }
 
-  Stock_Modify(data) {
+  Stock_Modify(stockData,event) {
     this.MatBottomSheet.open(AdminStockModifyComponent, {
       panelClass: 'OptionModal',
-      data: {}
+      data: {stockData:stockData,groupData: this.GroupData,stockInfoData:this.stockInfoData}
     }).afterDismissed().subscribe((result) => {
 
     });
 
   }
 
-  Stock_Remove(data) {
+  Stock_Remove(stockData,event) {
     this.MatBottomSheet.open(AdminStockRemoveComponent, {
       panelClass: 'OptionModal',
-      data: {}
+      data: {stockData:stockData}
     }).afterDismissed().subscribe((result) => {
 
     });
+
+  }
+  manyGroupAuthClick() {
+    if (this.selection.selected.length == 0) {
+      window.alert('이동 할 종목을 선택해 주세요.')
+    } else {
+      if (this.manyGroupAuth.length == 0) {
+        window.alert('이동 할 권한을 선택해 주세요.')
+      } else {
+        var index = this.selection.selected.length - 1
+        this.selection.selected.forEach(async (data,i)=>{
+          const washingtonRef = doc(this.firestore, "stockInfo", data.id);
+
+          await updateDoc(washingtonRef, {
+            group: this.manyGroupAuth,
+          })
+          .then(()=>{
+            if(i ==index){
+              window.alert('그룹 수정을 완료했습니다.')
+              this.selection.clear();
+            }
+          }).catch((error) =>{
+            window.alert('그룹 수정중에 오류가 발생했습니다.')
+          })
+        })
+      }
+    }
+
+  }
+
+  quickMenuClick() {
+    console.log(this.quickMenu);
+
+    if (this.selection.selected.length == 0) {
+      window.alert('이동할 종목을 선택해 주세요.')
+    } else {
+      if (this.quickMenu === undefined) {
+        window.alert('실행할 기능을 선택해 주세요.')
+      } else {
+        if (this.quickMenu === 'stockDelete') {
+          var index = this.selection.selected.length - 1
+          this.selection.selected.forEach(async (data,i)=>{
+            await deleteDoc(doc(this.firestore, "stockInfo", data.id))
+            .then(()=>{
+              if(i ==index){
+                window.alert('그룹 삭제를 완료했습니다.')
+                this.selection.clear();
+              }
+            }).catch((error) =>{
+              window.alert('그룹 삭제중에 오류가 발생했습니다.')
+            })
+          })
+        }
+      }
+    }
 
   }
 

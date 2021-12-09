@@ -15,10 +15,8 @@
 			</mat-form-field>
 			<mat-form-field appearance="outline" class="AdminUser_Edit_SubFiled">
 			<mat-label>그룹 이동</mat-label>
-			<mat-select [(value)]="selectedGroup">
-			  <mat-option value="관리자" >관리자</mat-option>
-			  <mat-option value="일반회원" >일반회원</mat-option>
-			  <mat-option value="특별회원" >특별회원</mat-option>
+			<mat-select [(ngModel)]="selectedGroup">
+			  <mat-option *ngFor="let group of GroupData" value="{{group}}" >{{group}}</mat-option>
 			</mat-select>
 		  </mat-form-field>
 		  <button mat-stroked-button (click)="checkGroup()" class="NextBtn" matBadge="{{selection.selected.length}}" [matBadgeHidden]="selection.selected.length===0" matBadgePosition="after">적용</button>
@@ -130,13 +128,7 @@
 
 
 <mat-menu #Admin_Group_ListMenu="matMenu">
-  <button mat-menu-item (click)="groupMove('관리자')">
-    <span>관리자</span>
-  </button>
-  <button mat-menu-item (click)="groupMove('일반회원')">
-    <span>일반회원</span>
-  </button>
-  <button mat-menu-item (click)="groupMove('특별회원')">
-    <span>특별회원</span>
+  <button mat-menu-item *ngFor="let group of GroupData" (click)="groupMove(group)">
+    <span>{{group}}</span>
   </button>
 </mat-menu>
