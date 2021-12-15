@@ -1,6 +1,6 @@
 
 <div class="Admin_Option_Dialog">
-	<h3><mat-icon class="Dialog_TitleIcon2">add_alert</mat-icon> <strong>새 공지사항 작성</strong> <mat-icon (click)="close()" class="Dialog_closeBtn">close</mat-icon></h3>
+	<h3><mat-icon class="Dialog_TitleIcon2">add_alert</mat-icon> <strong>새 {{pageName}} 작성</strong> <mat-icon (click)="close()" class="Dialog_closeBtn">close</mat-icon></h3>
 
 	<div class="Admin_Notice_ModifyBox">
 				<mat-form-field appearance="outline">
@@ -15,7 +15,7 @@
 
    				<mat-form-field appearance="outline">
    				<mat-label>제목</mat-label>
-   				<input matInput #NoticeName maxlength="10" placeholder="공지사항 제목" required [(ngModel)]="title">
+   				<input matInput #NoticeName maxlength="10" placeholder={{pagePlaceholder}} required [(ngModel)]="title">
    				<mat-hint align="end">{{NoticeName.value?.length || 0}}/10</mat-hint>
    				</mat-form-field>
 

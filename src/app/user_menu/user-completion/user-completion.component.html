@@ -5,37 +5,52 @@
 	</div>
 
 <div class="User_Completion_TableBox">
-		<table mat-table [dataSource]="dataSource">
+		<table mat-table [dataSource]="tableRowData">
 
-			<ng-container matColumnDef="Month">
+			<ng-container matColumnDef="unit">
 				<th mat-header-cell *matHeaderCellDef style="width: 15vw; text-align: center"> 단위 </th>
-				<td mat-cell *matCellDef="let element" style="width: 15vw; text-align: center">  [ {{element.Month}} ] </td>
+				<td mat-cell *matCellDef="let element" style="width: 15vw; text-align: center">  [ {{element.unit}}월 ] </td>
 			</ng-container>
 
-			<ng-container matColumnDef="Name">
+			<ng-container matColumnDef="name">
 				<th mat-header-cell *matHeaderCellDef style="width: 40vw; text-align: center;"> 제목 </th>
-				<td mat-cell *matCellDef="let element" style="width: 40vw; text-align: center;"> {{element.Name}} </td>
+				<td mat-cell *matCellDef="let element" style="width: 40vw; text-align: center;"> {{element.name}} 결산 내역 </td>
 			</ng-container>
 
-			<ng-container matColumnDef="TotalFiled">
+			<ng-container matColumnDef="sumYield">
 				<th mat-header-cell *matHeaderCellDef style="width: 20vw; text-align: center"> 총 수익률 </th>
-				<td mat-cell *matCellDef="let element" style="width: 20vw; text-align: center; font-weight: bold;" class="{{element.TotalFiled >0? 'PlusNumber' : 'MinusNumber'}}"> {{element.TotalFiled}} %</td>
+				<td mat-cell *matCellDef="let element" style="width: 20vw; text-align: center; font-weight: bold;" class="{{element.sumYield >0? 'PlusNumber' : 'MinusNumber'}}"> {{element.sumYield}} %</td>
 			</ng-container>
 
-			<ng-container matColumnDef="Data">
+			<!-- <ng-container matColumnDef="Data">
 				<th mat-header-cell *matHeaderCellDef style="width: 20vw; text-align: center"> 게시일 </th>
 				<td mat-cell *matCellDef="let element" style="width: 20vw; text-align: center"> {{element.Data}} </td>
-			</ng-container>
+			</ng-container> -->
 
 			<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-			<tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="Completion_Detail()"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="Completion_Detail(row.stocks)"></tr>
 
-			<tr class="Search_resulttext" *matNoDataRow>
-				<td class="mat-cell" colspan="4">
-				<mat-icon>search_off</mat-icon>
-				<p>"{{input.value}}"에 대한 검색결과가 없습니다.</p>
-				</td>
-			</tr>
+      <div *ngIf="tableRowData.filteredData.length>0">
+        <tr class="Search_resulttext" *matNoDataRow>
+          <td class="mat-cell" colspan="3">
+          <mat-icon>search_off</mat-icon>
+          <p>"{{input.value}}"에 대한 검색결과가 없습니다.</p>
+          </td>
+        </tr>
+      </div>
+      <div *ngIf="tableRowData.filteredData.length==0">
+        <tr class="Search_resulttext" *matNoDataRow>
+          <td class="mat-cell" colspan="3">
+            <mat-icon>search_off</mat-icon>
+            <!-- <mat-progress-spinner
+            color="primary"
+            mode="indeterminate" >
+          </mat-progress-spinner> -->
+          <p>완료 수익률을 불러오는 중입니다.</p>
+          </td>
+        </tr>
+      </div>
+
 		</table>
 	</div>
 	<div class="User_Completion_Search">

@@ -37,6 +37,9 @@ export class UserNoticeDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.content = this.data.content
+    if (this.data.page === "community") {
+      this.config.placeholder='게시물을 확인해주세요'
+    }
   }
 
 	close() {

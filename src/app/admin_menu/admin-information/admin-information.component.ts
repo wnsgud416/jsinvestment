@@ -6,6 +6,7 @@ import { AdminStockAddComponent } from '../dialog/admin-stock-add/admin-stock-ad
 import { AdminStockModifyComponent } from '../dialog/admin-stock-modify/admin-stock-modify.component';
 import { AdminStockRemoveComponent } from '../dialog/admin-stock-remove/admin-stock-remove.component';
 import { collection, deleteDoc, doc, getDocs, onSnapshot, updateDoc } from 'firebase/firestore';
+import { AdminStockSellComponent } from '../dialog/admin-stock-sell/admin-stock-sell.component';
 import { Firestore } from '@angular/fire/firestore';
 
 export interface PeriodicElement {
@@ -35,6 +36,8 @@ export class AdminInformationComponent implements OnInit {
   yieldGroup: any = [];
   manyGroupAuth: any = [];
 
+  test = "21321321421"
+
   quickMenu
 
    constructor(
@@ -43,6 +46,9 @@ export class AdminInformationComponent implements OnInit {
 			  ) { }
 
   async ngOnInit(): Promise<void> {
+    var test2=this.test.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    console.log(test2);
+
 
     onSnapshot(
       collection(this.firestore, "stockInfo"), { includeMetadataChanges: true }, (collectionGroupData) => {
@@ -54,9 +60,9 @@ export class AdminInformationComponent implements OnInit {
         this.stockInfoData.forEach((element,i) => {
           //현재가 찾아서 각자 이름에 적용
           //수익률 계산해서 추가
-          this.stockInfoData[i]['currentPrice'] = 0
-          this.stockInfoData[i]['yield'] = 0
-          this.stockInfoData[i]['sellingPrice'] = 0
+          this.stockInfoData[i]['currentPrice'] = "0"
+          this.stockInfoData[i]['yield'] = "0"
+          this.stockInfoData[i]['sellingPrice'] = "0"
 
         });
         this.tableRowData = new MatTableDataSource(this.stockInfoData);
@@ -76,7 +82,10 @@ export class AdminInformationComponent implements OnInit {
 
   }
 
-
+  numChange(num) {
+    var changeNum = num.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return changeNum
+  }
 
   //dataSource = new MatTableDataSource(ELEMENT_DATA);
 
@@ -113,7 +122,7 @@ export class AdminInformationComponent implements OnInit {
       panelClass: 'OptionModal',
       data: {groupData: this.GroupData}
     }).afterDismissed().subscribe((result) => {
-
+      this.selection.clear();
     });
 
   }
@@ -123,7 +132,7 @@ export class AdminInformationComponent implements OnInit {
       panelClass: 'OptionModal',
       data: {stockData:stockData,groupData: this.GroupData,stockInfoData:this.stockInfoData}
     }).afterDismissed().subscribe((result) => {
-
+      this.selection.clear();
     });
 
   }
@@ -133,9 +142,19 @@ export class AdminInformationComponent implements OnInit {
       panelClass: 'OptionModal',
       data: {stockData:stockData}
     }).afterDismissed().subscribe((result) => {
-
+      this.selection.clear();
     });
 
+  }
+  Stock_Sell(stockData, event, sellValue) {
+    console.log(sellValue.value);
+
+    this.MatBottomSheet.open(AdminStockSellComponent, {
+      panelClass: 'OptionModal',
+      data: {stockData:stockData, sellingPrice:sellValue.value}
+    }).afterDismissed().subscribe((result) => {
+      this.selection.clear();
+    });
   }
   manyGroupAuthClick() {
     if (this.selection.selected.length == 0) {

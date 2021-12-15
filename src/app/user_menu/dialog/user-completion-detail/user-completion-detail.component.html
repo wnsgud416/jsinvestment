@@ -1,38 +1,38 @@
 <div class="User_Option_Dialog">
 	<h3><span>[11월]</span> <strong>11월 4주차 결산 내역</strong> <mat-icon (click)="close()">close</mat-icon></h3>
 	<p>총 수익률 <span>+ 92.50%</span></p>
-	
+
 	<div class="User_Completion_Detail_TableBox">
-		<table mat-table [dataSource]="dataSource">
-			
-			<ng-container matColumnDef="Code">
+		<table mat-table [dataSource]="tableRowData">
+
+			<ng-container matColumnDef="code">
 				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 15vw"> 종목코드 </th>
-				<td mat-cell *matCellDef="let element" style="text-align: center; width: 15vw"> {{element.Code}} </td>
+				<td mat-cell *matCellDef="let element" style="text-align: center; width: 15vw"> {{element.code}} </td>
 			</ng-container>
 
-			<ng-container matColumnDef="CodeName">
+			<ng-container matColumnDef="name">
 				<th mat-header-cell *matHeaderCellDef style=" text-align: center; width: 25vw"> 종목명 </th>
-				<td mat-cell *matCellDef="let element" style=" text-align: center; width: 25vw"> {{element.CodeName}} </td>
+				<td mat-cell *matCellDef="let element" style=" text-align: center; width: 25vw"> {{element.name}} </td>
 			</ng-container>
 
-			<ng-container matColumnDef="Buying">
+			<ng-container matColumnDef="buyingPrice">
 				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 10vw"> 매수가 </th>
-				<td mat-cell *matCellDef="let element" style="text-align: center; width: 10vw"> {{element.Buying}} </td>
+				<td mat-cell *matCellDef="let element" style="text-align: center; width: 10vw"> {{numChange(element.buyingPrice)}} </td>
 			</ng-container>
 
-			<ng-container matColumnDef="Selling">
+			<ng-container matColumnDef="sellingPrice">
 				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 10vw"> 매도가 </th>
-				<td mat-cell *matCellDef="let element" style="text-align: center; width: 10vw"> {{element.Selling}} </td>
+				<td mat-cell *matCellDef="let element" style="text-align: center; width: 10vw"> {{numChange(element.sellingPrice)}} </td>
 			</ng-container>
 
-			<ng-container matColumnDef="Number">
+			<ng-container matColumnDef="yield">
 				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 10vw"> 수익률 </th>
-				<td mat-cell *matCellDef="let element" style="text-align: center; width: 10vw" class="{{element.Number >0? 'PlusNumber' : 'MinusNumber'}}"> {{element.Number}} %</td>
+				<td mat-cell *matCellDef="let element" style="text-align: center; width: 10vw" class="{{element.yield >0? 'PlusNumber' : 'MinusNumber'}}"> {{element.yield}} %</td>
 			</ng-container>
-			
+
 			<ng-container matColumnDef="Data">
 				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 15vw"> 기간 </th>
-				<td mat-cell *matCellDef="let element" style="text-align: center; width: 15vw"> {{element.Data}} </td>
+				<td mat-cell *matCellDef="let element" style="text-align: center; width: 15vw"> {{element.created_at + "~"+element.updated_at}} </td>
 			</ng-container>
 
 			<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
@@ -40,7 +40,7 @@
 
 		</table>
 	</div>
-   
+
     <div class="User_Option_DialogButtonBox">
 		<button mat-stroked-button (click)="close()">취소</button>
 	</div>

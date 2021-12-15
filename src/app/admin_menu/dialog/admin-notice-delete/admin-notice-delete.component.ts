@@ -22,9 +22,15 @@ export class AdminNoticeDeleteComponent implements OnInit {
     this.bottomSheetRef.dismiss()
   }
 
-  async Delete(){
+  async Delete() {
+    var dbPost
+    if (this.data.page === "community") {
+      dbPost = "notices/public/community"
+    } else if (this.data.page === "notice") {
+      dbPost = "notices/public/posts"
+    }
 
-    await deleteDoc(doc(this.firestore, "notices/public/posts", this.data.id))
+    await deleteDoc(doc(this.firestore, dbPost, this.data.id))
     .then(()=>{
       window.alert('공지사항 삭제를 완료했습니다.')
       this.bottomSheetRef.dismiss()

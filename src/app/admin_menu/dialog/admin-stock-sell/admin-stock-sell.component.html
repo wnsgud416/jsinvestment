@@ -1,0 +1,26 @@
+
+<div class="Admin_Option_Dialog">
+	<h3><mat-icon class="Dialog_TitleIcon">warning</mat-icon> <strong>정말 매도하시겠습니까?</strong> <mat-icon (click)="close()" class="Dialog_closeBtn">close</mat-icon></h3>
+
+	<div class="Stock_RemovePanel">
+		<div class="Stock_RemovePanel_Text">
+			<div class="Stock_RemovePanel_Left">
+				<mat-icon>delete_outline</mat-icon>
+			</div>
+			<div class="Stock_RemovePanel_Right">
+				<p><em>[{{this.data.stockData.code}}]</em> <span>{{this.data.stockData.name}}</span>
+          <em>현재가 : {{numChange(this.data.stockData.currentPrice)}} 원</em>
+          <em>매수가 : {{numChange(this.data.stockData.buyingPrice)}} 원</em>
+          <em>수익률 : {{this.data.stockData.yield}}%</em></p>
+          <em>매도단가 : {{numChange(this.data.sellingPrice)}} 원</em>
+				<h3>매도 후에는 종목 정보에서 사라집니다.</h3>
+			</div>
+		</div>
+
+	</div>
+
+    <div class="Admin_Option_DialogButtonBox">
+		<button mat-stroked-button (click)="close()">취소</button>
+		<button mat-stroked-button class="AddBtn"(click)="sell()">매도</button>
+	</div>
+</div>

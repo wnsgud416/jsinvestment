@@ -57,12 +57,14 @@
 		<mat-selection-list [multiple]="false">
 		  <div mat-subheader><mat-icon mat-list-icon>account_circle</mat-icon> 일반 사용자</div>
 		  <mat-list-option selected (click)="UserMenu('notice')"><mat-icon mat-list-icon>campaign</mat-icon><div mat-line>공지사항</div></mat-list-option>
+      <mat-list-option selected (click)="UserMenu('community')"><mat-icon mat-list-icon>campaign</mat-icon><div mat-line>게시판</div></mat-list-option>
 		  <mat-list-option (click)="UserMenu('recommend')"><mat-icon mat-list-icon>trending_up</mat-icon><div mat-line>추천주</div></mat-list-option>
 		  <mat-list-option (click)="UserMenu('completion')"><mat-icon mat-list-icon>format_list_numbered</mat-icon><div mat-line>완료 수익률</div></mat-list-option>
 
 		  <div mat-subheader><mat-icon mat-list-icon>admin_panel_settings</mat-icon> 관리자</div>
   <mat-list-option (click)="AdminMenu('info')"><mat-icon mat-list-icon>query_stats</mat-icon><div mat-line>종목정보</div></mat-list-option>
   <mat-list-option (click)="AdminMenu('notice')"><mat-icon mat-list-icon>edit_notifications</mat-icon><div mat-line>공지사항 관리</div></mat-list-option>
+  <mat-list-option (click)="AdminMenu('community')"><mat-icon mat-list-icon>edit_notifications</mat-icon><div mat-line>게시판 관리</div></mat-list-option>
   <mat-list-option (click)="AdminMenu('groupnotice')"><mat-icon mat-list-icon>notification_add</mat-icon><div mat-line>그룹별 알림</div></mat-list-option>
   <mat-list-option (click)="AdminMenu('groupedit')"><mat-icon mat-list-icon>group</mat-icon><div mat-line>그룹 관리</div></mat-list-option>
   <mat-list-option (click)="AdminMenu('useredit')"><mat-icon mat-list-icon>manage_accounts</mat-icon><div mat-line>유저 관리</div></mat-list-option>

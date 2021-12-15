@@ -14,7 +14,10 @@ export class AdminNoticeModifyComponent implements OnInit {
 
   classification
   title
-  content =''
+  content = ''
+  pageName
+  pagePlaceholder
+
   constructor(private bottomSheetRef: MatBottomSheetRef<AdminNoticeModifyComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private firestore: Firestore,
@@ -24,6 +27,16 @@ export class AdminNoticeModifyComponent implements OnInit {
     this.classification = this.data.classification
     this.title = this.data.title
     this.content = this.data.content
+
+    if (this.data.page === "community") {
+      this.config.placeholder = '게시물을 작성해주세요.'
+      this.pageName = "게시물"
+      this.pagePlaceholder = "게시물 제목"
+    } else if (this.data.page === "notice") {
+      this.pageName = "공지사항"
+      this.pagePlaceholder = "공지사항 제목"
+    }
+
   }
 
 	config: AngularEditorConfig = {
@@ -52,8 +65,14 @@ export class AdminNoticeModifyComponent implements OnInit {
 
 
       var dateTimeString = year + '-' + month  + '-' + day;
+      var washingtonRef
+    if (this.data.page === "community") {
+      washingtonRef = doc(this.firestore, "notices/public/community", this.data.id);
+    } else if (this.data.page === "notice") {
+      washingtonRef = doc(this.firestore, "notices/public/posts", this.data.id);
+    }
 
-    const washingtonRef = doc(this.firestore, "notices/public/posts", this.data.id);
+
 
     await updateDoc(washingtonRef, {
       classification: this.classification,

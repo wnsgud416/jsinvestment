@@ -9,15 +9,21 @@ import { AdminNoticeEditComponent } from './admin_menu/admin-notice-edit/admin-n
 import { AdminGroupNoticeComponent } from './admin_menu/admin-group-notice/admin-group-notice.component';
 import { AdminGroupEditComponent } from './admin_menu/admin-group-edit/admin-group-edit.component';
 import { AdminUserEditComponent } from './admin_menu/admin-user-edit/admin-user-edit.component';
+import { UserCommunityComponent } from './user_menu/user-community/user-community.component';
+import {
+    AdminCommunityEditComponent
+} from './admin_menu/admin-community-edit/admin-community-edit.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'testpage', component: TestpageComponent },
   { path: 'UserNotice', component: UserNoticeComponent },
+  { path: 'UserCommunity', component: UserCommunityComponent },
   { path: 'UserRecommended', component: UserRecommendedComponent },
   { path: 'UserCompletion', component: UserCompletionComponent },
   { path: 'AdminInformation', component: AdminInformationComponent },
   { path: 'AdminNoticeEdit', component: AdminNoticeEditComponent },
+  { path: 'AdminCommunityEdit', component: AdminCommunityEditComponent },
   { path: 'AdminGroupNotice', component: AdminGroupNoticeComponent },
   { path: 'AdminGroupEdit', component: AdminGroupEditComponent },
   { path: 'AdminUserEdit', component: AdminUserEditComponent },

@@ -50,7 +50,8 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatBadgeModule} from '@angular/material/badge';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatSortModule} from '@angular/material/sort';
 
 /*CDK Module*/
 import {TextFieldModule} from '@angular/cdk/text-field';
@@ -75,6 +76,9 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
+import { AdminCommunityEditComponent } from './admin_menu/admin-community-edit/admin-community-edit.component';
+import { UserCommunityComponent } from './user_menu/user-community/user-community.component';
+import { AdminStockSellComponent } from './admin_menu/dialog/admin-stock-sell/admin-stock-sell.component';
 
 
 
@@ -103,8 +107,12 @@ import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
     AdminStockRemoveComponent,
     AdminStockModifyComponent,
     UserCompletionDetailComponent,
+    AdminCommunityEditComponent,
+    UserCommunityComponent,
+    AdminStockSellComponent,
   ],
   imports: [
+    MatSortModule,
     MatProgressSpinnerModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),

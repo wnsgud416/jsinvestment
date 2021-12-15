@@ -23,11 +23,11 @@ export interface PeriodicElement {
 }
 
 @Component({
-  selector: 'app-admin-notice-modify',
-  templateUrl: './admin-notice-edit.component.html',
-  styleUrls: ['./admin-notice-edit.component.css']
+  selector: 'app-admin-community-edit',
+  templateUrl: './admin-community-edit.component.html',
+  styleUrls: ['./admin-community-edit.component.css']
 })
-export class AdminNoticeEditComponent implements OnInit {
+export class AdminCommunityEditComponent implements OnInit {
 
   displayedColumns: string[] = ['select','Number','classification', 'title', 'author', 'created_at', 'action'];
   public noticeTableData :any =[];
@@ -40,7 +40,7 @@ export class AdminNoticeEditComponent implements OnInit {
 			  ) { }
 
   async ngOnInit(): Promise<void> {
-    // await getDocs(collection(this.firestore, "/notices/public/posts")).then((querySnapshot)=>{
+    // await getDocs(collection(this.firestore, "/notices/public/community")).then((querySnapshot)=>{
     //   this.noticeTableData = []
     //   querySnapshot.forEach((doc) => {
     //     this.noticeTableData.push(doc.data());
@@ -49,7 +49,7 @@ export class AdminNoticeEditComponent implements OnInit {
     //   // this.isLoading = false;
     // })
     onSnapshot(
-      collection(this.firestore, "/notices/public/posts"), { includeMetadataChanges: true }, (collection) => {
+      collection(this.firestore, "/notices/public/community"), { includeMetadataChanges: true }, (collection) => {
         this.noticeTableData = []
         collection.forEach((doc) => {
           this.noticeTableData.push(doc.data());
@@ -95,7 +95,7 @@ export class AdminNoticeEditComponent implements OnInit {
 	Notice_Add(){
 		this.MatBottomSheet.open(AdminNoticeAddComponent, {
      panelClass: 'OptionModal',
-     data: {page:"notice"}
+     data: {page:"community"}
    }).afterDismissed().subscribe((result) => {
 
    });
@@ -106,7 +106,7 @@ export class AdminNoticeEditComponent implements OnInit {
   Notice_Detail(data,classification,title,content){
     this.MatBottomSheet.open(UserNoticeDetailComponent, {
      panelClass: 'OptionModal',
-     data: {page:"notice",classification:classification,title:title,content:content}
+     data: {page:"community",classification:classification,title:title,content:content}
    }).afterDismissed().subscribe((result) => {
 
    });
@@ -114,7 +114,7 @@ export class AdminNoticeEditComponent implements OnInit {
 	Notice_Modify(data,classification,title,content,id){
 		this.MatBottomSheet.open(AdminNoticeModifyComponent, {
      panelClass: 'OptionModal',
-     data: {page:"notice",classification:classification,title:title,content:content,id:id}
+     data: {page:"community",classification:classification,title:title,content:content,id:id}
    }).afterDismissed().subscribe((result) => {
 
    });
@@ -122,7 +122,7 @@ export class AdminNoticeEditComponent implements OnInit {
     Notice_Delete(data,classification,title,name,created_at,id){
 		this.MatBottomSheet.open(AdminNoticeDeleteComponent, {
      panelClass: 'OptionModal',
-     data: {page:"notice",classification:classification,title:title,name:name,created_at:created_at,id:id}
+     data: {page:"community",classification:classification,title:title,name:name,created_at:created_at,id:id}
    }).afterDismissed().subscribe((result) => {
 
    });
@@ -140,7 +140,7 @@ export class AdminNoticeEditComponent implements OnInit {
       var dateTimeString = year + '-' + month  + '-' + day;
 
       this.selection.selected.forEach(async (data,i)=>{
-        const washingtonRef = doc(this.firestore, "notices/public/posts", data.id);
+        const washingtonRef = doc(this.firestore, "notices/public/community", data.id);
 
         await updateDoc(washingtonRef, {
           classification: this.classification,
@@ -164,7 +164,7 @@ export class AdminNoticeEditComponent implements OnInit {
       var index = this.selection.selected.length-1
       if(this.quickActionValue==="삭제"){
         this.selection.selected.forEach(async (data,i)=>{
-          await deleteDoc(doc(this.firestore, "/notices/public/posts", data.id))
+          await deleteDoc(doc(this.firestore, "/notices/public/community", data.id))
           .then(()=>{
             if(i ==index){
               window.alert('공지사항 삭제를 완료했습니다.')
@@ -176,6 +176,5 @@ export class AdminNoticeEditComponent implements OnInit {
       }
     }
   }
-
 
 }

@@ -168,7 +168,11 @@ export class AppComponent {
 		if(MenuName == "notice"){
 		this.router.navigate(['/UserNotice']);
 		$(".mat-drawer-backdrop").click();
-		}
+    }
+    else if(MenuName == "community"){
+      this.router.navigate(['/UserCommunity']);
+      $(".mat-drawer-backdrop").click();
+      }
 
 		else if(MenuName == "recommend"){
 		this.router.navigate(['/UserRecommended']);
@@ -190,12 +194,17 @@ export class AppComponent {
 		else if(MenuName == "notice"){
 		this.router.navigate(['/AdminNoticeEdit']);
 		$(".mat-drawer-backdrop").click();
-		}
+    }
+
+    else if(MenuName == "community"){
+    this.router.navigate(['/AdminCommunityEdit']);
+    $(".mat-drawer-backdrop").click();
+    }
 
 		else if(MenuName == "groupnotice"){
 		this.router.navigate(['/AdminGroupNotice']);
 		$(".mat-drawer-backdrop").click();
-		}
+    }
 
 		else if(MenuName == "groupedit"){
 		this.router.navigate(['/AdminGroupEdit']);
