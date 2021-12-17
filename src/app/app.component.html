@@ -78,6 +78,10 @@
 			<p class="Notification_Setting">
 				<mat-icon>notifications</mat-icon><mat-slide-toggle>알림설정</mat-slide-toggle>
 			</p>
+      <p *ngIf="userGroup == '관리자'" class="">
+				<span>리프레시 주기</span><input matInput maxlength="5" placeholder="주기를 입력해 주세요" [(ngModel)]="refresh"> 초
+        <button mat-stroked-button class="NextBtn" (click)="reFrashSave()">저장</button>
+			</p>
 		  </mat-expansion-panel>
 		  <mat-expansion-panel>
 			<mat-expansion-panel-header>

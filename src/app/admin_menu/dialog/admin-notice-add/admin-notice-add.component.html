@@ -3,12 +3,13 @@
 	<h3><mat-icon class="Dialog_TitleIcon2">add_alert</mat-icon> <strong>새 {{pageName}} 작성</strong> <mat-icon (click)="close()" class="Dialog_closeBtn">close</mat-icon></h3>
 
 	<div class="Admin_Notice_ModifyBox">
-				<mat-form-field appearance="outline">
+				<mat-form-field appearance="outline" *ngIf="pageName != '게시물'">
 				<mat-label>분류</mat-label>
 				<mat-select required [(ngModel)]="classification">
 					<mat-option value="[공모주]">[공모주]</mat-option>
 					<mat-option value="[수익인증]">[수익인증]</mat-option>
 					<mat-option value="[일정]">[일정]</mat-option>
+          <mat-option value="[스팩주]">[스팩주]</mat-option>
 				  </mat-select>
 				  <mat-hint>분류 추가 관리자 문의</mat-hint>
 				</mat-form-field>

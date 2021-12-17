@@ -15,7 +15,7 @@ import {
 } from './admin_menu/admin-community-edit/admin-community-edit.component';
 
 const routes: Routes = [
-  // { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'testpage', component: TestpageComponent },
   { path: 'UserNotice', component: UserNoticeComponent },
   { path: 'UserCommunity', component: UserCommunityComponent },
