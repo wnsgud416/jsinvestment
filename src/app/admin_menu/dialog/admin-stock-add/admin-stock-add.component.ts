@@ -29,7 +29,6 @@ export class AdminStockAddComponent implements OnInit {
   stockName;
   stockInfoData: any = [];
   buyingPrice;
-  currentPrice;
   GroupData:any = [];
 
 

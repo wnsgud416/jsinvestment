@@ -69,9 +69,6 @@ export class AdminNoticeAddComponent implements OnInit {
     console.log(this.classification);
     console.log(this.title);
     console.log(this.htmlContent);
-    if (this.classification == undefined) {
-      this.classification =null
-    }
     const newCityRef = doc(collection(this.firestore, this.dbPost));
     var data ={
       author: docSnap.data()['name'],

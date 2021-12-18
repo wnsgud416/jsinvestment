@@ -13,14 +13,13 @@
    				  <mat-icon>search</mat-icon>
    			  </button>
 			</mat-form-field>
-			<button mat-stroked-button  class="AddBtn" (click)="Notice_Add()">새 공지사항</button>
+			<button mat-stroked-button  class="AddBtn" (click)="Notice_Add()">새 게시물</button>
 			<mat-form-field appearance="outline" class="AdminNotice_Edit_SubFiled">
 			<mat-label>분류 이동</mat-label>
 			<mat-select [(ngModel)]="classification">
 			  <mat-option value="[일정]">[일정]</mat-option>
 			  <mat-option value="[공모주]">[공모주]</mat-option>
 			  <mat-option value="[수익인증]">[수익인증]</mat-option>
-        <mat-option value="[스팩주]">[스팩주]</mat-option>
 			</mat-select>
 		  </mat-form-field>
 		  <button mat-stroked-button class="NextBtn"(click)="CheckClassification()" matBadge="{{selection.selected.length}}" [matBadgeHidden]="selection.selected.length===0" matBadgePosition="after">적용</button>

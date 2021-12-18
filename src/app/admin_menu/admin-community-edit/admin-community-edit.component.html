@@ -14,16 +14,15 @@
    			  </button>
 			</mat-form-field>
 			<button mat-stroked-button  class="AddBtn" (click)="Notice_Add()">새 게시물</button>
-			<!-- <mat-form-field appearance="outline" class="AdminNotice_Edit_SubFiled">
+			<mat-form-field appearance="outline" class="AdminNotice_Edit_SubFiled">
 			<mat-label>분류 이동</mat-label>
 			<mat-select [(ngModel)]="classification">
 			  <mat-option value="[일정]">[일정]</mat-option>
 			  <mat-option value="[공모주]">[공모주]</mat-option>
 			  <mat-option value="[수익인증]">[수익인증]</mat-option>
-        <mat-option value="[스팩주]">[스팩주]</mat-option>
 			</mat-select>
 		  </mat-form-field>
-		  <button mat-stroked-button class="NextBtn"(click)="CheckClassification()" matBadge="{{selection.selected.length}}" [matBadgeHidden]="selection.selected.length===0" matBadgePosition="after">적용</button> -->
+		  <button mat-stroked-button class="NextBtn"(click)="CheckClassification()" matBadge="{{selection.selected.length}}" [matBadgeHidden]="selection.selected.length===0" matBadgePosition="after">적용</button>
 		  <mat-form-field appearance="outline"  class="AdminNotice_Edit_SubFiled">
 			<mat-label>일괄 기능</mat-label>
 			<mat-select [(ngModel)]="quickActionValue">
@@ -60,10 +59,10 @@
 				<td mat-cell *matCellDef="let element;let i=index" style="width: 50px; text-align: center"> {{i+1}} </td>
 		</ng-container>
 
-	  <!-- <ng-container matColumnDef="classification" sticky>
+	  <ng-container matColumnDef="classification" sticky>
 		<th mat-header-cell *matHeaderCellDef style="width: calc(20vw); text-align: center; padding: 0 2vw;"> 분류 </th>
 		<td mat-cell *matCellDef="let element" style="width: calc(20vw); text-align: center; padding: 0 2vw;"> {{element.classification}} </td>
-	  </ng-container> -->
+	  </ng-container>
 
 	  <ng-container matColumnDef="title" sticky>
 		<th mat-header-cell *matHeaderCellDef style="width: calc(20vw); text-align: center; padding: 0 2vw;"> 제목 </th>
@@ -101,7 +100,7 @@
 
 	  <div *ngIf="tableRowData.filteredData.length>0">
       <tr class="Search_resulttext" *matNoDataRow>
-        <td class="mat-cell" colspan="6">
+        <td class="mat-cell" colspan="5">
         <mat-icon>search_off</mat-icon>
         <p>"{{input.value}}"에 대한 검색결과가 없습니다.</p>
         </td>
@@ -109,7 +108,7 @@
     </div>
     <div *ngIf="tableRowData.filteredData.length==0">
       <tr class="Search_resulttext" *matNoDataRow>
-        <td class="mat-cell" colspan="6">
+        <td class="mat-cell" colspan="7">
           <mat-icon>search_off</mat-icon>
           <!-- <mat-progress-spinner
           color="primary"
