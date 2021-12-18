@@ -1,31 +1,48 @@
+#!/usr/bin/python3
+# -*- coding: euc-kr -*-
 
 import datetime
-import requests
-from bs4 import BeautifulSoup
-from os.path import getsize
+
 import configparser
-import Utill.TS_Utill
+import json
+import string
+
+from Utill import TS_Utill
+from Utill import TS_Scraper
 import sys
-from urllib import parse
 
-class TS_Stock_Infio():
-    global StockCode        #ì£¼ì‹ ì½”ë“œëª…
-    global StockName_KR     #ì£¼ì‹ ëª…
-    global CurrentPrice     #í˜„ì¬ê°€
-    global TradingVloume    #ê±°ë˜ëŸ‰ëŸ‰
 
+
+#TODO.K ÇÊ¿äÇÑ ÀÎÀÚ°¡ ¸¹´Ù¸é Å¬·¡½ºÇüÅÂ ±¸Á¶Ã¼·Î
+class TS_Stock_Info():
+    global StockCode        #ÁÖ½Ä ÄÚµå¸í
+    global StockName_KR     #ÁÖ½Ä ¸í
+    global CurrentPrice     #ÇöÀç°¡
+    global TradingVloume    #°Å·¡·®
+
+    def __init__(self):
+        self.StockCode=""
+        self.StockName_KR=""
+        self.CurrentPrice=""
+        self.TradingVloume=""
+
+#######################################################
+# class TS_Naver_Finance_Crawling()
+# Naver finance scraping(crawling) class, Not used Selenium(extends)
+#######################################################
 class TS_Naver_Finance_Crawling():
-    # global
+    # global,
     global os_Type
     global currentPath
     global m_CS_Url
     global m_SS_Url
     global m_stock_code
-    TS_Utill = Utill.TS_Utill
+    global TS_Crawl
+    TS_Utill = TS_Utill
 
     #init
-    def __init__(self,_Argv):
-        print("Func#%s" % (sys._getframe(0).f_code.co_name))
+    def __init__(self,_stockCode):
+        #print("Func#%s" % (sys._getframe(0).f_code.co_name))
         #os check
         self.os_Type=self.TS_Utill.get_platform()
         self.currentPath=self.TS_Utill.getcwd()
@@ -34,97 +51,45 @@ class TS_Naver_Finance_Crawling():
         self.loadConfig()
 
         #argv parse~~
-        self.m_stock_code=_Argv[1]
-        pass
+        self.m_stock_code=_stockCode
+        #pass
 
     #funciton
     def loadConfig(self):
-        print("Func#%s" %(sys._getframe(0).f_code.co_name))
+        # TODO.K loadConfig´Â ¸ğµâ È®Àå½Ã main process ÂÊÀ¸·Î ÀÌµ¿, ÇöÀç´Â ÇÏ³ª»ÓÀÌ´Ï ±×´ë·Î¾²ÀÚ...
+        # TODO.K logger Ã³¸®ÇØ¾ßµÇ´Âµ¥ Ãß°¡ÇÏ¸é µ¥¸ó °ü¸® Æ÷ÀÎÆ® ´Ã¾î³² & ¼­¹ö ½ºÅä¸®Áö »ç¿ë·ü Áõ°¡
+
+        #print("Func#%s" %(sys._getframe(0).f_code.co_name))
         ts_Config = configparser.ConfigParser()
         ts_Conf_Path=""
-        if self.os_Type == "Windows":
+        if str(self.os_Type) == "Windows":
             #print(self.os_Type)
             ts_Conf_Path = self.currentPath+".\\Conf\\TS_JsInvest.ini"
-        elif self.os_Type == "Linux":
-            #print(self.os_Type)
-            ts_Conf_Path = self.currentPath + "./Conf/TS_JsInvest.ini"
-        else :
+        elif str(self.os_Type) == "Linux":
+            #print("##@#"+self.os_Type)
+            ts_Conf_Path = self.currentPath + "/Conf/TS_JsInvest.ini"
+        else:
             print("not support")
             exit(0)
+        #print("#####" + ts_Conf_Path)
         ts_Config.read(ts_Conf_Path, encoding='utf-8')
         ts_Config.sections()
-        self.m_CS_Url=ts_Config['FINANCE']['CODE_SEARCH_URL']
-        self.m_SS_Url=ts_Config['FINANCE']['STRING_SEARCH_URL']
-        print("code_url=%s\nstring_url=%s" %(self.m_CS_Url,self.m_SS_Url))
+        self.m_CS_Url=ts_Config["FINANCE"]["CODE_SEARCH_URL"]
+        self.m_SS_Url=ts_Config["FINANCE"]["STRING_SEARCH_URL"]
+
+        #print("code_url=%s\nstring_url=%s" %(self.m_CS_Url,self.m_SS_Url))
 
     def start(self):
+        resultList = []
+        self.TS_Crawl = TS_Scraper.TsUrlScrapper(self.m_CS_Url,self.m_SS_Url)
         if self.m_stock_code.isalpha():
-            self.stockNameBaseCrawling(self.m_SS_Url,self.m_stock_code)
+            _title, _keyWord, _current_price=self.TS_Crawl.stockNameBaseCrawling('s',self.m_stock_code)
         else :
-            self.stockCodeBaseCrawling(self.m_CS_Url,self.m_stock_code)
+            _title, _keyWord, _current_price=self.TS_Crawl.stockCodeBaseCrawling('s',self.m_stock_code)
 
-    def findStockCode(self,_tag):
-        tag=str(_tag)
-        #print("TAG:%s" % (tag))
-        str_s_pointer=tag.find("code")+5
-        str_e_pointer=str_s_pointer+6
-        #print(tag[str_s_pointer:str_e_pointer])
-        return tag[str_s_pointer:str_e_pointer]
+        resultList.append({"stockName": _title, "stockCode": _keyWord, "currentPrice": _current_price})
+        print("#TS_Finance Result#")
+        print(json.dumps(resultList, ensure_ascii=False))  # ident=4
+        print("#TS_Finance Result-END#")
 
-    def stockNameBaseCrawling(self, _url, _keyWord):
-        encode_Keyword_Parse = parse.quote(_keyWord, encoding='EUC-KR')
-        tag = self.getHtml(_url, encode_Keyword_Parse)
-        soup = BeautifulSoup(tag, 'html.parser')
-        stockCode=""
-        #print(soup)
-        response=""
-        try:
-            response = soup.select_one('#content > div.section_search').find('td').find('a')
-            stockCode = self.findStockCode(response)
-            self.stockCodeBaseCrawling(self.m_CS_Url,stockCode)
-            #print(soup.find_all(attrs={'class':'tit'})) #TODO.K ê²€ìƒ‰ë¦¬ìŠ¤íŠ¸ ê°€ì ¸ì˜´, í˜„ì¬ ì„ íƒì  ì½”ë“œ ê²€ìƒ‰ì´ ë¶ˆê°€ëŠ¥í•¨ìœ¼ë¡œ ë³´ë¥˜
-            #return title
-        except:
-            return "None", "None"
-
-    def stockCodeBaseCrawling(self,_url,_keyWord):
-        #print(_url)
-        tag = self.getHtml(_url, _keyWord)
-        soup = BeautifulSoup(tag, 'html.parser')
-        # print(soup)
-        try:
-            #title = soup.find('meta', property="og:title")
-            # print(kakao_opentalk_title["content"])
-            #hashtag = soup.find('meta', property="og:description")
-            title=soup.select_one('#middle > div.h_company > div.wrap_company > h2 > a')
-            currnet_volume=soup.select_one('#chart_area > div.rate_info > div > p.no_today > em').find('span')
-           # ì‹œì´=soup.select_one('#_market_sum')
-            print("ì£¼ì‹ëª…,ì£¼ì‹ì½”ë“œ,í˜„ì¬ê°€")
-            print("%s,%s,%s"%(title.get_text(),_keyWord,currnet_volume.get_text().replace(",","")))
-            return title
-        except:
-            return "None", "None"
-
-    def getHtml(self,_url,_keyWord):
-        html = ""
-        resp = requests.get(_url+_keyWord)
-        if resp.status_code == 200:
-            html = resp.text
-        #print(html)
-        return html
-
-    def getUriInfo(self,_url,_keyWord):
-        print(_url)
-        tag = self.getHtml(_url,_keyWord)
-        soup = BeautifulSoup(tag, 'html.parser')
-        # print(soup)
-        try:
-            title = soup.find('meta', property="og:title")
-            # print(kakao_opentalk_title["content"])
-            hashtag = soup.find('meta', property="og:description")
-            print("################################")
-            print(title["content"]+ hashtag["content"])
-            return title["content"], hashtag["content"]
-        except:
-            return "None", "None"
 

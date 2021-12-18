@@ -1,8 +1,12 @@
+#!/usr/bin/python3
+# -*- coding: euc-kr -*-
+
 import sys
 import os
 
 def get_platform():
     platforms = {
+        'linux' : 'Linux',
         'linux1': 'Linux',
         'linux2': 'Linux',
         'darwin': 'OS X',  # not support
