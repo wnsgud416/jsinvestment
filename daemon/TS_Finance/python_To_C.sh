@@ -2,11 +2,9 @@
 
 python3 setup.py build_ext --inplace
 
-#! /bin/sh
 # yum install python-pip
 # pip3 install PyCrypto
 # pip3 install cython
-#! /bin/sh
 
 TEST_PATH="Finance"
 
@@ -61,9 +59,8 @@ cp $C_ELF_FILE  $TEST_PATH
 # 동작
 echo ""
 echo ""
-cd $OCR_TEST_PATH
-#echo "=======> Excute Test("$C_ELF_FILE ")"
-#./$C_ELF_FILE ../test_img/idcard_01.jpg   "0" "120" "1" "ON" "300" "1.txt" "kor" "1" "1" "1" "./"
+cd $TEST_PATH
+
 cd $CUR_DIR
 
 
