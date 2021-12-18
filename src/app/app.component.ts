@@ -11,7 +11,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { SessionService } from './service/sessionService';
 import * as Action from './store/actions/action';
 import { take } from 'rxjs';
-import { Firestore, collectionData, collection, doc, getDoc } from '@angular/fire/firestore';
+import { Firestore, collectionData, collection, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { getDocs, query, updateDoc } from '@firebase/firestore';
 import { browserSessionPersistence, getAuth, GoogleAuthProvider, inMemoryPersistence, setPersistence, signInWithEmailAndPassword, signInWithRedirect, signOut, updatePassword, updateProfile } from "firebase/auth";
 import { MatDrawer } from '@angular/material/sidenav';
@@ -43,6 +43,8 @@ export class AppComponent {
   userEmail;
   userName;
   userPhone;
+  userGroup = "";
+  refresh;
 
   constructor(
     private MatBottomSheet: MatBottomSheet,
@@ -74,7 +76,10 @@ export class AppComponent {
 
         const docRef = doc(this.firestore, "users", this.userUid);
         const docSnap = await getDoc(docRef);
+        console.log(docSnap.data());
+
         if (docSnap.exists()) {
+          this.userGroup = docSnap.data()['group']
           if (docSnap.data()['name'] == undefined || docSnap.data()['name'] == null || docSnap.data()['name'] == "") {
             this.userName = ""
           } else {
@@ -287,6 +292,19 @@ export class AppComponent {
     }).catch((error) =>{
       window.alert('정보 수정중에 오류가 발생했습니다.')
     })
+
+  }
+  async reFrashSave() {
+    if (this.refresh == undefined) {
+      window.alert('리프레시 값을 입력해주세요.')
+    } else {
+      await setDoc(doc(this.firestore, "admin", "reflashStock"), {
+        value : this.refresh
+      }).then(() => {
+        window.alert('리프레시 값을 설정했습니다.')
+      })
+    }
+
 
   }
 
