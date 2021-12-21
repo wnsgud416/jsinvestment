@@ -7,7 +7,7 @@
 #pip3 install BeautifulSoup4
 
 #set env
-export PYTHONPATH=$PYTHONPATH:/usr/local/TS_TEST/Proc:/usr/local/TS_TEST/Utill
+export PYTHONPATH=$PYTHONPATH:$PWD/Proc:$PWD/Utill
 
 DAEMON_NAME="TS_Main"
 ACTION_TYPE=$1
