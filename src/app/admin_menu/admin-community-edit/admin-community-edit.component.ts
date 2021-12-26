@@ -14,7 +14,6 @@ import { Firestore } from '@angular/fire/firestore';
 
 export interface PeriodicElement {
 	Number : number;
-	classification : string;
 	title : string;
 	author : string;
 	created_at : string;
@@ -29,7 +28,8 @@ export interface PeriodicElement {
 })
 export class AdminCommunityEditComponent implements OnInit {
 
-  displayedColumns: string[] = ['select','Number','classification', 'title', 'author', 'created_at', 'action'];
+  //displayedColumns: string[] = ['select', 'Number', 'classification', 'title', 'author', 'created_at', 'action'];
+  displayedColumns: string[] = ['select','Number', 'title', 'author', 'created_at', 'action'];
   public noticeTableData :any =[];
   public tableRowData = new MatTableDataSource ([]);
   classification
