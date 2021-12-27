@@ -2,7 +2,8 @@ import { createAction, props } from '@ngrx/store';
 
 //CMD TEST
 export const cmdTest = createAction(
-  '[Data Source] cmdTest'
+  '[Data Source] cmdTest',
+  props<{stockCodeArray:any}>()
 )
 export const cmdTestSuccess = createAction(
   '[Data API] cmdTest Success',

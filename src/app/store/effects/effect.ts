@@ -14,7 +14,7 @@ export class StoreEffects {
 
   cmdTest$ = createEffect(() => this.actions$.pipe(
     ofType(StoreActions.cmdTest),
-    mergeMap((action) => this.actionService.cmdTest().pipe(
+    mergeMap((action) => this.actionService.cmdTest(action.stockCodeArray).pipe(
       map(data => ({ type: '[Data API] cmdTest Success', result : data})),
       catchError(() => of({ type: '[Data API] cmdTest Fail'}))
     ))

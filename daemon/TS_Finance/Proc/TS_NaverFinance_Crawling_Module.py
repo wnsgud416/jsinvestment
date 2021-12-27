@@ -67,7 +67,7 @@ class TS_Naver_Finance_Crawling():
             ts_Conf_Path = self.currentPath+".\\Conf\\TS_JsInvest.ini"
         elif str(self.os_Type) == "Linux":
             #print("##@#"+self.os_Type)
-            ts_Conf_Path = self.currentPath + "/Conf/TS_JsInvest.ini"
+            ts_Conf_Path = "/usr/local/TS_TEST/Conf/TS_JsInvest.ini"
         else:
             print("not support")
             exit(0)
@@ -88,8 +88,8 @@ class TS_Naver_Finance_Crawling():
             _title, _keyWord, _current_price=self.TS_Crawl.stockCodeBaseCrawling('s',self.m_stock_code)
 
         resultList.append({"stockName": _title, "stockCode": _keyWord, "currentPrice": _current_price})
-        print("#TS_Finance Result#")
+        
         print(json.dumps(resultList, ensure_ascii=False))  # ident=4
-        print("#TS_Finance Result-END#")
+        
 
 

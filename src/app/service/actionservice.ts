@@ -9,10 +9,10 @@ export class Actionservice {
   constructor(private http: HttpClient) {
   }
 
-  cmdTest() {
+  cmdTest(stockCode) {
       // const headers = { 'content-type': 'application/json' }
       const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
-      const data = {}
+      const data = {stockCode:stockCode}
       const body = JSON.stringify(data)
 
     console.log("수행");

@@ -102,9 +102,15 @@ export class AdminStockAddComponent implements OnInit {
   }
 
   NowCurrentPrice(){
-    this.store.dispatch(Action.cmdTest())
+    var stockCodeArray:any = [];
+    stockCodeArray.push(this.stockCode)
+
+    this.store.dispatch(Action.cmdTest({ stockCodeArray:stockCodeArray}))
     this.actions$.pipe(ofType(Action.cmdTestSuccess)).pipe(take(1)).subscribe(async (result) => {
-      console.log(result);
+      var stock = JSON.parse(result.result)
+      this.stockName = stock[0].stockName
+      this.currentPrice = stock[0].currentPrice
+
     });
   }
 

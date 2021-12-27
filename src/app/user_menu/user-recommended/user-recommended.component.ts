@@ -6,6 +6,11 @@ import * as $ from 'jquery';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { Firestore } from '@angular/fire/firestore';
 import { getAuth } from 'firebase/auth';
+import { AppState } from 'src/app/store';
+import { Store } from '@ngrx/store';
+import { Actions, ofType } from '@ngrx/effects';
+import * as Action from 'src/app/store/actions/action';
+import { take } from 'rxjs';
 
 export interface PeriodicElement {
 	number : number;
@@ -29,9 +34,12 @@ export class UserRecommendedComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   stockInfoData: any = [];
+  allYield;
 
   constructor(
     private firestore: Firestore,
+    private store: Store<AppState>,
+    private actions$: Actions,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -59,19 +67,53 @@ export class UserRecommendedComponent implements OnInit {
           this.stockInfoData.push(element);
         }
       });
+
+      var stockCodeArray:any = [];
       this.stockInfoData.forEach((element,i) => {
-        //현재가 찾아서 각자 이름에 적용
-        //수익률 계산해서 추가
-        this.stockInfoData[i]['currentPrice'] = "0"
-        this.stockInfoData[i]['yield'] = "0"
-        this.stockInfoData[i]['number'] = i+1
+        stockCodeArray.push(element.code)
       });
-      this.tableRowData = new MatTableDataSource(this.stockInfoData);
+      var stockCurrentPrice
+      this.store.dispatch(Action.cmdTest({ stockCodeArray:stockCodeArray}))
+      this.actions$.pipe(ofType(Action.cmdTestSuccess)).pipe(take(1)).subscribe(async (result) => {
+        stockCurrentPrice = JSON.parse(result.result)
+        console.log(stockCurrentPrice);
+
+        var SumYield = 0;
+        this.stockInfoData.forEach((element,i) => {
+          //현재가 찾아서 각자 이름에 적용
+          //수익률 계산해서 추가
+          var currentPrice;
+          var yieldData;
+          stockCurrentPrice.forEach((stockData,j) => {
+
+            if(stockData.stockCode ===element.code){
+              currentPrice =stockData.currentPrice
+            }
+          });
+          yieldData = ((parseInt(currentPrice)/parseInt(element.buyingPrice))*100-100).toFixed(2)
+          SumYield +=yieldData
+          this.stockInfoData[i]['currentPrice'] = currentPrice
+          this.stockInfoData[i]['yield'] = yieldData
+          this.stockInfoData[i]['number'] = i+1
+
+        });
+        this.allYield = SumYield.toFixed(2)
+        this.tableRowData = new MatTableDataSource(this.stockInfoData);
+      });
+      this.actions$.pipe(ofType(Action.cmdTestFail)).pipe(take(1)).subscribe(async (result) => {
+        this.stockInfoData.forEach((element,i) => {
+          this.stockInfoData[i]['currentPrice'] = "0"
+          this.stockInfoData[i]['yield'] = "0"
+          this.stockInfoData[i]['number'] = i+1
+        });
+        this.tableRowData = new MatTableDataSource(this.stockInfoData);
+      });
 
     })
 
 	  $({ val : 0 }).animate({ val : 8900 }, {
-
+      //총 수익률
+      // this.allYield
 
 				  duration: 5000,
 				  step: function() {

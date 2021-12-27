@@ -7,7 +7,8 @@
 #pip3 install BeautifulSoup4
 
 #set env
-export PYTHONPATH=$PYTHONPATH:$PWD/Proc:$PWD/Utill
+
+export PYTHONPATH=$PYTHONPATH:/usr/local/TS_TEST/Proc:/usr/local/TS_TEST/Utill
 
 DAEMON_NAME="TS_Main"
 ACTION_TYPE=$1
@@ -22,4 +23,4 @@ for l in `ps -ef|grep $DAEMON_NAME|grep -v tail|grep -v grep`; do
     fi
 done
 
-$PWD/TS_Main $ACTION_TYPE $PARAM
+/usr/local/TS_TEST/TS_Main $ACTION_TYPE $PARAM

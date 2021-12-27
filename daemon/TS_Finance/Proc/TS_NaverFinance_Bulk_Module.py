@@ -38,7 +38,7 @@ class TS_NaverFinance_Bulk():
         if str(self.os_Type) == "Windows":
             ts_Conf_Path = self.currentPath+".\\Conf\\TS_JsInvest.ini"
         elif str(self.os_Type) == "Linux":
-            ts_Conf_Path = self.currentPath + "/Conf/TS_JsInvest.ini"
+            ts_Conf_Path = "/usr/local/TS_TEST/Conf/TS_JsInvest.ini"
         else:
             print("not support")
             exit(0)
@@ -62,9 +62,8 @@ class TS_NaverFinance_Bulk():
             _title, _keyWord, _current_price = self.TS_Crawl.stockCodeBaseCrawling('m',keyWord)
             resultList.append({"stockName": _title, "stockCode": _keyWord, "currentPrice": _current_price})
 
-        print("#TS_Finance Result#")
         print(json.dumps(resultList, ensure_ascii=False))  # ident=4
-        print("#TS_Finance Result-END#")
+
         # for i in self.m_CodeList:
         #     print("##"+i)
     #2. loop, get current price

@@ -8,6 +8,11 @@ import { AdminStockRemoveComponent } from '../dialog/admin-stock-remove/admin-st
 import { collection, deleteDoc, doc, getDocs, onSnapshot, updateDoc } from 'firebase/firestore';
 import { AdminStockSellComponent } from '../dialog/admin-stock-sell/admin-stock-sell.component';
 import { Firestore } from '@angular/fire/firestore';
+import { AppState } from 'src/app/store';
+import { Store } from '@ngrx/store';
+import { Actions, ofType } from '@ngrx/effects';
+import * as Action from 'src/app/store/actions/action';
+import { take } from 'rxjs';
 
 export interface PeriodicElement {
 	code : string;
@@ -37,10 +42,14 @@ export class AdminInformationComponent implements OnInit {
   manyGroupAuth: any = [];
 
   quickMenu
+  allYield;
+
 
    constructor(
      private MatBottomSheet: MatBottomSheet,
      private firestore: Firestore,
+     private store: Store<AppState>,
+     private actions$: Actions,
 			  ) { }
 
   async ngOnInit(): Promise<void> {
@@ -51,15 +60,47 @@ export class AdminInformationComponent implements OnInit {
         collectionGroupData.forEach((doc) => {
           this.stockInfoData.push(doc.data());
         });
-        this.stockInfoData.forEach((element,i) => {
-          //현재가 찾아서 각자 이름에 적용
-          //수익률 계산해서 추가
-          this.stockInfoData[i]['currentPrice'] = "0"
-          this.stockInfoData[i]['yield'] = "0"
-          this.stockInfoData[i]['sellingPrice'] = "0"
 
+        var stockCodeArray:any = [];
+        this.stockInfoData.forEach((element,i) => {
+          stockCodeArray.push(element.code)
         });
-        this.tableRowData = new MatTableDataSource(this.stockInfoData);
+        var stockCurrentPrice
+        this.store.dispatch(Action.cmdTest({ stockCodeArray:stockCodeArray}))
+        this.actions$.pipe(ofType(Action.cmdTestSuccess)).pipe(take(1)).subscribe(async (result) => {
+          stockCurrentPrice = JSON.parse(result.result)
+
+          var SumYield = 0;
+          this.stockInfoData.forEach((element,i) => {
+            //현재가 찾아서 각자 이름에 적용
+            //수익률 계산해서 추가
+            var currentPrice;
+            var yieldData;
+            stockCurrentPrice.forEach((stockData,j) => {
+              if(stockData.stockCode ===element.code){
+                currentPrice =stockData.currentPrice
+              }
+            });
+            yieldData = ((parseInt(currentPrice)/parseInt(element.buyingPrice))*100-100)
+            SumYield += yieldData;
+            this.stockInfoData[i]['currentPrice'] = currentPrice
+            this.stockInfoData[i]['yield'] = yieldData.toFixed(2)
+            this.stockInfoData[i]['sellingPrice'] = "0"
+
+          });
+          this.allYield = SumYield.toFixed(2)
+          this.tableRowData = new MatTableDataSource(this.stockInfoData);
+        });
+        this.actions$.pipe(ofType(Action.cmdTestFail)).pipe(take(1)).subscribe(async (result) => {
+          this.stockInfoData.forEach((element,i) => {
+            this.stockInfoData[i]['currentPrice'] = "0"
+            this.stockInfoData[i]['yield'] = "0"
+            this.stockInfoData[i]['sellingPrice'] = "0"
+          });
+          this.tableRowData = new MatTableDataSource(this.stockInfoData);
+        });
+
+
     });
 
     await getDocs(collection(this.firestore, "groups")).then((querySnapshot) => {
