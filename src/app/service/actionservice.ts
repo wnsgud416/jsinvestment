@@ -17,7 +17,7 @@ export class Actionservice {
 
     console.log("수행");
 
-      return this.http.post("/bms/cmdtest", body,{headers, responseType: 'text'}).pipe(
+      return this.http.post("/action/cmdtest", body,{headers, responseType: 'text'}).pipe(
         catchError(this.handleError)
       );
   }

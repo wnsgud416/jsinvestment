@@ -101,4 +101,11 @@ export class AdminStockAddComponent implements OnInit {
     this.bottomSheetRef.dismiss()
   }
 
+  NowCurrentPrice(){
+    this.store.dispatch(Action.cmdTest())
+    this.actions$.pipe(ofType(Action.cmdTestSuccess)).pipe(take(1)).subscribe(async (result) => {
+      console.log(result);
+    });
+  }
+
 }

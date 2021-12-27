@@ -36,8 +36,6 @@ export class AdminInformationComponent implements OnInit {
   yieldGroup: any = [];
   manyGroupAuth: any = [];
 
-  test = "21321321421"
-
   quickMenu
 
    constructor(
@@ -46,10 +44,6 @@ export class AdminInformationComponent implements OnInit {
 			  ) { }
 
   async ngOnInit(): Promise<void> {
-    var test2=this.test.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    console.log(test2);
-
-
     onSnapshot(
       collection(this.firestore, "stockInfo"), { includeMetadataChanges: true }, (collectionGroupData) => {
         this.stockInfoData = [];
