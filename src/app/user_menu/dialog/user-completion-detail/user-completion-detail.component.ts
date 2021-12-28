@@ -25,7 +25,7 @@ export class UserCompletionDetailComponent implements OnInit {
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any
   ) { }
 
-  displayedColumns: string[] = ['code','name', 'buyingPrice', 'sellingPrice', 'yield', 'Data'];
+  displayedColumns: string[] = ['code','name', 'buyingPrice', 'sellingPrice', 'yield', 'Data','Action'];
   public tableRowData = new MatTableDataSource([]);
 
 
