@@ -23,6 +23,10 @@
 				        <button mat-icon-button [matMenuTriggerFor]="Admin_Group_OptionMenu" (click)="listClick(user)"><mat-icon mat-list-icon>more_vert</mat-icon></button>
 				  </mat-list-item>
 				</mat-list>
+				<div class="Admin_Option_ButtonBox">
+					<button mat-stroked-button>그룹 수정</button>
+					<button mat-stroked-button class="NextBtn">그룹 삭제</button>
+				</div>
 			  </mat-expansion-panel>
 			</mat-accordion>
 	    </div>
@@ -30,10 +34,11 @@
 	<div class="Admin_Group_EditBox">
 			<mat-form-field appearance="outline">
 				<mat-label>그룹명</mat-label>
-				<input  matInput placeholder="그룹명을 입력해주세요." [(ngModel)]="createGroupName">
+				<input matInput placeholder="그룹명을 입력해주세요." [(ngModel)]="createGroupName">
 				<mat-hint>그룹명은 중복이 불가합니다.</mat-hint>
 			</mat-form-field>
 			<button mat-stroked-button class="NextBtn" (click)="createGroup()">그룹 생성</button>
+<!--			<button mat-stroked-button class="NextBtn" (click)="createGroup()">그룹 수정</button>-->
 		</div>
 </div>
 

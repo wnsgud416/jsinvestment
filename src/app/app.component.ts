@@ -69,6 +69,7 @@ export class AppComponent {
 
         // this.router.navigate(['/']);
       } else {
+		$(".Main_PanelBox").fadeIn(0);
         console.log("로그인 정보있음");
         this.loginSuccess = true;
         this.userUid = this.user.uid;

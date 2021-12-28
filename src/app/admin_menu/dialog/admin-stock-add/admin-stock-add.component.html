@@ -26,18 +26,19 @@
 					  <mat-option *ngFor="let group of GroupData" value="{{group}}">{{group}}</mat-option>
 					</mat-select>
 				  </mat-form-field>
-
-				  <button mat-stroked-button (click)="NowCurrentPrice()">현재가 확인</button>
-          <mat-form-field appearance="outline">
-            <mat-label>현재가</mat-label>
-            <input matInput placeholder="현재가" [(ngModel)]="currentPrice" required readonly>
-
-          </mat-form-field>
+         
+         		<mat-form-field appearance="outline">
+   				<mat-label>현재가</mat-label>
+   					<span matPrefix>₩&nbsp;</span>
+					<input matInput [(ngModel)]="currentPrice" value="00" required readonly>
+					<span matSuffix>&nbsp;원</span>
+   				</mat-form-field>
 
 	</div>
 
     <div class="Admin_Option_DialogButtonBox">
 		<button mat-stroked-button (click)="close()">취소</button>
+		<button mat-stroked-button class="AddBtn" (click)="NowCurrentPrice()">현재가 확인</button>
 		<button mat-stroked-button class="NextBtn"(click)="add()">적용</button>
 	</div>
 </div>

@@ -112,6 +112,7 @@ import { AdminStockSellComponent } from './admin_menu/dialog/admin-stock-sell/ad
     AdminStockSellComponent,
   ],
   imports: [
+	  MatPaginatorModule,
     MatSortModule,
     MatProgressSpinnerModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
@@ -136,7 +137,7 @@ import { AdminStockSellComponent } from './admin_menu/dialog/admin-stock-sell/ad
     MatExpansionModule,
     MatSlideToggleModule,
     MatTableModule,
-    MatPaginatorModule,
+    
     MatTabsModule,
     TextFieldModule,
     MatCheckboxModule,

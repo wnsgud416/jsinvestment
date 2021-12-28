@@ -35,7 +35,9 @@ export class AdminStockAddComponent implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
-
+    this.currentPrice = 0;
+    this.buyingPrice = 0;
+							
     await getDocs(collection(this.firestore, "stockInfo")).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         this.stockInfoData.push(doc.data());
