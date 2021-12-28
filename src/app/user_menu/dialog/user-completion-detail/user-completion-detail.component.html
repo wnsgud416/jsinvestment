@@ -6,8 +6,8 @@
 		<table mat-table [dataSource]="tableRowData">
 
 			<ng-container matColumnDef="code">
-				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 15vw"> 종목코드 </th>
-				<td mat-cell *matCellDef="let element" style="text-align: center; width: 15vw"> {{element.code}} </td>
+				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 10vw"> 종목코드 </th>
+				<td mat-cell *matCellDef="let element" style="text-align: center; width: 10vw"> {{element.code}} </td>
 			</ng-container>
 
 			<ng-container matColumnDef="name">
@@ -42,6 +42,8 @@
 	</div>
 
     <div class="User_Option_DialogButtonBox">
+		<button mat-stroked-button class="RedBtn">삭제</button>
+		<button mat-stroked-button class="AddBtn">수정</button>
 		<button mat-stroked-button (click)="close()">취소</button>
 	</div>
 </div>
