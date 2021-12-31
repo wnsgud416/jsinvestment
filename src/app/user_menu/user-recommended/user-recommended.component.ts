@@ -97,8 +97,9 @@ export class UserRecommendedComponent implements OnInit {
           this.stockInfoData[i]['number'] = i+1
 
         });
-        this.allYield = SumYield.toFixed(2)
+        //this.allYield = SumYield.toFixed(2)
         this.tableRowData = new MatTableDataSource(this.stockInfoData);
+        this.tableRowData.paginator = this.paginator;
       });
       this.actions$.pipe(ofType(Action.cmdTestFail)).pipe(take(1)).subscribe(async (result) => {
         this.stockInfoData.forEach((element,i) => {
@@ -107,6 +108,7 @@ export class UserRecommendedComponent implements OnInit {
           this.stockInfoData[i]['number'] = i+1
         });
         this.tableRowData = new MatTableDataSource(this.stockInfoData);
+        this.tableRowData.paginator = this.paginator;
       });
 
     })
@@ -142,10 +144,6 @@ export class UserRecommendedComponent implements OnInit {
 		}
 
 
-  }
-
-	ngAfterViewInit() {
-    this.tableRowData.paginator = this.paginator;
   }
 
   applyFilter(event: Event) {

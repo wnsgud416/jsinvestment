@@ -43,18 +43,13 @@ export class UserCommunityComponent implements OnInit {
           this.noticeTableData.push(doc.data());
         });
         this.noticeTableData.sort((a,b) => b.created_at.localeCompare(a.created_at));
+        this.noticeTableData.forEach((element,i) => {
+          element['number'] = i + 1;
+        });
         this.tableRowData = new MatTableDataSource(this.noticeTableData);
+        this.tableRowData.paginator = this.paginator;
         this.isLoading = false;
       })
-      // onSnapshot(
-      //   collection(this.firestore, "/notices/public/posts"), { includeMetadataChanges: true }, (collection) => {
-      //     this.noticeTableData = []
-      //     collection.forEach((doc) => {
-      //       this.noticeTableData.push(doc.data());
-      //     });
-      //     this.tableRowData = new MatTableDataSource(this.noticeTableData);
-      //     this.isLoading = false;
-      //   });
 
     }
 

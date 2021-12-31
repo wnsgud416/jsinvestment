@@ -45,8 +45,12 @@ export class UserNoticeComponent implements OnInit {
       querySnapshot.forEach((doc) => {
         this.noticeTableData.push(doc.data());
       });
-      this.noticeTableData.sort((a,b) => b.created_at.localeCompare(a.created_at));
+      this.noticeTableData.sort((a, b) => b.created_at.localeCompare(a.created_at));
+      this.noticeTableData.forEach((element,i) => {
+        element['number'] = i + 1;
+      });
       this.tableRowData = new MatTableDataSource(this.noticeTableData);
+      this.tableRowData.paginator = this.paginator;
       this.isLoading = false;
     })
     // onSnapshot(
@@ -62,7 +66,7 @@ export class UserNoticeComponent implements OnInit {
     }
 
   ngAfterViewInit() {
-    this.tableRowData.paginator = this.paginator;
+
   }
 
   applyFilter(event: Event) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet';
@@ -10,6 +10,7 @@ import { AdminNoticeDeleteComponent } from '../dialog/admin-notice-delete/admin-
 import { AdminNoticeModifyComponent } from '../dialog/admin-notice-modify/admin-notice-modify.component';
 import { collection, deleteDoc, doc, getDocs, onSnapshot, updateDoc } from '@firebase/firestore';
 import { Firestore } from '@angular/fire/firestore';
+import { MatPaginator } from '@angular/material/paginator';
 
 
 export interface PeriodicElement {
@@ -27,6 +28,8 @@ export interface PeriodicElement {
   styleUrls: ['./admin-community-edit.component.css']
 })
 export class AdminCommunityEditComponent implements OnInit {
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   //displayedColumns: string[] = ['select', 'Number', 'classification', 'title', 'author', 'created_at', 'action'];
   displayedColumns: string[] = ['select','Number', 'title', 'author', 'created_at', 'action'];
@@ -55,7 +58,11 @@ export class AdminCommunityEditComponent implements OnInit {
           this.noticeTableData.push(doc.data());
         });
         this.noticeTableData.sort((a,b) => b.created_at.localeCompare(a.created_at));
+        this.noticeTableData.forEach((element,i) => {
+          element['number'] = i + 1;
+        });
         this.tableRowData = new MatTableDataSource(this.noticeTableData);
+        this.tableRowData.paginator = this.paginator;
         //this.isLoading = false;
       });
   }

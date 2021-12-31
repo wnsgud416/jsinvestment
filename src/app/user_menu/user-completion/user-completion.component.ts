@@ -108,14 +108,12 @@ export class UserCompletionComponent implements OnInit {
       console.log(this.compliteData);
 
       this.tableRowData = new MatTableDataSource(this.compliteData);
+      this.tableRowData.paginator = this.paginator;
 
     })
 
   }
 
-  ngAfterViewInit() {
-    this.tableRowData.paginator = this.paginator;
-  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
