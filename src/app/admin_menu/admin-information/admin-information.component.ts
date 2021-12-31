@@ -5,7 +5,7 @@ import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet'
 import { AdminStockAddComponent } from '../dialog/admin-stock-add/admin-stock-add.component';
 import { AdminStockModifyComponent } from '../dialog/admin-stock-modify/admin-stock-modify.component';
 import { AdminStockRemoveComponent } from '../dialog/admin-stock-remove/admin-stock-remove.component';
-import { collection, deleteDoc, doc, getDocs, onSnapshot, updateDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, updateDoc } from 'firebase/firestore';
 import { AdminStockSellComponent } from '../dialog/admin-stock-sell/admin-stock-sell.component';
 import { Firestore } from '@angular/fire/firestore';
 import { AppState } from 'src/app/store';
@@ -43,7 +43,7 @@ export class AdminInformationComponent implements OnInit {
 
   quickMenu
   allYield;
-
+  interval
 
    constructor(
      private MatBottomSheet: MatBottomSheet,
@@ -53,6 +53,12 @@ export class AdminInformationComponent implements OnInit {
 			  ) { }
 
   async ngOnInit(): Promise<void> {
+    var reflashValue:any
+    await getDoc(doc(this.firestore, "admin", "reflashStock")).then(async (docData) => {
+      var docValue :any = docData.data()
+      reflashValue = parseInt(docValue['value'])*1000
+
+    });
     onSnapshot(
       collection(this.firestore, "stockInfo"), { includeMetadataChanges: true }, (collectionGroupData) => {
         this.stockInfoData = [];
@@ -65,43 +71,12 @@ export class AdminInformationComponent implements OnInit {
         this.stockInfoData.forEach((element,i) => {
           stockCodeArray.push(element.code)
         });
-        var stockCurrentPrice
-        this.store.dispatch(Action.cmdTest({ stockCodeArray:stockCodeArray}))
-        this.actions$.pipe(ofType(Action.cmdTestSuccess)).pipe(take(1)).subscribe(async (result) => {
-          stockCurrentPrice = JSON.parse(result.result)
-
-          var SumYield = 0;
-          this.stockInfoData.forEach((element,i) => {
-            //현재가 찾아서 각자 이름에 적용
-            //수익률 계산해서 추가
-            var currentPrice;
-            var yieldData;
-            stockCurrentPrice.forEach((stockData,j) => {
-              if(stockData.stockCode ===element.code){
-                currentPrice =stockData.currentPrice
-              }
-            });
-            yieldData = ((parseInt(currentPrice)/parseInt(element.buyingPrice))*100-100)
-            SumYield += yieldData;
-            this.stockInfoData[i]['currentPrice'] = currentPrice
-            this.stockInfoData[i]['yield'] = yieldData.toFixed(2)
-            this.stockInfoData[i]['sellingPrice'] = "0"
-
-          });
-          this.allYield = SumYield.toFixed(2)
-          this.tableRowData = new MatTableDataSource(this.stockInfoData);
-        });
-        this.actions$.pipe(ofType(Action.cmdTestFail)).pipe(take(1)).subscribe(async (result) => {
-          this.stockInfoData.forEach((element,i) => {
-            this.stockInfoData[i]['currentPrice'] = "0"
-            this.stockInfoData[i]['yield'] = "0"
-            this.stockInfoData[i]['sellingPrice'] = "0"
-          });
-          this.tableRowData = new MatTableDataSource(this.stockInfoData);
-        });
-
-
+        this.getStockInfo(stockCodeArray);
+        // this.interval = setInterval(() => {
+        //   this.getStockInfo(stockCodeArray)
+        // }, reflashValue);
     });
+
 
     await getDocs(collection(this.firestore, "groups")).then((querySnapshot) => {
       var group: any = [];
@@ -248,7 +223,47 @@ export class AdminInformationComponent implements OnInit {
   }
 
 
+getStockInfo(stockCodeArray) {
+    var stockCurrentPrice
+    this.store.dispatch(Action.cmdTest({ stockCodeArray:stockCodeArray}))
+    this.actions$.pipe(ofType(Action.cmdTestSuccess)).pipe(take(1)).subscribe(async (result) => {
+      stockCurrentPrice = JSON.parse(result.result)
 
+      var SumYield = 0;
+      this.stockInfoData.forEach((element,i) => {
+        //현재가 찾아서 각자 이름에 적용
+        //수익률 계산해서 추가
+        var currentPrice;
+        var yieldData;
+        stockCurrentPrice.forEach((stockData,j) => {
+          if(stockData.stockCode ===element.code){
+            currentPrice =stockData.currentPrice
+          }
+        });
+        yieldData = ((parseInt(currentPrice)/parseInt(element.buyingPrice))*100-100)
+        SumYield += yieldData;
+        this.stockInfoData[i]['currentPrice'] = currentPrice
+        this.stockInfoData[i]['yield'] = yieldData.toFixed(2)
+        this.stockInfoData[i]['sellingPrice'] = "0"
 
+      });
+      this.allYield = SumYield.toFixed(2)
+      this.tableRowData = new MatTableDataSource(this.stockInfoData);
+    });
+    this.actions$.pipe(ofType(Action.cmdTestFail)).pipe(take(1)).subscribe(async (result) => {
+      this.stockInfoData.forEach((element,i) => {
+        this.stockInfoData[i]['currentPrice'] = "0"
+        this.stockInfoData[i]['yield'] = "0"
+        this.stockInfoData[i]['sellingPrice'] = "0"
+      });
+      this.tableRowData = new MatTableDataSource(this.stockInfoData);
+    });
+  }
 
+  ngOnDestroy() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+
+  }
 }

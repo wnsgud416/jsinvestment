@@ -45,7 +45,6 @@ export class AppComponent {
   userPhone;
   userGroup = "";
   refresh;
-
   constructor(
     private MatBottomSheet: MatBottomSheet,
     private router: Router,
@@ -55,8 +54,14 @@ export class AppComponent {
     private firestore: Firestore
   ){}
 
-  ngOnInit(){
+  async ngOnInit(){
     // 로딩 필요
+
+    await getDoc(doc(this.firestore, "admin", "reflashStock")).then(async (docData) => {
+      var docValue :any = docData.data()
+      this.refresh = docValue['value']
+
+    });
     const auth = getAuth();
     setTimeout(async () => {
       this.user = auth.currentUser;
@@ -123,6 +128,7 @@ export class AppComponent {
           const docRef = doc(this.firestore, "users", this.userUid);
           const docSnap = await getDoc(docRef);
           if (docSnap.exists()) {
+            this.userGroup = docSnap.data()['group']
             if (docSnap.data()['name'] == undefined || docSnap.data()['name'] == null || docSnap.data()['name'] == "") {
               this.userName = ""
             } else {

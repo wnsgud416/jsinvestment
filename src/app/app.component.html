@@ -78,14 +78,14 @@
 			<p class="Notification_Setting">
 				<mat-icon>notifications</mat-icon><mat-slide-toggle>알림설정</mat-slide-toggle>
 			</p>
-      	<p class="Admin_SettingMenu">
+      	<p class="Admin_SettingMenu" *ngIf="userGroup=='관리자'">
 				<mat-form-field appearance="legacy" hintLabel="주기를 입력해 주세요">
 				<mat-label>리프레시 주기 설정</mat-label>
 				<mat-icon matPrefix>update</mat-icon>
 				<input matInput #input_Re [(ngModel)]="refresh" type="number">
 				<mat-hint align="end">단위 (초)</mat-hint>
 				<span matSuffix>초</span>
-				</mat-form-field>				
+				</mat-form-field>
         		<button mat-stroked-button class="NextBtn" (click)="reFrashSave()">리프레시 주기 적용</button>
 			</p>
 		  </mat-expansion-panel>
