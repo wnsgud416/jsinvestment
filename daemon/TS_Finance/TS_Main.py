@@ -28,10 +28,10 @@ else:
     pass
 
 #Main
-if str(Argv[1]) == '-S' or str(Argv[1]) == '-s':
-    TS_Finance_Module = TS_NaverFinance_Crawling_Module.TS_Naver_Finance_Crawling(Argv[2])
+if str(Argv[2]) == '-S' or str(Argv[2]) == '-s':
+    TS_Finance_Module = TS_NaverFinance_Crawling_Module.TS_Naver_Finance_Crawling(Argv)
     TS_Finance_Module.start()
-elif str(Argv[1]) == '-M' or str(Argv[1]) == '-m':
+elif str(Argv[2]) == '-M' or str(Argv[2]) == '-m':
     TS_Finance_Module = TS_NaverFinance_Bulk_Module.TS_NaverFinance_Bulk(Argv)
     TS_Finance_Module.start()
     pass

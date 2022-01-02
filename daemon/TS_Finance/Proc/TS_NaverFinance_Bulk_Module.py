@@ -15,7 +15,7 @@ class TS_NaverFinance_Bulk():
     global m_SS_Url
     global TS_Crawl
     global m_CodeList
-
+    global m_ConfPath
     TS_Utill=TS_Utill
 
     def __init__(self,_Argv):
@@ -24,11 +24,13 @@ class TS_NaverFinance_Bulk():
         self.os_Type = self.TS_Utill.get_platform()
         self.currentPath = self.TS_Utill.getcwd()
 
+        self.m_ConfPath=_Argv[2]
         # loadconfig
         self.loadConfig()
         #self.m_CodeList=[x.strip() for x in my_string.split(',')]_Argv
         #print(self.m_CodeList)
-        self.codeListParsing(_Argv[2])
+        self.codeListParsing(_Argv[3])
+
         #pass
 
     def loadConfig(self):
@@ -38,6 +40,7 @@ class TS_NaverFinance_Bulk():
         if str(self.os_Type) == "Windows":
             ts_Conf_Path = self.currentPath+".\\Conf\\TS_JsInvest.ini"
         elif str(self.os_Type) == "Linux":
+            #ts_Conf_Path = self.currentPath + "/Conf/TS_JsInvest.ini"
             ts_Conf_Path = "/usr/local/TS_TEST/Conf/TS_JsInvest.ini"
         else:
             print("not support")
@@ -62,8 +65,9 @@ class TS_NaverFinance_Bulk():
             _title, _keyWord, _current_price = self.TS_Crawl.stockCodeBaseCrawling('m',keyWord)
             resultList.append({"stockName": _title, "stockCode": _keyWord, "currentPrice": _current_price})
 
+        #print("#TS_Finance Result#")
         print(json.dumps(resultList, ensure_ascii=False))  # ident=4
-
+        #print("#TS_Finance Result-END#")
         # for i in self.m_CodeList:
         #     print("##"+i)
     #2. loop, get current price

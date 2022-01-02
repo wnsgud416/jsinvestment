@@ -41,17 +41,17 @@ class TS_Naver_Finance_Crawling():
     TS_Utill = TS_Utill
 
     #init
-    def __init__(self,_stockCode):
+    def __init__(self,_Argv):
         #print("Func#%s" % (sys._getframe(0).f_code.co_name))
         #os check
         self.os_Type=self.TS_Utill.get_platform()
         self.currentPath=self.TS_Utill.getcwd()
-
+        self.m_ConfPath = _Argv[2]
         #loadconfig
         self.loadConfig()
 
         #argv parse~~
-        self.m_stock_code=_stockCode
+        self.m_stock_code=_Argv[3]
         #pass
 
     #funciton
@@ -88,8 +88,9 @@ class TS_Naver_Finance_Crawling():
             _title, _keyWord, _current_price=self.TS_Crawl.stockCodeBaseCrawling('s',self.m_stock_code)
 
         resultList.append({"stockName": _title, "stockCode": _keyWord, "currentPrice": _current_price})
-        
+        #print("#TS_Finance Result#")
         print(json.dumps(resultList, ensure_ascii=False))  # ident=4
-        
+        #print("stockName:%s, stockCode:%s, currentPrice:%s\n"%(_title,_keyWord,_current_price ))
+        #print("#TS_Finance Result-END#")
 
 
