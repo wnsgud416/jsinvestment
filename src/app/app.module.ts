@@ -51,7 +51,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatBadgeModule} from '@angular/material/badge';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {MatSortModule} from '@angular/material/sort';
+import { MatSortModule } from '@angular/material/sort';
+import {MatDialogModule} from '@angular/material/dialog';
 
 /*CDK Module*/
 import {TextFieldModule} from '@angular/cdk/text-field';
@@ -112,6 +113,7 @@ import { AdminStockSellComponent } from './admin_menu/dialog/admin-stock-sell/ad
     AdminStockSellComponent,
   ],
   imports: [
+    MatDialogModule,
 	  MatPaginatorModule,
     MatSortModule,
     MatProgressSpinnerModule,
@@ -137,7 +139,7 @@ import { AdminStockSellComponent } from './admin_menu/dialog/admin-stock-sell/ad
     MatExpansionModule,
     MatSlideToggleModule,
     MatTableModule,
-    
+
     MatTabsModule,
     TextFieldModule,
     MatCheckboxModule,
