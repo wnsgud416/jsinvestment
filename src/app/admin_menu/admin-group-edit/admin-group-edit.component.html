@@ -24,8 +24,8 @@
 				  </mat-list-item>
 				</mat-list>
 				<div class="Admin_Option_ButtonBox">
-					<button mat-stroked-button>그룹 수정</button>
-					<button mat-stroked-button class="NextBtn">그룹 삭제</button>
+					<button mat-stroked-button (click)="Group_Edit()">그룹 수정</button>
+					<button mat-stroked-button (click)="Group_Remove()" class="NextBtn">그룹 삭제</button>
 				</div>
 			  </mat-expansion-panel>
 			</mat-accordion>
@@ -38,7 +38,6 @@
 				<mat-hint>그룹명은 중복이 불가합니다.</mat-hint>
 			</mat-form-field>
 			<button mat-stroked-button class="NextBtn" (click)="createGroup()">그룹 생성</button>
-<!--			<button mat-stroked-button class="NextBtn" (click)="createGroup()">그룹 수정</button>-->
 		</div>
 </div>
 

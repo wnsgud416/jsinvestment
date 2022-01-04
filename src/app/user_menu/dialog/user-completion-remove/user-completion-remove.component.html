@@ -1,0 +1,26 @@
+<div class="Admin_Option_Dialog">
+	<h3><mat-icon class="Dialog_TitleIcon">warning</mat-icon> <strong>정말 삭제하시겠습니까?</strong> <mat-icon mat-dialog-close class="Dialog_closeBtn">close</mat-icon></h3>
+
+	<div class="User_RemovePanel">
+		<div class="User_RemovePanel_Text">
+			<div class="User_RemovePanel_Left">
+				<mat-icon>delete_outline</mat-icon>
+			</div>
+			<div class="User_RemovePanel_Right">
+				<p><strong>종목코드</strong> <span>13211</span></p>
+				<p><strong>종목명</strong> <span>삼성</span></p>
+				<p><strong>매수가</strong> <span>112,332원</span></p>
+				<p><strong>매도가</strong> <span>4,324,343원</span></p>
+				<p><strong>수익률</strong> <span class="{{5 > 0? 'PlusNumber' : 'MinusNumber'}}">5 %</span></p>
+				<p><strong>기간</strong> <span>2021.01.01 ~ 2021.12.01</span></p>
+				<h3>삭제 후에는 복구할 수 없습니다.</h3>
+			</div>
+		</div>
+
+	</div>
+
+    <div class="Admin_Option_DialogButtonBox">
+		<button mat-stroked-button mat-dialog-close>취소</button>
+		<button mat-stroked-button class="AddBtn" >삭제</button>
+	</div>
+</div>

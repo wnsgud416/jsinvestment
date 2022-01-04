@@ -25,7 +25,10 @@ import { AdminNoticeModifyComponent } from './admin_menu/dialog/admin-notice-mod
 import { AdminStockAddComponent } from './admin_menu/dialog/admin-stock-add/admin-stock-add.component';
 import { AdminStockRemoveComponent } from './admin_menu/dialog/admin-stock-remove/admin-stock-remove.component';
 import { AdminStockModifyComponent } from './admin_menu/dialog/admin-stock-modify/admin-stock-modify.component';
-
+import { AdminGroupModifyComponent } from './admin_menu/dialog/admin-group-modify/admin-group-modify.component';
+import { AdminGroupRemoveComponent } from './admin_menu/dialog/admin-group-remove/admin-group-remove.component';
+import { UserCompletionModifyComponent } from './user_menu/dialog/user-completion-modify/user-completion-modify.component';
+import { UserCompletionRemoveComponent } from './user_menu/dialog/user-completion-remove/user-completion-remove.component';
 
 // Angular Meterial
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -84,6 +87,8 @@ import { AdminStockSellComponent } from './admin_menu/dialog/admin-stock-sell/ad
 
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -111,6 +116,10 @@ import { AdminStockSellComponent } from './admin_menu/dialog/admin-stock-sell/ad
     AdminCommunityEditComponent,
     UserCommunityComponent,
     AdminStockSellComponent,
+    AdminGroupModifyComponent,
+    AdminGroupRemoveComponent,
+    UserCompletionModifyComponent,
+    UserCompletionRemoveComponent,
   ],
   imports: [
     MatDialogModule,

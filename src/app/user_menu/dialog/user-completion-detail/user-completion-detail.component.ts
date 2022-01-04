@@ -8,6 +8,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { UserCompletionModifyComponent } from '../user-completion-modify/user-completion-modify.component';
+import { UserCompletionRemoveComponent } from '../user-completion-remove/user-completion-remove.component';
 
 export interface PeriodicElement {
   code: string;
@@ -54,7 +56,7 @@ export class UserCompletionDetailComponent implements OnInit {
     this.bottomSheetRef.dismiss()
   }
   Stock_Modify(stockData) {
-    this.dialog.open(AdminStockModifyComponent, {
+    this.dialog.open(UserCompletionModifyComponent, {
       panelClass: 'OptionModal',
       data: {stockData:stockData}
     }).afterClosed().subscribe((result) => {
@@ -64,7 +66,7 @@ export class UserCompletionDetailComponent implements OnInit {
   }
 
   Stock_Remove(stockData) {
-    this.dialog.open(AdminStockRemoveComponent, {
+    this.dialog.open(UserCompletionRemoveComponent, {
       panelClass: 'OptionModal',
       data: {stockData:stockData}
     }).afterClosed().subscribe((result) => {

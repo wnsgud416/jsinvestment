@@ -1,0 +1,19 @@
+<div class="Admin_Option_Dialog">
+	<h3><mat-icon class="Dialog_TitleIcon2">edit</mat-icon> <strong>그룹명 수정</strong> <mat-icon (click)="close()" class="Dialog_closeBtn">close</mat-icon></h3>
+
+   <div class="Admin_User_ModifyBox">
+
+				<mat-form-field appearance="legacy">
+				<mat-label>그룹명</mat-label>
+				<mat-icon matPrefix>group</mat-icon>
+				<input matInput #input1  readonly>
+				</mat-form-field>
+
+   </div>
+
+
+    <div class="Admin_Option_DialogButtonBox">
+		<button mat-stroked-button (click)="close()">취소</button>
+		<button mat-stroked-button class="AddBtn">적용</button>
+	</div>
+</div>

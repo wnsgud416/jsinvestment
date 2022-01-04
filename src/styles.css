@@ -306,6 +306,7 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 
 /*유저 Dialog (유저 메뉴) - 기본설정*/
 .OptionModal.mat-bottom-sheet-container{max-height: calc(100vh - 64px); min-width: 60vw;}
+.OptionModal .mat-dialog-container{padding: 0 !important; min-width: 50vw;}
 .OptionModal.mat-bottom-sheet-container::-webkit-scrollbar{display: contents !important;}
 .User_Option_DialogButtonBox{text-align: right; margin-bottom: 2vh; margin-top: 2vh;}
 .User_Option_DialogButtonBox button {line-height: 36px ; height: 40px; width: auto; margin-right: 15px ; font-size: 14px; padding: 0 24px;}
@@ -325,10 +326,10 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 /*완료 수익률 (유저 메뉴) - 세부내용*/
 .User_Completion_Detail_TableBox{position: relative; width: auto; height: calc(100vh - 264px); overflow-x: hidden; overflow-y: auto; background: var(--main-whitefont-color);}
 .User_Completion_Detail_TableBox::-webkit-scrollbar{display: contents !important;}
-.User_Completion_Detail_TableBox table{width: 100%;}
+.User_Completion_Detail_TableBox table{min-width: 100%; max-width: 200%;}
 .User_Completion_Detail_TableBox table thead {background: var(--maindark-color); height: 5vh;}
 .User_Completion_Detail_TableBox table thead tr{border-color: var(--main-font-color); height: 5vh;}
-.User_Completion_Detail_TableBox table thead tr th{height: 5vh; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color: var(--main-whitefont-color);}
+.User_Completion_Detail_TableBox table thead tr th{height: 5vh; font-size: 12px; white-space: nowrap; color: var(--main-whitefont-color);}
 .User_Completion_Detail_TableBox table tbody tr:nth-child(odd){background: #f5f5f5;}
 .User_Completion_Detail_TableBox table tbody tr:nth-child(even){background: var(--main-whitefont-color);}
 .User_Completion_Detail_TableBox table tbody tr{height: 5vh; transition: .3s; }
@@ -434,8 +435,10 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 .User_RemovePanel{position: relative;height: auto; padding: 0px;}
 .User_RemovePanel_Text{margin-top: 2vh; padding: 0 16px;}
 .User_RemovePanel_Left{float: left;line-height: 60px; height: 60px; text-align: center;}
-.User_RemovePanel_Left mat-icon{width: 100px; line-height: 50px; font-size: 50px; height: 50px; color: var(--sub-font-color);}
+.User_RemovePanel_Left mat-icon{width: 100px; font-size: 50px; height: 50px; color: var(--sub-font-color); position: relative; top: 50%; transform: translateY(50%)}
 .User_RemovePanel_Right{float: left; width: calc(100% - 100px);}
+.User_RemovePanel_Right p strong{display: inline-block; width: 100px;}
+.User_RemovePanel_Right p span{display: inline-block; width: 100px;}
 .User_RemovePanel_Text::after{content: ''; display: block; clear: both;}
 .User_RemovePanel p{margin-left: 5px; position: relative; height: 25px; line-height: 25px; font-size: 14px;letter-spacing: 0.1px; font-weight: 400; color: var(--main-font-color); width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
 .User_RemovePanel p span{color: var(--sub-font-color); font-size: 10px;}
@@ -646,6 +649,7 @@ div.angular-editor-textarea::-webkit-scrollbar{display: contents !important;}
 	.User_Recommended_Search mat-form-field{width: 100%;}
 	.User_Completion_Search mat-form-field{width: 100%;}
 	.OptionModal.mat-bottom-sheet-container{max-height: calc(100vh - 48px); min-width: 100vw;}
+	.OptionModal .mat-dialog-container{max-height: calc(100vh - 48px); min-width: 80vw;}
 	.User_notice_Dialog_Contant{max-height: calc(100vh - 142px - 4vh); }
 	.User_Completion_Detail_TableBox{height: calc(100vh - 188px - 4vh); }
 	.Admin_MenuPanel{height: calc(100vh - 54px);}
@@ -662,6 +666,9 @@ div.angular-editor-textarea::-webkit-scrollbar{display: contents !important;}
 	.Admin_Stock_OptionBox{max-height: calc(100vh - 54px - 90px - 4vh);}
 	.Admin_Stock_OptionBox mat-form-field:nth-child(1){margin-top: 1.5vh;}
 	.Admin_Stock_OptionBox mat-form-field{margin-top: 0vh; width: 100% !important;}
+	.User_Completion_Detail_TableBox table tbody tr td{font-size: 10px; padding: 0 !important;}
+	.User_Completion_Detail_TableBox table thead tr th{font-size: 10px; padding: 0 !important;}
+	.User_Completion_Detail_TableBox table button{margin-left: 2.5px; margin-right: 2.5px; position: relative; z-index: 1; font-size: 8px; height: 18px; line-height: 18px; padding: 0 2px; font-weight: 300; min-width: 45px;}
 }
 
 

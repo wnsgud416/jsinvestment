@@ -88,14 +88,14 @@ export class UserRecommendedComponent implements OnInit {
 
 
     })
-
-	  $({ val : 0 }).animate({ val : 8900 }, {
+							
+	  $({ val : 0 }).animate({ val : 32.24 }, {
       //총 수익률
       // this.allYield
 
-				  duration: 5000,
+				  duration: 3000,
 				  step: function() {
-					var num = numberWithCommas(Math.floor(this.val));
+					var num = numberWithCommas(this.val);
 					if(num > 0){
 						  $(".User_Total_Value").val(num);
 						  $(".User_Total_Value").removeClass("MinusNumber");
@@ -108,7 +108,7 @@ export class UserRecommendedComponent implements OnInit {
 					  }
 				  },
 				  complete: function() {
-					var num = numberWithCommas(Math.floor(this.val));
+					var num = numberWithCommas(this.val);
 						  $(".User_Total_Value").val(num);
 
 				    }
@@ -116,7 +116,7 @@ export class UserRecommendedComponent implements OnInit {
 
 
 		function numberWithCommas(x) {
-					return x.toString().replace(/\B(?=(\d{2})+(?!\d))/g, ".");
+					return x.toFixed(2);
 		}
 
 

@@ -4,9 +4,12 @@ import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet'
 import { addDoc, collection, doc, getDocs, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
 import { AdminUserModifyComponent } from '../dialog/admin-user-modify/admin-user-modify.component';
 import { AdminUserRemoveComponent } from '../dialog/admin-user-remove/admin-user-remove.component';
+
 import { AppState } from '../../store';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { AdminGroupModifyComponent } from '../dialog/admin-group-modify/admin-group-modify.component';
+import { AdminGroupRemoveComponent } from '../dialog/admin-group-remove/admin-group-remove.component';
 
 @Component({
   selector: 'app-admin-group-edit',
@@ -127,4 +130,19 @@ export class AdminGroupEditComponent implements OnInit {
     }
   }
 
+Group_Edit(){
+	  this.MatBottomSheet.open(AdminGroupModifyComponent, {
+      panelClass: 'OptionModal',
+      data: {}
+    }).afterDismissed().subscribe((result) => {
+    });
+  }
+
+  Group_Remove(){
+	  this.MatBottomSheet.open(AdminGroupRemoveComponent, {
+      panelClass: 'OptionModal',
+      data: {}
+    }).afterDismissed().subscribe((result) => {
+    });
+	}
 }

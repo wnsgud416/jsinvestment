@@ -6,38 +6,38 @@
 		<table mat-table [dataSource]="tableRowData">
 
 			<ng-container matColumnDef="code">
-				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 10vw"> 종목코드 </th>
-				<td mat-cell *matCellDef="let element" style="text-align: center; width: 10vw"> {{element.code}} </td>
+				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 100px"> 종목코드 </th>
+				<td mat-cell *matCellDef="let element" style="text-align: center; width: 100px"> {{element.code}} </td>
 			</ng-container>
 
 			<ng-container matColumnDef="name">
-				<th mat-header-cell *matHeaderCellDef style=" text-align: center; width: 20vw"> 종목명 </th>
-				<td mat-cell *matCellDef="let element" style=" text-align: center; width: 20vw"> {{element.name}} </td>
+				<th mat-header-cell *matHeaderCellDef style=" text-align: center; width: 100px"> 종목명 </th>
+				<td mat-cell *matCellDef="let element" style=" text-align: center; width: 100px"> {{element.name}} </td>
 			</ng-container>
 
 			<ng-container matColumnDef="buyingPrice">
-				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 10vw"> 매수가 </th>
-				<td mat-cell *matCellDef="let element" style="text-align: center; width: 10vw"> {{numChange(element.buyingPrice)}} </td>
+				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 100px"> 매수가 </th>
+				<td mat-cell *matCellDef="let element" style="text-align: center; width: 100px"> {{numChange(element.buyingPrice)}} </td>
 			</ng-container>
 
 			<ng-container matColumnDef="sellingPrice">
-				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 10vw"> 매도가 </th>
-				<td mat-cell *matCellDef="let element" style="text-align: center; width: 10vw"> {{numChange(element.sellingPrice)}} </td>
+				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 100px"> 매도가 </th>
+				<td mat-cell *matCellDef="let element" style="text-align: center; width: 100px"> {{numChange(element.sellingPrice)}} </td>
 			</ng-container>
 
 			<ng-container matColumnDef="yield">
-				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 5vw"> 수익률 </th>
-				<td mat-cell *matCellDef="let element" style="text-align: center; width: 5vw" class="{{element.yield >0? 'PlusNumber' : 'MinusNumber'}}"> {{element.yield}} %</td>
+				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 100px"> 수익률 </th>
+				<td mat-cell *matCellDef="let element" style="text-align: center; width: 100px" class="{{element.yield >0? 'PlusNumber' : 'MinusNumber'}}"> {{element.yield}} %</td>
 			</ng-container>
 
 			<ng-container matColumnDef="Data">
-				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 10vw"> 기간 </th>
-				<td mat-cell *matCellDef="let element" style="text-align: center; width: 10vw"> {{element.created_at + "~"+element.updated_at}} </td>
+				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 150px"> 기간 </th>
+				<td mat-cell *matCellDef="let element" style="text-align: center; width: 150px"> {{element.created_at + "~"+element.updated_at}} </td>
 			</ng-container>
 
 			<ng-container matColumnDef="Action">
-				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 10vw"> 기능 </th>
-				<td mat-cell *matCellDef="let element" style="text-align: center; width: 10vw">
+				<th mat-header-cell *matHeaderCellDef style="text-align: center; width: 200px"> 기능 </th>
+				<td mat-cell *matCellDef="let element" style="text-align: center; width: 200px">
 				<button mat-stroked-button class="RedBtn" (click)="Stock_Remove(element)">삭제</button>
 		<button mat-stroked-button class="AddBtn" (click)="Stock_Modify(element)">수정</button>
 
