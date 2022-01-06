@@ -24,8 +24,8 @@
 				  </mat-list-item>
 				</mat-list>
 				<div class="Admin_Option_ButtonBox">
-					<button mat-stroked-button (click)="Group_Edit()">그룹 수정</button>
-					<button mat-stroked-button (click)="Group_Remove()" class="NextBtn">그룹 삭제</button>
+					<button mat-stroked-button *ngIf="group.name !='일반회원' && group.name !='관리자'" (click)="Group_Edit(group)">그룹 수정</button>
+					<button mat-stroked-button *ngIf="group.name !='일반회원' && group.name !='관리자'" (click)="Group_Remove(group)" class="NextBtn">그룹 삭제</button>
 				</div>
 			  </mat-expansion-panel>
 			</mat-accordion>
@@ -46,24 +46,18 @@
     <mat-icon>group_add</mat-icon>
     <span>그룹 이동</span>
   </button>
-  <button mat-menu-item (click)="User_Remove()">
-    <mat-icon>person_remove</mat-icon>
-    <span>회원 삭제</span>
-  </button>
   <button mat-menu-item (click)="User_Edit()">
     <mat-icon>account_box</mat-icon>
     <span>회원 수정</span>
   </button>
+  <button mat-menu-item (click)="User_Remove()">
+    <mat-icon>person_remove</mat-icon>
+    <span>회원 삭제</span>
+  </button>
 </mat-menu>
 
 <mat-menu #Admin_Group_ListMenu="matMenu">
-  <button mat-menu-item (click)="moveGroup('관리자')">
-    <span>관리자</span>
-  </button>
-  <button mat-menu-item (click)="moveGroup('일반회원')">
-    <span>일반회원</span>
-  </button>
-  <button mat-menu-item (click)="moveGroup('특별회원')">
-    <span>특별회원</span>
+  <button mat-menu-item *ngFor="let group of GroupData" (click)="moveGroup(group)">
+    <span>{{group}}</span>
   </button>
 </mat-menu>

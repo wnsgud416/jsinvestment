@@ -25,6 +25,8 @@ export class AdminGroupEditComponent implements OnInit {
   public groupUserData: any ={};
   public clickUserinfo;
 
+  GroupData:any = []
+
   constructor(
     private MatBottomSheet: MatBottomSheet,
     private firestore: Firestore,
@@ -33,9 +35,6 @@ export class AdminGroupEditComponent implements OnInit {
 			  ) { }
 
   async ngOnInit(): Promise<void> {
-
-
-
     onSnapshot(
 
       collection(this.firestore, "groups"), { includeMetadataChanges: true }, (collectionGroupData) => {
@@ -60,7 +59,16 @@ export class AdminGroupEditComponent implements OnInit {
               });
             });
           });
+    });
+    await getDocs(collection(this.firestore, "groups")).then((querySnapshot) => {
+      var group: any = [];
+      querySnapshot.forEach((doc) => {
+        group.push(doc.data());
       });
+      group.forEach(element => {
+        this.GroupData.push(element.name);
+      });
+    })
     console.log(this.groupUserData);
   }
 	User_Remove(){
@@ -82,6 +90,7 @@ export class AdminGroupEditComponent implements OnInit {
     });
 
   }
+
   async moveGroup(text) {
     const washingtonRef = doc(this.firestore, "users", this.clickUserinfo.id);
 
@@ -130,18 +139,18 @@ export class AdminGroupEditComponent implements OnInit {
     }
   }
 
-Group_Edit(){
+Group_Edit(group){
 	  this.MatBottomSheet.open(AdminGroupModifyComponent, {
       panelClass: 'OptionModal',
-      data: {}
+      data: {group:group , groupArray:this.groupArray}
     }).afterDismissed().subscribe((result) => {
     });
   }
 
-  Group_Remove(){
+  Group_Remove(group){
 	  this.MatBottomSheet.open(AdminGroupRemoveComponent, {
       panelClass: 'OptionModal',
-      data: {}
+      data: {group:group}
     }).afterDismissed().subscribe((result) => {
     });
 	}

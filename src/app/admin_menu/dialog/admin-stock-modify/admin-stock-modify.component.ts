@@ -34,6 +34,7 @@ export class AdminStockModifyComponent implements OnInit {
     this.currentPrice = this.data.stockData.currentPrice
     this.buyingPrice = this.data.stockData.buyingPrice
     this.yield = this.data.stockData.yield
+    this.GroupData = this.data.GroupData
     this.groupModel = this.data.stockData.group;
     this.sellingPrice = this.data.stockData.sellingPrice
 

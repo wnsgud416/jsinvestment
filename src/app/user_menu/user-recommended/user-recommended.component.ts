@@ -34,7 +34,6 @@ export class UserRecommendedComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   stockInfoData: any = [];
-  allYield;
 
   interval;
 
@@ -88,38 +87,6 @@ export class UserRecommendedComponent implements OnInit {
 
 
     })
-							
-	  $({ val : 0 }).animate({ val : 32.24 }, {
-      //총 수익률
-      // this.allYield
-
-				  duration: 3000,
-				  step: function() {
-					var num = numberWithCommas(this.val);
-					if(num > 0){
-						  $(".User_Total_Value").val(num);
-						  $(".User_Total_Value").removeClass("MinusNumber");
-						  $(".User_Total_Value").addClass("PlusNumber");
-						  }
-					  else{
-						  $(".User_Total_Value").val(num);
-						  $(".User_Total_Value").removeClass("PlusNumber");
-						  $(".User_Total_Value").addClass("MinusNumber");
-					  }
-				  },
-				  complete: function() {
-					var num = numberWithCommas(this.val);
-						  $(".User_Total_Value").val(num);
-
-				    }
-				});
-
-
-		function numberWithCommas(x) {
-					return x.toFixed(2);
-		}
-
-
   }
 
   applyFilter(event: Event) {
@@ -152,14 +119,40 @@ export class UserRecommendedComponent implements OnInit {
             currentPrice =stockData.currentPrice
           }
         });
-        yieldData = ((parseInt(currentPrice)/parseInt(element.buyingPrice))*100-100).toFixed(2)
+        yieldData = ((parseInt(currentPrice)/parseInt(element.buyingPrice))*100-100)
         SumYield +=yieldData
         this.stockInfoData[i]['currentPrice'] = currentPrice
-        this.stockInfoData[i]['yield'] = yieldData
+        this.stockInfoData[i]['yield'] = yieldData.toFixed(2)
         this.stockInfoData[i]['number'] = i+1
 
       });
-      //this.allYield = SumYield.toFixed(2)
+
+      $({ val : 0 }).animate({ val : SumYield }, {
+        duration: 3000,
+        step: function() {
+        var num = numberWithCommas(this.val);
+        if(num > 0){
+            $(".User_Total_Value").val(num);
+            $(".User_Total_Value").removeClass("MinusNumber");
+            $(".User_Total_Value").addClass("PlusNumber");
+            }
+          else{
+            $(".User_Total_Value").val(num);
+            $(".User_Total_Value").removeClass("PlusNumber");
+            $(".User_Total_Value").addClass("MinusNumber");
+          }
+        },
+        complete: function() {
+        var num = numberWithCommas(this.val);
+            $(".User_Total_Value").val(num);
+
+        }
+      });
+
+
+      function numberWithCommas(x) {
+            return x.toFixed(2);
+      }
       this.tableRowData = new MatTableDataSource(this.stockInfoData);
       this.tableRowData.paginator = this.paginator;
     });

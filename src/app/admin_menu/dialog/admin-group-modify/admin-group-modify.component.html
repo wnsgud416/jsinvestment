@@ -6,7 +6,7 @@
 				<mat-form-field appearance="legacy">
 				<mat-label>그룹명</mat-label>
 				<mat-icon matPrefix>group</mat-icon>
-				<input matInput #input1  readonly>
+				<input matInput #input1 [(ngModel)]="groupName">
 				</mat-form-field>
 
    </div>
@@ -14,6 +14,6 @@
 
     <div class="Admin_Option_DialogButtonBox">
 		<button mat-stroked-button (click)="close()">취소</button>
-		<button mat-stroked-button class="AddBtn">적용</button>
+		<button mat-stroked-button class="AddBtn" (click)="save()">적용</button>
 	</div>
 </div>

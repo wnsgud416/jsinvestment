@@ -31,6 +31,8 @@ export class UserCompletionComponent implements OnInit {
   public tableRowData = new MatTableDataSource([]);
 
   compliteData: any = [];
+  docId: any = [];
+  userGroup
 
   constructor(
     private MatBottomSheet: MatBottomSheet,
@@ -45,12 +47,14 @@ export class UserCompletionComponent implements OnInit {
       const docRef = doc(this.firestore, "users", user.uid);
       const docSnap = await getDoc(docRef);
       var userData: any = docSnap.data()
-      var userGroup = userData.group;
+      this.userGroup = userData.group;
 
       var stocks: any = [];
       querySnapshot.forEach((doc) => {
+
         var docData:any = doc.data();
         stocks.push(docData.stock);
+        this.docId.push(doc.id)
       });
       stocks.forEach(element => {
         var stockInfoData: any = []
@@ -60,7 +64,7 @@ export class UserCompletionComponent implements OnInit {
         element.forEach(stockData => {
           var same = false
           stockData.group.forEach(groupData => {
-            if (groupData === userGroup) {
+            if (groupData === this.userGroup) {
               same =true
             }
           });
@@ -99,10 +103,10 @@ export class UserCompletionComponent implements OnInit {
 
 
 
-	Completion_Detail(stocks){
+	Completion_Detail(row,index){
     this.MatBottomSheet.open(UserCompletionDetailComponent, {
      panelClass: 'OptionModal',
-     data: {stocks:stocks}
+     data: {stocks:row.stocks,unit:row.unit,title:row.name, docId : this.docId[index],userGroup:this.userGroup}
    }).afterDismissed().subscribe((result) => {
 
    });

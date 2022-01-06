@@ -28,7 +28,7 @@
 			</ng-container> -->
 
 			<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-			<tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="Completion_Detail(row.stocks)"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index" (click)="Completion_Detail(row,i)"></tr>
 
       <div *ngIf="tableRowData.filteredData.length>0">
         <tr class="Search_resulttext" *matNoDataRow>

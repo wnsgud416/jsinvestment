@@ -36,8 +36,8 @@
 		  <mat-form-field appearance="outline" class="AdminInformation_SubFiled Total_Filed">
 			<mat-label>총 수익률</mat-label>
 			  <mat-icon matPrefix>point_of_sale</mat-icon>
-			 	<input matInput [(ngModel)]="allYield" readonly>
-					<span matSuffix>&nbsp;%</span>
+			 	<input matInput value="0" readonly disabled class="User_Total_Value">
+						<span matSuffix>&nbsp;%</span>
 		  </mat-form-field>
 		  <button mat-stroked-button  class="RedBtn" [matMenuTriggerFor]="AdminInformation_OptionMenu2">옵션</button>
 

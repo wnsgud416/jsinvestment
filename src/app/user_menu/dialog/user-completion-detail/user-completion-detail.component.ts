@@ -10,6 +10,8 @@ import {MatTableDataSource} from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { UserCompletionModifyComponent } from '../user-completion-modify/user-completion-modify.component';
 import { UserCompletionRemoveComponent } from '../user-completion-remove/user-completion-remove.component';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { Firestore } from '@angular/fire/firestore';
 
 export interface PeriodicElement {
   code: string;
@@ -32,18 +34,31 @@ export class UserCompletionDetailComponent implements OnInit {
   constructor(
     private bottomSheetRef: MatBottomSheetRef<UserCompletionDetailComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private firestore: Firestore,
   ) { }
 
-  displayedColumns: string[] = ['code','name', 'buyingPrice', 'sellingPrice', 'yield', 'Data','Action'];
+  displayedColumns: string[] = ['code','name', 'buyingPrice', 'sellingPrice', 'yield', 'Data'];
   public tableRowData = new MatTableDataSource([]);
 
+  GroupData:any = [];
+  docId
+  totalYield = 0;
 
+  async ngOnInit(): Promise<void> {
+    if (this.data.userGroup == '관리자') {
+      this.displayedColumns = ['code','name', 'buyingPrice', 'sellingPrice', 'yield', 'Data','Action'];
+    }
 
-
-  ngOnInit(): void {
+    await getDocs(collection(this.firestore, "groups")).then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        this.GroupData.push(doc.data()['name']);
+      });
+    })
     console.log(this.data.stocks);
+    this.docId = this.data.docId
 
+    this.SumYield(this.data.stocks)
     this.tableRowData = new MatTableDataSource(this.data.stocks);
   }
 
@@ -58,8 +73,24 @@ export class UserCompletionDetailComponent implements OnInit {
   Stock_Modify(stockData) {
     this.dialog.open(UserCompletionModifyComponent, {
       panelClass: 'OptionModal',
-      data: {stockData:stockData}
-    }).afterClosed().subscribe((result) => {
+      data: {stockData:stockData, allGroup:this.GroupData, docId:this.docId}
+    }).afterClosed().subscribe(async (result) => {
+      var resultArray:any = []
+      const washingtonRef = doc(this.firestore, "completionStock", result);
+      await getDoc(washingtonRef).then((docSnap) => {
+        var stockArray:any = [];
+        stockArray = docSnap.data();
+        stockArray['stock'].forEach(element => {
+          element.group.forEach(groupData => {
+            if (groupData === this.data.userGroup) {
+              resultArray.push(element)
+            }
+          });
+        });
+        this.SumYield(resultArray)
+        this.tableRowData = new MatTableDataSource(resultArray);
+      })
+
 
     });
 
@@ -73,6 +104,14 @@ export class UserCompletionDetailComponent implements OnInit {
 
     });
 
+  }
+
+  SumYield(array) {
+    this.totalYield = 0;
+    array.forEach(element => {
+
+      this.totalYield+=parseFloat(element.yield)
+    });
   }
 
 }

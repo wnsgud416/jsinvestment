@@ -13,6 +13,7 @@ import { Store } from '@ngrx/store';
 import { Actions, ofType } from '@ngrx/effects';
 import * as Action from 'src/app/store/actions/action';
 import { take } from 'rxjs';
+import * as $ from 'jquery';
 
 export interface PeriodicElement {
 	code : string;
@@ -140,7 +141,7 @@ export class AdminInformationComponent implements OnInit {
   Stock_Modify(stockData,event) {
     this.MatBottomSheet.open(AdminStockModifyComponent, {
       panelClass: 'OptionModal',
-      data: {stockData:stockData,groupData: this.GroupData,stockInfoData:this.stockInfoData}
+      data: {stockData:stockData,GroupData: this.GroupData,stockInfoData:this.stockInfoData}
     }).afterDismissed().subscribe((result) => {
       this.selection.clear();
     });
@@ -247,7 +248,36 @@ getStockInfo(stockCodeArray) {
         this.stockInfoData[i]['sellingPrice'] = "0"
 
       });
-      this.allYield = SumYield.toFixed(2)
+
+      console.log(SumYield);
+
+      $({ val : 0 }).animate({ val : SumYield }, {
+        duration: 3000,
+        step: function() {
+        var num = numberWithCommas(this.val);
+        if(num > 0){
+            $(".User_Total_Value").val(num);
+            $(".User_Total_Value").removeClass("MinusNumber");
+            $(".User_Total_Value").addClass("PlusNumber");
+            }
+          else{
+            $(".User_Total_Value").val(num);
+            $(".User_Total_Value").removeClass("PlusNumber");
+            $(".User_Total_Value").addClass("MinusNumber");
+          }
+        },
+        complete: function() {
+        var num = numberWithCommas(this.val);
+            $(".User_Total_Value").val(num);
+
+        }
+      });
+
+
+      function numberWithCommas(x) {
+            return x.toFixed(2);
+      }
+
       this.tableRowData = new MatTableDataSource(this.stockInfoData);
     });
     this.actions$.pipe(ofType(Action.cmdTestFail)).pipe(take(1)).subscribe(async (result) => {
