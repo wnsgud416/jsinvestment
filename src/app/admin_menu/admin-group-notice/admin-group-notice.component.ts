@@ -13,7 +13,8 @@ import { AppState } from 'src/app/store';
 export class AdminGroupNoticeComponent implements OnInit {
 
   AllGroupUserData:any =[];
-
+  selectedUser: any = [];
+  messageText:any
 
 
   constructor(
@@ -53,19 +54,46 @@ export class AdminGroupNoticeComponent implements OnInit {
         groupMember:GroupUserData
       };
       this.AllGroupUserData.unshift(groupData)
-      // GroupUserData.forEach(userdata => {
-      //   this.AllUserData.push(userdata)
-      //   if(userdata.group == '일반회원'){
-      //     this.NomalUserData.push(userdata)
-      //   }else if(userdata.group == '특별회원'){
-      //     this.SpecialUserData.push(userdata)
-      //   }else if(userdata.group == '관리자'){
-      //     this.AdminUserData.push(userdata)
-      //   }
-      // });
+
       console.log(this.AllGroupUserData);
 
     })
   }
 
+  tabChange() {
+    this.selectedUser = []
+  }
+  send(groupName) {
+    var selectGroupIndex
+    this.AllGroupUserData.forEach((element,i) => {
+      if (element.name === groupName) {
+        selectGroupIndex = i
+      }
+    });
+    var sendUser:any =[]
+    this.AllGroupUserData[selectGroupIndex]['groupMember'].forEach(member => {
+      sendUser.push(member)
+    });
+
+    console.log(this.selectedUser);
+    if (this.selectedUser.length == 0) {
+      this.sendMessage(sendUser)
+    } else {
+      for (let i = 0; i < sendUser.length; i++) {
+        this.selectedUser.forEach((element) => {
+          if (sendUser[i].id === element.id) {
+            sendUser.splice(i, 1);
+          }
+        })
+      }
+
+      this.sendMessage(sendUser)
+    }
+  }
+
+  sendMessage(users) {
+    console.log(users);
+    console.log(this.messageText);
+
+  }
 }

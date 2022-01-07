@@ -37,8 +37,7 @@ export class AdminGroupRemoveComponent implements OnInit {
           const newCityRef = doc(this.firestore, "users",docData.id);
 
           await updateDoc(newCityRef, {
-            group: '일반회원',
-            updated_at : dateString
+            group: '일반회원'
           })
         }
       })

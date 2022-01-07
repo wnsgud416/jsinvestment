@@ -15,6 +15,8 @@ import { Firestore, collectionData, collection, doc, getDoc, setDoc } from '@ang
 import { getDocs, query, updateDoc } from '@firebase/firestore';
 import { browserSessionPersistence, getAuth, GoogleAuthProvider, inMemoryPersistence, setPersistence, signInWithEmailAndPassword, signInWithRedirect, signOut, updatePassword, updateProfile } from "firebase/auth";
 import { MatDrawer } from '@angular/material/sidenav';
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -45,15 +47,23 @@ export class AppComponent {
   userPhone;
   userGroup = "";
   refresh;
+  notificationOnOff;
+
   constructor(
     private MatBottomSheet: MatBottomSheet,
     private router: Router,
     private store: Store<AppState>,
     private actions$: Actions,
     private session: SessionService,
-    private firestore: Firestore
+    private firestore: Firestore,
+    private MatSnackBar: MatSnackBar
   ){}
 
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    this.firebaseAction()
+  }
   async ngOnInit(){
     // 로딩 필요
 
@@ -85,6 +95,7 @@ export class AppComponent {
         console.log(docSnap.data());
 
         if (docSnap.exists()) {
+          this.notificationOnOff = docSnap.data()['notification_onoff']
           this.userGroup = docSnap.data()['group']
           if (docSnap.data()['name'] == undefined || docSnap.data()['name'] == null || docSnap.data()['name'] == "") {
             this.userName = ""
@@ -117,11 +128,7 @@ export class AppComponent {
       return  signInWithEmailAndPassword(auth, userid, password)
       .then(async (userCredential) => {
         if(userCredential.user.emailVerified ==true){
-          $(".Login_Box").fadeOut(500);
-          $(".Main_PanelBox").fadeIn(300);
-          console.log("지나감");
 
-          console.log(userCredential.user);
           this.user = userCredential.user
           this.userUid = userCredential.user.uid;
           this.userEmail = userCredential.user.email;
@@ -144,9 +151,32 @@ export class AppComponent {
             console.log("No such document!");
           }
           console.log(userCredential.user.toJSON());
+          var docData:any = docSnap.data();
+          if (docData['updated_at'] == '신규회원' || docData['updated_at'] == '구독종료') {
+            signOut(auth).then(() => {
+              window.alert('구독이 만료되었거나 신규회원입니다. 관리자에게 문의하세요.')
+            })
+          } else {
+            var today = new Date();
 
+            var year = today.getFullYear();
+            var month = ('0' + (today.getMonth() + 1)).slice(-2);
+            var day = ('0' + today.getDate()).slice(-2);
 
-          this.router.navigate(['/UserNotice']);
+            var dateString = year + '-' + month + '-' + day
+
+            var saveDate = new Date(docData['updated_at']);
+            var now = new Date(dateString);
+            if (now > saveDate) {
+              signOut(auth).then(() => {
+                window.alert('구독이 만료되었습니다. 관리자에게 문의하세요.')
+              })
+            } else {
+              $(".Login_Box").fadeOut(500);
+              $(".Main_PanelBox").fadeIn(300);
+              this.router.navigate(['/UserNotice']);
+            }
+          }
         }else{
           window.alert('이메일 인증을 완료해주세요.')
         }
@@ -312,6 +342,58 @@ export class AppComponent {
       })
     }
 
+
+  }
+
+  firebaseAction() {
+    console.log('토큰가져오기');
+
+
+    // const messaging = getMessaging();
+    // onMessage(messaging, (payload:any) => {
+    //   var text: any = payload.notification.body;
+
+    //   this.MatSnackBar.open(text, "확인", {
+    //     horizontalPosition: "right",
+    //     verticalPosition: "bottom",
+    //     duration: 20000,
+    //   });
+    //   console.log('Message received. ', payload);
+    //   // ...
+    // });
+
+  }
+
+  async notificationToggle(event) {
+    console.log(event);
+    const washingtonRef = doc(this.firestore, "users", this.userUid);
+
+    await updateDoc(washingtonRef, {
+      notification_onoff: event.checked,
+    })
+
+  }
+  notificationSetting() {
+    const messaging = getMessaging();
+    getToken(messaging, { vapidKey: 'BBj3q3KDeyfrlopA-1Qg0dzg8BM1tfCx_Z3z82Pkl_VEThHgTWaKCypgw1CAfiKsPu-zhKoX4KN_FVnngJFeKJ8' }).then(async (currentToken) => {
+      if (currentToken) {
+        console.log(currentToken);
+        const washingtonRef = doc(this.firestore, "users", this.userUid);
+
+        await updateDoc(washingtonRef, {
+          notification_token: currentToken,
+        }).then(() => {
+          window.alert('이 기기로 알람을 설정했습니다.')
+        })
+      } else {
+        // Show permission request UI
+        console.log('No registration token available. Request permission to generate one.');
+        // ...
+      }
+    }).catch((err) => {
+      console.log('An error occurred while retrieving token. ', err);
+      // ...
+    });
 
   }
 

@@ -46,7 +46,9 @@ export class JoinModalComponent implements OnInit {
         group: "일반회원",
         name: "null",
         phone: "null",
-        updated_at: dateString
+        notification_onoff: false,
+        notification_token: "",
+        updated_at: '신규회원'
       });
       this.bottomSheetRef.dismiss()
     })

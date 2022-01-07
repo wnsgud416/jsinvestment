@@ -55,7 +55,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatBadgeModule} from '@angular/material/badge';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 /*CDK Module*/
 import {TextFieldModule} from '@angular/cdk/text-field';
@@ -83,6 +84,7 @@ import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
 import { AdminCommunityEditComponent } from './admin_menu/admin-community-edit/admin-community-edit.component';
 import { UserCommunityComponent } from './user_menu/user-community/user-community.component';
 import { AdminStockSellComponent } from './admin_menu/dialog/admin-stock-sell/admin-stock-sell.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 
@@ -122,6 +124,7 @@ import { AdminStockSellComponent } from './admin_menu/dialog/admin-stock-sell/ad
     UserCompletionRemoveComponent,
   ],
   imports: [
+    MatSnackBarModule,
     MatDialogModule,
 	  MatPaginatorModule,
     MatSortModule,
@@ -174,6 +177,12 @@ import { AdminStockSellComponent } from './admin_menu/dialog/admin-stock-sell/ad
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
     }),
 
   ],

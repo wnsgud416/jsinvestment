@@ -5,12 +5,12 @@
 	</div>
 
 
-	<mat-tab-group>
+	<mat-tab-group (selectedTabChange)="tabChange()">
 
 	  <mat-tab *ngFor="let groupData of AllGroupUserData" label="{{groupData.name}}">
 	    <div class="Admin_notice_UserList">
-	    	<mat-selection-list #Notice_AllUser>
-			  <mat-list-option *ngFor="let userData of groupData.groupMember">
+	    	<mat-selection-list #Notice_AllUser [(ngModel)]="selectedUser">
+			  <mat-list-option *ngFor="let userData of groupData.groupMember" [value]="userData">
           <span mat-list-icon>{{userData.group}}</span>
 					<div mat-line class="Admin_notcie_UserList_ID">{{userData.email}}</div>
 					<div mat-line class="Admin_notcie_UserList_Name">{{userData.name}} / {{userData.phone}}</div>
@@ -23,86 +23,13 @@
 			<mat-form-field appearance="outline">
 				<mat-label>알림메세지</mat-label>
 				<textarea cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5" matInput placeholder="알림메세지를 입력해주세요."
-				#AllUser_message maxlength="200"></textarea>
+				#AllUser_message maxlength="200" [(ngModel)]="messageText"></textarea>
 				<mat-hint align="start"><strong>200자 내외로 메세지 작성이 가능합니다.</strong> </mat-hint>
     			<mat-hint align="end">{{AllUser_message.value.length}} / 200</mat-hint>
 			</mat-form-field>
-			<button mat-stroked-button class="NextBtn">메세지 전송</button>
+			<button mat-stroked-button class="NextBtn" (click)="send(groupData.name)">메세지 전송</button>
 		</div>
 	  </mat-tab>
-<!--
-	  <mat-tab label="관리자">
-	   <div class="Admin_notice_UserList">
-	    	<mat-selection-list #Notice_Group1>
-			  <mat-list-option *ngFor="let userData of AdminUserData">
-          <span mat-list-icon>{{userData.group}}</span>
-					<div mat-line class="Admin_notcie_UserList_ID">{{userData.email}}</div>
-					<div mat-line class="Admin_notcie_UserList_Name">{{userData.name}} / {{userData.phone}}</div>
-			  </mat-list-option>
-
-			</mat-selection-list>
-	    </div>
-	   <div class="Admin_Notice_SendBox">
-	   <p><mat-icon>warning</mat-icon>메세지를 제외할 대상을 선택해주세요. <span>[ {{Notice_Group1.selectedOptions.selected.length}}명 제외 ]</span></p>
-			<mat-form-field appearance="outline">
-				<mat-label>알림메세지</mat-label>
-				<textarea cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5" matInput placeholder="알림메세지를 입력해주세요."
-						  #Group1_message maxlength="200"></textarea>
-				<mat-hint align="start"><strong>200자 내외로 메세지 작성이 가능합니다.</strong> </mat-hint>
-    			<mat-hint align="end">{{Group1_message.value.length}} / 200</mat-hint>
-			</mat-form-field>
-			<button mat-stroked-button class="NextBtn">메세지 전송</button>
-		</div>
-
-	  </mat-tab>
-
-	  <mat-tab label="특별회원">
-    <div class="Admin_notice_UserList">
-	    	<mat-selection-list #Notice_Group2>
-          <mat-list-option *ngFor="let userData of SpecialUserData">
-            <span mat-list-icon>{{userData.group}}</span>
-            <div mat-line class="Admin_notcie_UserList_ID">{{userData.email}}</div>
-            <div mat-line class="Admin_notcie_UserList_Name">{{userData.name}} / {{userData.phone}}</div>
-          </mat-list-option>
-			</mat-selection-list>
-	    </div>
-	    <div class="Admin_Notice_SendBox">
-	    <p><mat-icon>warning</mat-icon>메세지를 제외할 대상을 선택해주세요. <span>[ {{Notice_Group2.selectedOptions.selected.length}}명 제외 ]</span></p>
-			<mat-form-field appearance="outline">
-				<mat-label>알림메세지</mat-label>
-				<textarea cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5" matInput placeholder="알림메세지를 입력해주세요."
-						  #Group2_message maxlength="200"></textarea>
-				<mat-hint align="start"><strong>200자 내외로 메세지 작성이 가능합니다.</strong> </mat-hint>
-    			<mat-hint align="end">{{Group2_message.value.length}} / 200</mat-hint>
-			</mat-form-field>
-			<button mat-stroked-button class="NextBtn">메세지 전송</button>
-		</div>
-
-	  </mat-tab>
-
-	  <mat-tab label="일반회원">
-	    <div class="Admin_notice_UserList">
-	    	<mat-selection-list #Notice_Group3>
-          <mat-list-option *ngFor="let userData of NomalUserData">
-            <span mat-list-icon >{{userData.group}}</span>
-            <div mat-line class="Admin_notcie_UserList_ID">{{userData.email}}</div>
-            <div mat-line class="Admin_notcie_UserList_Name">{{userData.name}} / {{userData.phone}}</div>
-          </mat-list-option>
-			</mat-selection-list>
-	    </div>
-	    <div class="Admin_Notice_SendBox">
-	    <p><mat-icon>warning</mat-icon>메세지를 제외할 대상을 선택해주세요. <span>[ {{Notice_Group3.selectedOptions.selected.length}}명 제외 ]</span></p>
-			<mat-form-field appearance="outline">
-				<mat-label>알림메세지</mat-label>
-				<textarea cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5" matInput placeholder="알림메세지를 입력해주세요."
-						  #Group3_message maxlength="200"></textarea>
-				<mat-hint align="start"><strong>200자 내외로 메세지 작성이 가능합니다.</strong> </mat-hint>
-    			<mat-hint align="end">{{Group3_message.value.length}} / 200</mat-hint>
-			</mat-form-field>
-			<button mat-stroked-button class="NextBtn">메세지 전송</button>
-		</div>
-
-	  </mat-tab> -->
 
 	</mat-tab-group>
 

@@ -46,8 +46,7 @@ export class AdminGroupModifyComponent implements OnInit {
             const newCityRef = doc(this.firestore, "users",docData.id);
 
             await updateDoc(newCityRef, {
-              group: this.groupName,
-              updated_at : dateString
+              group: this.groupName
             })
           }
         })
