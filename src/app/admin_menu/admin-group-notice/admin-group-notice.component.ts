@@ -108,7 +108,7 @@ export class AdminGroupNoticeComponent implements OnInit {
       }
     });
     console.log(sendToken);
-    this.store.dispatch(Action.sendMessage({ sendToken:sendToken}))
+    this.store.dispatch(Action.sendMessage({ sendToken:sendToken, messageText:this.messageText }))
     this.actions$.pipe(ofType(Action.sendMessageSuccess)).pipe(take(1)).subscribe(async (result) => {
 
     });

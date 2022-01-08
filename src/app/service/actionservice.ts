@@ -9,9 +9,9 @@ export class Actionservice {
   constructor(private http: HttpClient) {
   }
 
-  sendMessage(sendMessage) {
+  sendMessage(sendMessage,messageText) {
     const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
-    const data = {sendMessage:sendMessage}
+    const data = {sendMessage:sendMessage,messageText:messageText}
     const body = JSON.stringify(data)
 
     return this.http.post("/action/sendMessage", body,{headers, responseType: 'text'}).pipe(

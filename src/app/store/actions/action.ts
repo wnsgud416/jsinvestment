@@ -4,7 +4,7 @@ import { createAction, props } from '@ngrx/store';
 //sendMessage
 export const sendMessage = createAction(
   '[Data Source] sendMessage',
-  props<{sendToken:any}>()
+  props<{sendToken:any,messageText:any}>()
 )
 export const sendMessageSuccess = createAction(
   '[Data API] sendMessage Success',

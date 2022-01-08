@@ -14,7 +14,7 @@ export class StoreEffects {
 
   sendMessage$ = createEffect(() => this.actions$.pipe(
     ofType(StoreActions.sendMessage),
-    mergeMap((action) => this.actionService.sendMessage(action.sendToken).pipe(
+    mergeMap((action) => this.actionService.sendMessage(action.sendToken,action.messageText).pipe(
       map(data => ({ type: '[Data API] sendMessage Success', result : data})),
       catchError(() => of({ type: '[Data API] sendMessage Fail'}))
     ))
