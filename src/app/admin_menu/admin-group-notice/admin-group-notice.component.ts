@@ -4,6 +4,10 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { collection, getDocs, onSnapshot } from '@firebase/firestore';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store';
+import * as Action from 'src/app/store/actions/action';
+import { take } from 'rxjs';
+import { ofType } from '@ngrx/effects';
+import { Actions } from '@ngrx/effects';
 
 @Component({
   selector: 'app-admin-group-notice',
@@ -21,6 +25,7 @@ export class AdminGroupNoticeComponent implements OnInit {
     private MatBottomSheet: MatBottomSheet,
     private firestore: Firestore,
     private store: Store<AppState>,
+    private actions$: Actions,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -94,6 +99,20 @@ export class AdminGroupNoticeComponent implements OnInit {
   sendMessage(users) {
     console.log(users);
     console.log(this.messageText);
+
+    var sendToken:any = [];
+
+    users.forEach(element => {
+      if (element.notification_onoff == true && element.notification_token != "") {
+        sendToken.push(element.notification_token)
+      }
+    });
+    console.log(sendToken);
+    this.store.dispatch(Action.sendMessage({ sendToken:sendToken}))
+    this.actions$.pipe(ofType(Action.sendMessageSuccess)).pipe(take(1)).subscribe(async (result) => {
+
+    });
+
 
   }
 }

@@ -9,6 +9,16 @@ export class Actionservice {
   constructor(private http: HttpClient) {
   }
 
+  sendMessage(sendMessage) {
+    const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+    const data = {sendMessage:sendMessage}
+    const body = JSON.stringify(data)
+
+    return this.http.post("/action/sendMessage", body,{headers, responseType: 'text'}).pipe(
+      catchError(this.handleError)
+    );
+
+  }
   cmdTest(stockCode) {
       // const headers = { 'content-type': 'application/json' }
       const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');

@@ -12,6 +12,14 @@ export class StoreEffects {
     private actionService: Actionservice
   ) { }
 
+  sendMessage$ = createEffect(() => this.actions$.pipe(
+    ofType(StoreActions.sendMessage),
+    mergeMap((action) => this.actionService.sendMessage(action.sendToken).pipe(
+      map(data => ({ type: '[Data API] sendMessage Success', result : data})),
+      catchError(() => of({ type: '[Data API] sendMessage Fail'}))
+    ))
+  ))
+
   cmdTest$ = createEffect(() => this.actions$.pipe(
     ofType(StoreActions.cmdTest),
     mergeMap((action) => this.actionService.cmdTest(action.stockCodeArray).pipe(

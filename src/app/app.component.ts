@@ -349,18 +349,18 @@ export class AppComponent {
     console.log('토큰가져오기');
 
 
-    // const messaging = getMessaging();
-    // onMessage(messaging, (payload:any) => {
-    //   var text: any = payload.notification.body;
+    const messaging = getMessaging();
+    onMessage(messaging, (payload:any) => {
+      var text: any = payload.notification.body;
 
-    //   this.MatSnackBar.open(text, "확인", {
-    //     horizontalPosition: "right",
-    //     verticalPosition: "bottom",
-    //     duration: 20000,
-    //   });
-    //   console.log('Message received. ', payload);
-    //   // ...
-    // });
+      this.MatSnackBar.open(text, "확인", {
+        horizontalPosition: "right",
+        verticalPosition: "bottom",
+        duration: 20000,
+      });
+      console.log('Message received. ', payload);
+      // ...
+    });
 
   }
 

@@ -1,5 +1,20 @@
 import { createAction, props } from '@ngrx/store';
 
+
+//sendMessage
+export const sendMessage = createAction(
+  '[Data Source] sendMessage',
+  props<{sendToken:any}>()
+)
+export const sendMessageSuccess = createAction(
+  '[Data API] sendMessage Success',
+  props<{result}>()
+)
+export const sendMessageFail = createAction(
+  '[Data API] sendMessage Fail',
+  props<{error: any}>()
+)
+
 //CMD TEST
 export const cmdTest = createAction(
   '[Data Source] cmdTest',
