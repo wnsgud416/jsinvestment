@@ -64,7 +64,6 @@ export class AdminUserEditComponent implements OnInit {
         querySnapshot.forEach((doc) => {
           group.push(doc.data());
         });
-        console.log(group);
 
         group.forEach(element => {
           this.GroupData.push(element.name);
@@ -114,8 +113,6 @@ export class AdminUserEditComponent implements OnInit {
 
   }
 	User_Edit(name,data,phone,id,email){
-    console.log(name);
-    console.log(phone);
 	  this.MatBottomSheet.open(AdminUserModifyComponent, {
       panelClass: 'OptionModal',
       data: {name:name, phone:phone, id:id, email:email}
@@ -213,14 +210,12 @@ export class AdminUserEditComponent implements OnInit {
 
   }
   async subscription(event,id){
-    console.log(event);
     var year = event.getFullYear();
     var month = ('0' + (event.getMonth() + 1)).slice(-2);
     var day = ('0' + event.getDate()).slice(-2);
 
     var dateString = year + '-' + month  + '-' + day
 
-    console.log(dateString);
     const washingtonRef = doc(this.firestore, "users", id);
 
     await updateDoc(washingtonRef, {
@@ -235,8 +230,6 @@ export class AdminUserEditComponent implements OnInit {
   }
 
   checkSubscription(){
-    console.log(this.checkSubscriptionValue);
-
     if(this.checkSubscriptionValue == undefined){
       window.alert('구독 날짜를 선택해 주세요.')
     } else {
@@ -247,7 +240,7 @@ export class AdminUserEditComponent implements OnInit {
 
       var dateString = year + '-' + month  + '-' + day
 
-      console.log(dateString);
+
       this.selection.selected.forEach(async (data,i)=>{
         const washingtonRef = doc(this.firestore, "users", data.id);
 

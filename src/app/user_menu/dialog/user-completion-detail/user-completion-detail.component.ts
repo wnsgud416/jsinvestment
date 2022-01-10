@@ -44,6 +44,8 @@ export class UserCompletionDetailComponent implements OnInit {
   GroupData:any = [];
   docId
   totalYield = 0;
+  selectGroup
+  stockArray:any = [];
 
   async ngOnInit(): Promise<void> {
     if (this.data.userGroup == '관리자') {
@@ -55,11 +57,8 @@ export class UserCompletionDetailComponent implements OnInit {
         this.GroupData.push(doc.data()['name']);
       });
     })
-    console.log(this.data.stocks);
     this.docId = this.data.docId
-
-    this.SumYield(this.data.stocks)
-    this.tableRowData = new MatTableDataSource(this.data.stocks);
+    this.stockGroupChange(this.data.userGroup)
   }
 
   numChange(num) {
@@ -82,7 +81,7 @@ export class UserCompletionDetailComponent implements OnInit {
         stockArray = docSnap.data();
         stockArray['stock'].forEach(element => {
           element.group.forEach(groupData => {
-            if (groupData === this.data.userGroup) {
+            if (groupData === this.selectGroup) {
               resultArray.push(element)
             }
           });
@@ -99,8 +98,24 @@ export class UserCompletionDetailComponent implements OnInit {
   Stock_Remove(stockData) {
     this.dialog.open(UserCompletionRemoveComponent, {
       panelClass: 'OptionModal',
-      data: {stockData:stockData}
-    }).afterClosed().subscribe((result) => {
+      data: {stockData:stockData, docId:this.docId}
+    }).afterClosed().subscribe(async (result) => {
+      var resultArray:any = []
+      const washingtonRef = doc(this.firestore, "completionStock", result);
+      await getDoc(washingtonRef).then((docSnap) => {
+        var stockArray:any = [];
+        stockArray = docSnap.data();
+        stockArray['stock'].forEach(element => {
+          element.group.forEach(groupData => {
+            if (groupData === this.selectGroup) {
+              resultArray.push(element)
+            }
+          });
+        });
+        this.SumYield(resultArray)
+        this.tableRowData = new MatTableDataSource(resultArray);
+      })
+
 
     });
 
@@ -112,6 +127,21 @@ export class UserCompletionDetailComponent implements OnInit {
 
       this.totalYield+=parseFloat(element.yield)
     });
+    this.totalYield.toFixed(2);
+  }
+
+  stockGroupChange(group) {
+    this.selectGroup = group
+    this.stockArray = [];
+    this.data.stocks.forEach(stockData => {
+      stockData.group.forEach(groupData => {
+        if (groupData === group) {
+          this.stockArray.push(stockData)
+        }
+      });
+    });
+    this.SumYield(this.stockArray)
+    this.tableRowData = new MatTableDataSource(this.stockArray);
   }
 
 }

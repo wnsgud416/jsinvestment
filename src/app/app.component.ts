@@ -76,23 +76,20 @@ export class AppComponent {
     setTimeout(async () => {
       this.user = auth.currentUser;
 
-      console.log(this.user);
       if (this.user ==null) {
         this.loginSuccess = false;
-        console.log("로그인 정보없음");
-        window.alert('로그인이 필요합니다.')
+        // window.alert('로그인이 필요합니다.')
 
         // this.router.navigate(['/']);
       } else {
 		$(".Main_PanelBox").fadeIn(0);
-        console.log("로그인 정보있음");
+
         this.loginSuccess = true;
         this.userUid = this.user.uid;
         this.userEmail = this.user.email;
 
         const docRef = doc(this.firestore, "users", this.userUid);
         const docSnap = await getDoc(docRef);
-        console.log(docSnap.data());
 
         if (docSnap.exists()) {
           this.notificationOnOff = docSnap.data()['notification_onoff']
@@ -109,10 +106,7 @@ export class AppComponent {
           }
         } else {
           // doc.data() will be undefined in this case
-          console.log("No such document!");
         }
-        console.log(this.userName);
-        console.log(this.userPhone);
         //this.router.navigate(['/UserNotice']);
       }
     }, 1000);
@@ -148,9 +142,7 @@ export class AppComponent {
             }
           } else {
             // doc.data() will be undefined in this case
-            console.log("No such document!");
           }
-          console.log(userCredential.user.toJSON());
           var docData:any = docSnap.data();
           if (docData['updated_at'] == '신규회원' || docData['updated_at'] == '구독종료') {
             signOut(auth).then(() => {
@@ -194,15 +186,6 @@ export class AppComponent {
       const errorMessage = error.message;
       window.alert('잠시후 다시 시도해주세요.')
     });
-
-    // var item = await getDocs(collection(this.firestore, 'users'));
-    // item.forEach((doc) => {
-    //   if(doc.id === userid){
-    //     console.log("id맞음");
-
-    //   }
-    //   console.log(doc.id, " => ", doc.data());
-    // });
 
 	}
 
@@ -297,13 +280,10 @@ export class AppComponent {
         updatePassword(this.user, newPassword).then(() => {
           window.alert('비밀번호 수정을 완료했습니다.')
         }).catch((error) => {
-          console.log(error);
           window.alert('비밀번호 수정중에 오류가 발생했습니다.')
         });
       })
       .catch((error) => {
-        console.log(error);
-
         window.alert('현재 비밀번호가 틀렸습니다.')
       });
 
@@ -346,9 +326,6 @@ export class AppComponent {
   }
 
   firebaseAction() {
-    console.log('토큰가져오기');
-
-
     const messaging = getMessaging();
     onMessage(messaging, (payload:any) => {
       var text: any = payload.notification.body;
@@ -358,14 +335,11 @@ export class AppComponent {
         verticalPosition: "bottom",
         duration: 20000,
       });
-      console.log('Message received. ', payload);
-      // ...
     });
 
   }
 
   async notificationToggle(event) {
-    console.log(event);
     const washingtonRef = doc(this.firestore, "users", this.userUid);
 
     await updateDoc(washingtonRef, {
@@ -377,7 +351,6 @@ export class AppComponent {
     const messaging = getMessaging();
     getToken(messaging, { vapidKey: 'BBj3q3KDeyfrlopA-1Qg0dzg8BM1tfCx_Z3z82Pkl_VEThHgTWaKCypgw1CAfiKsPu-zhKoX4KN_FVnngJFeKJ8' }).then(async (currentToken) => {
       if (currentToken) {
-        console.log(currentToken);
         const washingtonRef = doc(this.firestore, "users", this.userUid);
 
         await updateDoc(washingtonRef, {
@@ -385,14 +358,8 @@ export class AppComponent {
         }).then(() => {
           window.alert('이 기기로 알람을 설정했습니다.')
         })
-      } else {
-        // Show permission request UI
-        console.log('No registration token available. Request permission to generate one.');
-        // ...
       }
     }).catch((err) => {
-      console.log('An error occurred while retrieving token. ', err);
-      // ...
     });
 
   }

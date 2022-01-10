@@ -17,7 +17,6 @@ export class AdminStockRemoveComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data.stockData);
 
   }
 

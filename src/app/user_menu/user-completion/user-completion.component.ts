@@ -40,6 +40,31 @@ export class UserCompletionComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
+    this.getStockData()
+
+  }
+
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.tableRowData.filter = filterValue.trim().toLowerCase();
+  }
+
+
+
+
+	Completion_Detail(row,index){
+    this.MatBottomSheet.open(UserCompletionDetailComponent, {
+     panelClass: 'OptionModal',
+     data: {stocks:row.stocks,unit:row.unit,title:row.name, docId : this.docId[index],userGroup:this.userGroup}
+    }).afterDismissed().subscribe((result) => {
+      this.getStockData()
+   });
+
+  }
+
+  async getStockData() {
+    this.compliteData = [];
     const auth = getAuth();
 
     await getDocs(collection(this.firestore, "completionStock")).then(async (querySnapshot) => {
@@ -60,22 +85,13 @@ export class UserCompletionComponent implements OnInit {
         var stockInfoData: any = []
         var unit
         var name
-        var sumYield =0;
-        element.forEach(stockData => {
-          var same = false
-          stockData.group.forEach(groupData => {
-            if (groupData === this.userGroup) {
-              same =true
-            }
-          });
-          if (same != false) {
-            unit = stockData.date.split('-');
-            name = stockData.date
-            console.log(parseInt(stockData.yield));
+        var sumYield = 0;
 
-            sumYield += parseInt(stockData.yield)
-            stockInfoData.push(stockData)
-          }
+        element.forEach(stockData => {
+          unit = stockData.date.split('-');
+          name = stockData.date
+          sumYield += parseInt(stockData.yield)
+          stockInfoData.push(stockData)
         });
 
         this.compliteData.push({
@@ -85,33 +101,12 @@ export class UserCompletionComponent implements OnInit {
           stocks: stockInfoData
         })
       });
-      console.log(this.compliteData);
 
       this.tableRowData = new MatTableDataSource(this.compliteData);
       this.tableRowData.paginator = this.paginator;
 
     })
-
   }
-
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.tableRowData.filter = filterValue.trim().toLowerCase();
-  }
-
-
-
-
-	Completion_Detail(row,index){
-    this.MatBottomSheet.open(UserCompletionDetailComponent, {
-     panelClass: 'OptionModal',
-     data: {stocks:row.stocks,unit:row.unit,title:row.name, docId : this.docId[index],userGroup:this.userGroup}
-   }).afterDismissed().subscribe((result) => {
-
-   });
-
- }
 
 
 

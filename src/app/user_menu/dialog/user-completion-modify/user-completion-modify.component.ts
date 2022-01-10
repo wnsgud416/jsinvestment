@@ -32,9 +32,6 @@ export class UserCompletionModifyComponent implements OnInit {
   ) { }
   ngOnInit(): void {
 
-    console.log(this.data.stockData);
-    console.log(this.data.allGroup);
-
     this.stockCode = this.data.stockData.code
     this.stockName = this.data.stockData.name
     this.buyingPrice = this.data.stockData.buyingPrice
@@ -49,7 +46,6 @@ export class UserCompletionModifyComponent implements OnInit {
   }
 
   async subscription(event,type){
-    console.log(event);
     var year = event.getFullYear();
     var month = ('0' + (event.getMonth() + 1)).slice(-2);
     var day = ('0' + event.getDate()).slice(-2);
@@ -61,43 +57,42 @@ export class UserCompletionModifyComponent implements OnInit {
     } else if (type === 'updated_at') {
       this.updated_at = dateString
     }
-    console.log(dateString);
-
-
   }
   async Save() {
     const washingtonRef = doc(this.firestore, "completionStock", this.docId);
 
-    await getDoc(washingtonRef).then((docSnap) => {
+    await getDoc(washingtonRef).then(async (docSnap) => {
       var index;
       this.stockArray = docSnap.data();
-      console.log(this.stockArray['stock']);
       this.stockArray['stock'].forEach((element,i) => {
         if (element.id === this.stockId) {
           index = i
         }
       });
+
       this.stockArray['stock'][index].buyingPrice = this.buyingPrice
       this.stockArray['stock'][index].code = this.stockCode
       this.stockArray['stock'][index].name = this.stockName
       this.stockArray['stock'][index].sellingPrice = this.sellingPrice
       this.stockArray['stock'][index].created_at = this.created_at
       this.stockArray['stock'][index].updated_at = this.updated_at
-      this.stockArray['stock'][index].gorup = this.selectedObjects
+      this.stockArray['stock'][index].group = this.selectedObjects
       this.stockArray['stock'][index].yield = this.yieldData.slice(0, -1);
+
+      await setDoc(washingtonRef, {
+        stock: this.stockArray['stock'],
+      })
+      .then(()=>{
+        window.alert('종목 정보 수정을 완료했습니다.')
+        this.dialogRef.close(this.docId);
+
+      }).catch((error) =>{
+        window.alert('종목 정보 수정중에 오류가 발생했습니다.')
+      })
     })
 
 
-    await setDoc(washingtonRef, {
-      stock: this.stockArray['stock'],
-    })
-    .then(()=>{
-      window.alert('종목 정보 수정을 완료했습니다.')
-      this.dialogRef.close(this.docId);
 
-    }).catch((error) =>{
-      window.alert('종목 정보 수정중에 오류가 발생했습니다.')
-    })
 
   }
 

@@ -20,7 +20,6 @@ export class AdminUserModifyComponent implements OnInit {
     public email;
 
   ngOnInit(): void {
-    console.log(this.data);
     this.userName = this.data['name'];
     this.phone = this.data['phone'];
     this.email = this.data['email'];

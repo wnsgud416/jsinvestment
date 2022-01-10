@@ -11,7 +11,7 @@
         const messaging = firebase.messaging();
 
         messaging.onMessage((payload) => {
-            console.log('Message received. ', payload);
+            //console.log('Message received. ', payload);
 
             const notificationTitle = 'OnMessage Title';
             const notificationOptions = {
@@ -24,33 +24,33 @@
         function resetUI() {
             const vapidKey = '<>'; //from firebase project settings
             messaging.getToken({ vapidKey: vapidKey }).then((currentToken) => {
-                console.log("currentToken", currentToken);
+                //console.log("currentToken", currentToken);
                 if (currentToken) {
                     //..
                 } else {
-                    console.log('No registration token available. Request permission to generate one.');
+                    //console.log('No registration token available. Request permission to generate one.');
                     requestPermission();
                 }
             }).catch((err) => {
-                console.log('An error occurred while retrieving token. ', err);
+                //console.log('An error occurred while retrieving token. ', err);
             });
         }
 
         function requestPermission() {
-            console.log('Requesting permission...');
+            //console.log('Requesting permission...');
             Notification.requestPermission().then((permission) => {
                 if (permission === 'granted') {
-                    console.log('Notification permission granted.');
+                    //console.log('Notification permission granted.');
                     resetUI();
                 } else {
-                    console.log('Unable to get permission to notify.');
+                    //console.log('Unable to get permission to notify.');
                 }
             });
         }
 
         resetUI();
     } catch (e) {
-        console.log("firebase startup error ", e);
+        //console.log("firebase startup error ", e);
     }
 </script>
 
@@ -72,6 +72,6 @@
 <body>
   <app-root></app-root>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
-<script src="runtime.b2e51e9870a7cd3e.js" type="module"></script><script src="polyfills.5543e52d98f6a0e9.js" type="module"></script><script src="main.81bf0efec0608186.js" type="module"></script>
+<script src="runtime.b2e51e9870a7cd3e.js" type="module"></script><script src="polyfills.5543e52d98f6a0e9.js" type="module"></script><script src="main.46f8cb68798ba706.js" type="module"></script>
 
 </body></html>

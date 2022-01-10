@@ -66,9 +66,6 @@ export class AdminNoticeAddComponent implements OnInit {
     var day = ('0' + today.getDate()).slice(-2);
     var dateString = year + '-' + month  + '-' + day
 
-    console.log(this.classification);
-    console.log(this.title);
-    console.log(this.htmlContent);
     if (this.classification == undefined) {
       this.classification =null
     }

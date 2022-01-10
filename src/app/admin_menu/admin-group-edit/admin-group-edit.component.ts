@@ -69,7 +69,6 @@ export class AdminGroupEditComponent implements OnInit {
         this.GroupData.push(element.name);
       });
     })
-    console.log(this.groupUserData);
   }
 	User_Remove(){
 	  this.MatBottomSheet.open(AdminUserRemoveComponent, {

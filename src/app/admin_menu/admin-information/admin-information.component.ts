@@ -61,7 +61,7 @@ export class AdminInformationComponent implements OnInit {
 
     });
     onSnapshot(
-      collection(this.firestore, "stockInfo"), { includeMetadataChanges: true }, (collectionGroupData) => {
+      collection(this.firestore, "stockInfo"), { includeMetadataChanges: true }, async (collectionGroupData) => {
         this.stockInfoData = [];
         this.tableRowData = new MatTableDataSource([]);
         collectionGroupData.forEach((doc) => {
@@ -72,7 +72,7 @@ export class AdminInformationComponent implements OnInit {
         this.stockInfoData.forEach((element,i) => {
           stockCodeArray.push(element.code)
         });
-        this.getStockInfo(stockCodeArray);
+        await this.getStockInfo(stockCodeArray);
         // this.interval = setInterval(() => {
         //   this.getStockInfo(stockCodeArray)
         // }, reflashValue);
@@ -158,8 +158,6 @@ export class AdminInformationComponent implements OnInit {
 
   }
   Stock_Sell(stockData, event, sellValue) {
-    console.log(sellValue.value);
-
     this.MatBottomSheet.open(AdminStockSellComponent, {
       panelClass: 'OptionModal',
       data: {stockData:stockData, sellingPrice:sellValue.value}
@@ -196,7 +194,6 @@ export class AdminInformationComponent implements OnInit {
   }
 
   quickMenuClick() {
-    console.log(this.quickMenu);
 
     if (this.selection.selected.length == 0) {
       window.alert('이동할 종목을 선택해 주세요.')
@@ -227,7 +224,7 @@ export class AdminInformationComponent implements OnInit {
 getStockInfo(stockCodeArray) {
     var stockCurrentPrice
     this.store.dispatch(Action.cmdTest({ stockCodeArray:stockCodeArray}))
-    this.actions$.pipe(ofType(Action.cmdTestSuccess)).pipe(take(1)).subscribe(async (result) => {
+    this.actions$.pipe(ofType(Action.cmdTestSuccess)).pipe(take(1)).subscribe((result) => {
       stockCurrentPrice = JSON.parse(result.result)
 
       var SumYield = 0;
@@ -248,8 +245,6 @@ getStockInfo(stockCodeArray) {
         this.stockInfoData[i]['sellingPrice'] = "0"
 
       });
-
-      console.log(SumYield);
 
       $({ val : 0 }).animate({ val : SumYield }, {
         duration: 3000,

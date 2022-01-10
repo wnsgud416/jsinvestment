@@ -59,9 +59,6 @@ export class AdminGroupNoticeComponent implements OnInit {
         groupMember:GroupUserData
       };
       this.AllGroupUserData.unshift(groupData)
-
-      console.log(this.AllGroupUserData);
-
     })
   }
 
@@ -80,7 +77,6 @@ export class AdminGroupNoticeComponent implements OnInit {
       sendUser.push(member)
     });
 
-    console.log(this.selectedUser);
     if (this.selectedUser.length == 0) {
       this.sendMessage(sendUser)
     } else {
@@ -97,9 +93,6 @@ export class AdminGroupNoticeComponent implements OnInit {
   }
 
   sendMessage(users) {
-    console.log(users);
-    console.log(this.messageText);
-
     var sendToken:any = [];
 
     users.forEach(element => {
@@ -107,7 +100,7 @@ export class AdminGroupNoticeComponent implements OnInit {
         sendToken.push(element.notification_token)
       }
     });
-    console.log(sendToken);
+
     this.store.dispatch(Action.sendMessage({ sendToken:sendToken, messageText:this.messageText }))
     this.actions$.pipe(ofType(Action.sendMessageSuccess)).pipe(take(1)).subscribe(async (result) => {
 

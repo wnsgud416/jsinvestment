@@ -80,9 +80,9 @@ export class UserRecommendedComponent implements OnInit {
         stockCodeArray.push(element.code)
       });
 
-      this.getStockInfo(stockCodeArray)
-      this.interval = setInterval(() => {
-        this.getStockInfo(stockCodeArray)
+      await this.getStockInfo(stockCodeArray)
+      this.interval = setInterval(async () => {
+        await this.getStockInfo(stockCodeArray)
       }, reflashValue);
 
 
@@ -105,7 +105,6 @@ export class UserRecommendedComponent implements OnInit {
     this.store.dispatch(Action.cmdTest({ stockCodeArray:stockCodeArray}))
     this.actions$.pipe(ofType(Action.cmdTestSuccess)).pipe(take(1)).subscribe(async (result) => {
       stockCurrentPrice = JSON.parse(result.result)
-      console.log(stockCurrentPrice);
 
       var SumYield = 0;
       this.stockInfoData.forEach((element,i) => {

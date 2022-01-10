@@ -7,12 +7,12 @@
 				<mat-icon>delete_outline</mat-icon>
 			</div>
 			<div class="User_RemovePanel_Right">
-				<p><strong>종목코드</strong> <span>13211</span></p>
-				<p><strong>종목명</strong> <span>삼성</span></p>
-				<p><strong>매수가</strong> <span>112,332원</span></p>
-				<p><strong>매도가</strong> <span>4,324,343원</span></p>
-				<p><strong>수익률</strong> <span class="{{5 > 0? 'PlusNumber' : 'MinusNumber'}}">5 %</span></p>
-				<p><strong>기간</strong> <span>2021.01.01 ~ 2021.12.01</span></p>
+				<p><strong>종목코드</strong> <span>{{stockCode}}</span></p>
+				<p><strong>종목명</strong> <span>{{stockName}}</span></p>
+				<p><strong>매수가</strong> <span>{{buyingPrice}}원</span></p>
+				<p><strong>매도가</strong> <span>{{sellingPrice}}원</span></p>
+				<p><strong>수익률</strong> <span class="{{5 > 0? 'PlusNumber' : 'MinusNumber'}}">{{yieldData}}</span></p>
+				<p><strong>기간</strong> <span>{{created_at}} ~ {{updated_at}}</span></p>
 				<h3>삭제 후에는 복구할 수 없습니다.</h3>
 			</div>
 		</div>
@@ -21,6 +21,6 @@
 
     <div class="Admin_Option_DialogButtonBox">
 		<button mat-stroked-button mat-dialog-close>취소</button>
-		<button mat-stroked-button class="AddBtn" >삭제</button>
+		<button mat-stroked-button class="AddBtn" (click)="deleteStrock()" >삭제</button>
 	</div>
 </div>

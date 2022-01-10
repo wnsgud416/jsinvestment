@@ -12,7 +12,7 @@
 		<mat-form-field appearance="legacy">
 			<mat-label>아이디</mat-label>
 			<mat-icon matPrefix>person</mat-icon>
-			<input matInput placeholder="js1234@example.com" [(ngModel)]="IDText" required>
+			<input matInput placeholder="js1234@example.com" [(ngModel)]="IDText" required (keydown.enter)="Login(IDText,PasswordText)">
 			<!--    <mat-hint>아이디를 입력해주세요.</mat-hint>-->
 			<mat-error>아이디 확인해주세요.</mat-error>
 		</mat-form-field>
@@ -20,7 +20,7 @@
 		<mat-form-field appearance="legacy">
 			<mat-label>비밀번호</mat-label>
 			<mat-icon matPrefix>lock</mat-icon>
-			<input matInput [type]="hide ? 'password' : 'text'" required [(ngModel)]="PasswordText">
+			<input matInput [type]="hide ? 'password' : 'text'" required [(ngModel)]="PasswordText" (keydown.enter)="Login(IDText,PasswordText)">
 			<button mat-icon-button matSuffix *ngIf="PasswordText != null" (click)="hide = !hide">
 				<mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
 			</button>
@@ -55,26 +55,30 @@
 	  <mat-drawer #Menu mode="over" position="start" class="Main_Menu">
 
 		<mat-selection-list [multiple]="false">
-		  <div mat-subheader><mat-icon mat-list-icon>account_circle</mat-icon> 일반 사용자</div>
+		  <div mat-subheader><mat-icon mat-list-icon>account_circle</mat-icon> {{userGroup}}</div>
 		  <mat-list-option selected (click)="UserMenu('notice')"><mat-icon mat-list-icon>campaign</mat-icon><div mat-line>공지사항</div></mat-list-option>
       <mat-list-option selected (click)="UserMenu('community')"><mat-icon mat-list-icon>campaign</mat-icon><div mat-line>게시판</div></mat-list-option>
 		  <mat-list-option (click)="UserMenu('recommend')"><mat-icon mat-list-icon>trending_up</mat-icon><div mat-line>추천주</div></mat-list-option>
 		  <mat-list-option (click)="UserMenu('completion')"><mat-icon mat-list-icon>format_list_numbered</mat-icon><div mat-line>완료 수익률</div></mat-list-option>
 
-		  <div mat-subheader><mat-icon mat-list-icon>admin_panel_settings</mat-icon> 관리자</div>
-  <mat-list-option (click)="AdminMenu('info')"><mat-icon mat-list-icon>query_stats</mat-icon><div mat-line>종목정보</div></mat-list-option>
-  <mat-list-option (click)="AdminMenu('notice')"><mat-icon mat-list-icon>edit_notifications</mat-icon><div mat-line>공지사항 관리</div></mat-list-option>
-  <mat-list-option (click)="AdminMenu('community')"><mat-icon mat-list-icon>edit_notifications</mat-icon><div mat-line>게시판 관리</div></mat-list-option>
-  <mat-list-option (click)="AdminMenu('groupnotice')"><mat-icon mat-list-icon>notification_add</mat-icon><div mat-line>그룹별 알림</div></mat-list-option>
-  <mat-list-option (click)="AdminMenu('groupedit')"><mat-icon mat-list-icon>group</mat-icon><div mat-line>그룹 관리</div></mat-list-option>
-  <mat-list-option (click)="AdminMenu('useredit')"><mat-icon mat-list-icon>manage_accounts</mat-icon><div mat-line>유저 관리</div></mat-list-option>
+		  <div mat-subheader *ngIf="userGroup=='관리자'"><mat-icon mat-list-icon>admin_panel_settings</mat-icon> 관리자</div>
+  <mat-list-option (click)="AdminMenu('info')" *ngIf="userGroup=='관리자'"><mat-icon mat-list-icon>query_stats</mat-icon><div mat-line>종목정보</div></mat-list-option>
+  <mat-list-option (click)="AdminMenu('notice')" *ngIf="userGroup=='관리자'"><mat-icon mat-list-icon>edit_notifications</mat-icon><div mat-line>공지사항 관리</div></mat-list-option>
+  <mat-list-option (click)="AdminMenu('community')" *ngIf="userGroup=='관리자'"><mat-icon mat-list-icon>edit_notifications</mat-icon><div mat-line>게시판 관리</div></mat-list-option>
+  <mat-list-option (click)="AdminMenu('groupnotice')" *ngIf="userGroup=='관리자'"><mat-icon mat-list-icon>notification_add</mat-icon><div mat-line>그룹별 알림</div></mat-list-option>
+  <mat-list-option (click)="AdminMenu('groupedit')" *ngIf="userGroup=='관리자'"><mat-icon mat-list-icon>group</mat-icon><div mat-line>그룹 관리</div></mat-list-option>
+  <mat-list-option (click)="AdminMenu('useredit')" *ngIf="userGroup=='관리자'"><mat-icon mat-list-icon>manage_accounts</mat-icon><div mat-line>유저 관리</div></mat-list-option>
 		</mat-selection-list>
 	  </mat-drawer>
 
 	  <mat-drawer #settings mode="over" position="end" class="Main_Setting">
 		<mat-accordion [multi]="true">
 		  <mat-expansion-panel hideToggle expanded disabled>
-			<h3 class="Main_Setting_User"><span>{{userEmail}}</span>님 환영합니다.</h3>
+			<h3 class="Main_Setting_User">
+        <span *ngIf="userName !=''">{{userName}} ({{userGroup}})</span>
+        <span *ngIf="userName ==''">이름을 입력해 주세요 ({{userGroup}})</span>
+        님 환영합니다.
+      </h3>
 			<p class="Notification_Setting">
 				<mat-icon>notifications</mat-icon><mat-slide-toggle [checked]="notificationOnOff" (change)="notificationToggle($event)">알림설정</mat-slide-toggle>
 			</p>
@@ -116,6 +120,12 @@
 			  <mat-icon>edit</mat-icon>
 			</button>
 			</mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>그룹</mat-label>
+        <mat-icon matPrefix>group</mat-icon>
+        <input matInput #input1 maxlength="10" value={{userGroup}} [(ngModel)]="userGroup" readonly>
+      </mat-form-field>
 
 			<p class="Sub_Title"><mat-icon>password</mat-icon>비밀번호 변경</p>
 

@@ -164,14 +164,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AngularEditorModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
-        strictStateSerializability: true,
-        strictActionSerializability: true,
-        strictActionWithinNgZone: true,
-        strictActionTypeUniqueness: true,
-      },
     }),
     EffectsModule.forRoot([StoreEffects]),
     StoreDevtoolsModule.instrument({

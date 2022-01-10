@@ -18,14 +18,6 @@ export class AdminStockSellComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
-    console.log(this.data.stockData);
-    // await getDocs(collection(this.firestore, "completionStock")).then((querySnapshot)=>{
-    //   querySnapshot.forEach((doc) => {
-    //     var array:any = [];
-    //     array.push(doc.data());
-    //     this.completionStock[doc.id] = doc.data();
-    //   });
-    // })
   }
 
   async sell() {

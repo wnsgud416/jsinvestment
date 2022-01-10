@@ -66,8 +66,6 @@ export class UserCommunityComponent implements OnInit {
 
 
 	Notice_Detail(row){
-    console.log(row);
-
 		 this.MatBottomSheet.open(UserNoticeDetailComponent, {
       panelClass: 'OptionModal',
       data: {classification:row.classification,title:row.title,content:row.content}
