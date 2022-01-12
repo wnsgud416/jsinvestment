@@ -1,14 +1,16 @@
 <div class="User_Option_Dialog">
 	<h3><span>[{{data.unit}}월]</span> <strong>{{data.title}} 결산 내역</strong> <mat-icon (click)="close()">close</mat-icon></h3>
-  <mat-form-field appearance="fill">
-    <mat-label>그룹 선택</mat-label>
-    <mat-select [(value)]="selectGroup">
-      <mat-option *ngFor="let groupName of GroupData" [value]="groupName" (click)="stockGroupChange(groupName)">
-        {{groupName}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-	<p>총 수익률 <span> {{totalYield}}%</span></p>
+
+	<p>총 수익률 <span> {{totalYield}}%</span>
+	  <mat-form-field>
+		<mat-label>그룹 선택</mat-label>
+		<mat-select [(value)]="selectGroup">
+		  <mat-option *ngFor="let groupName of GroupData" [value]="groupName" (click)="stockGroupChange(groupName)">
+			{{groupName}}
+		  </mat-option>
+		</mat-select>
+	  </mat-form-field>
+	</p>
 
 	<div class="User_Completion_Detail_TableBox">
 		<table mat-table [dataSource]="tableRowData">

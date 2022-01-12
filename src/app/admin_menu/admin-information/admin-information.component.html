@@ -140,7 +140,8 @@
     <div *ngIf="stockInfoData.length==0">
       <tr class="Search_resulttext" *matNoDataRow>
         <td class="mat-cell" colspan="9">
-          <mat-icon>search_off</mat-icon>
+         <mat-progress-spinner mode="indeterminate" >
+      </mat-progress-spinner> 
         <p>종목 정보를 불러오는 중입니다.</p>
         </td>
       </tr>

@@ -82,8 +82,8 @@
 			<p class="Notification_Setting">
 				<mat-icon>notifications</mat-icon><mat-slide-toggle [checked]="notificationOnOff" (change)="notificationToggle($event)">알림설정</mat-slide-toggle>
 			</p>
-      <button mat-stroked-button class="NextBtn" (click)="notificationSetting()">이 기기로 알림 설정</button>
       	<p class="Admin_SettingMenu" *ngIf="userGroup=='관리자'">
+      			<button mat-stroked-button class="AddBtn" (click)="notificationSetting()">이 기기로 알림 설정</button>
 				<mat-form-field appearance="legacy" hintLabel="주기를 입력해 주세요">
 				<mat-label>리프레시 주기 설정</mat-label>
 				<mat-icon matPrefix>update</mat-icon>
