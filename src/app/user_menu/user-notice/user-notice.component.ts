@@ -52,16 +52,8 @@ export class UserNoticeComponent implements OnInit {
       this.tableRowData = new MatTableDataSource(this.noticeTableData);
       this.tableRowData.paginator = this.paginator;
       this.isLoading = false;
+
     })
-    // onSnapshot(
-    //   collection(this.firestore, "/notices/public/posts"), { includeMetadataChanges: true }, (collection) => {
-    //     this.noticeTableData = []
-    //     collection.forEach((doc) => {
-    //       this.noticeTableData.push(doc.data());
-    //     });
-    //     this.tableRowData = new MatTableDataSource(this.noticeTableData);
-    //     this.isLoading = false;
-    //   });
 
     }
 

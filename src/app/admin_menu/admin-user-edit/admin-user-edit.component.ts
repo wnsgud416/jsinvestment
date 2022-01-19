@@ -194,7 +194,7 @@ export class AdminUserEditComponent implements OnInit {
           this.selection.selected.forEach(async (data,i)=>{
             const washingtonRef = doc(this.firestore, "users", data.id);
             await updateDoc(washingtonRef, {
-              updated_at: "구독종료",
+              updated_at: "일반회원",
             })
             .then(()=>{
               if(i ==index){

@@ -88,6 +88,11 @@
 		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;"> {{numChange(element.buyingPrice)}}원 </td>
 	  </ng-container>
 
+    <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef style="width: 12.5vw; text-align: center; padding: 0 2vw;"> 추천 일자 </th>
+      <td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw;"> {{element.created_at}}</td>
+      </ng-container>
+
 	  <ng-container matColumnDef="yield">
 		<th mat-header-cell *matHeaderCellDef style="width: 12.5vw; text-align: center; padding: 0 2vw;"> 수익률 </th>
 		<td mat-cell *matCellDef="let element" style="width: 12.5vw; text-align: center; padding: 0 2vw; font-weight: bold;" class="{{element.yield >0? 'PlusNumber' : 'MinusNumber'}}"> {{element.yield}} %</td>
@@ -140,9 +145,10 @@
     <div *ngIf="stockInfoData.length==0">
       <tr class="Search_resulttext" *matNoDataRow>
         <td class="mat-cell" colspan="9">
-         <mat-progress-spinner mode="indeterminate" >
-      </mat-progress-spinner> 
-        <p>종목 정보를 불러오는 중입니다.</p>
+         <mat-progress-spinner *ngIf="isLoading==true" mode="indeterminate" >
+      </mat-progress-spinner>
+        <p *ngIf="isLoading==true">종목 정보를 불러오는 중입니다.</p>
+        <p *ngIf="isLoading==false">종목 정보가 없습니다.</p>
         </td>
       </tr>
     </div>

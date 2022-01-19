@@ -10,7 +10,7 @@
 
    				<mat-form-field appearance="outline">
    				<mat-label>종목명</mat-label>
-   				<input matInput placeholder="종목명" [(ngModel)]="stockName" required readonly>
+   				<input matInput placeholder="종목명" [(ngModel)]="stockName" required>
    				</mat-form-field>
 
    				<mat-form-field appearance="outline">
@@ -26,7 +26,7 @@
 					  <mat-option *ngFor="let group of GroupData" value="{{group}}">{{group}}</mat-option>
 					</mat-select>
 				  </mat-form-field>
-         
+
          		<mat-form-field appearance="outline">
    				<mat-label>현재가</mat-label>
    					<span matPrefix>₩&nbsp;</span>

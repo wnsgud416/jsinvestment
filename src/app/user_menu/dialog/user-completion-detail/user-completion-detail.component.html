@@ -2,7 +2,7 @@
 	<h3><span>[{{data.unit}}월]</span> <strong>{{data.title}} 결산 내역</strong> <mat-icon (click)="close()">close</mat-icon></h3>
 
 	<p>총 수익률 <span> {{totalYield}}%</span>
-	  <mat-form-field>
+	  <mat-form-field *ngIf="data.userGroup == '관리자'">
 		<mat-label>그룹 선택</mat-label>
 		<mat-select [(value)]="selectGroup">
 		  <mat-option *ngFor="let groupName of GroupData" [value]="groupName" (click)="stockGroupChange(groupName)">

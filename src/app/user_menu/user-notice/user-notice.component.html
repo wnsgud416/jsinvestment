@@ -46,9 +46,10 @@
     <div *ngIf="tableRowData.filteredData.length==0">
       <tr class="Search_resulttext" *matNoDataRow>
         <td class="mat-cell" colspan="7">
-         <mat-progress-spinner mode="indeterminate" >
-      </mat-progress-spinner> 
-        <p>공지사항을 불러오는 중입니다.</p>
+          <mat-progress-spinner *ngIf="isLoading==true" mode="indeterminate" >
+        </mat-progress-spinner>
+        <p *ngIf="isLoading==true">공지사항을 불러오는 중입니다.</p>
+        <p *ngIf="isLoading==false">공지사항이 없습니다.</p>
         </td>
       </tr>
     </div>

@@ -19,10 +19,12 @@ export interface PeriodicElement {
 	code : string;
 	name : string;
 	currentPrice : string;
-	buyingPrice : string;
+  buyingPrice: string;
+  created_at: string;
 	yield : number;
 	group : string;
   sellingPrice: string;
+
   id: string;
 }
 
@@ -33,7 +35,7 @@ export interface PeriodicElement {
 })
 export class AdminInformationComponent implements OnInit {
 
-  displayedColumns: string[] = ['select', 'code', 'name', 'currentPrice', 'buyingPrice', 'yield', 'group', 'sellingPrice', 'action'];
+  displayedColumns: string[] = ['select', 'code', 'name', 'currentPrice', 'buyingPrice','created_at', 'yield', 'group', 'sellingPrice', 'action'];
   public tableRowData = new MatTableDataSource([]);
 
   stockInfoData: any = [];
@@ -46,6 +48,7 @@ export class AdminInformationComponent implements OnInit {
   allYield;
   interval
 
+  isLoading = true;
    constructor(
      private MatBottomSheet: MatBottomSheet,
      private firestore: Firestore,
@@ -60,6 +63,25 @@ export class AdminInformationComponent implements OnInit {
       reflashValue = parseInt(docValue['value'])*1000
 
     });
+    await getDocs(collection(this.firestore, "stockInfo")).then(async (collectionGroupData) => {
+      this.stockInfoData = [];
+        this.tableRowData = new MatTableDataSource([]);
+        collectionGroupData.forEach((doc) => {
+          this.stockInfoData.push(doc.data());
+        });
+
+        var stockCodeArray:any = [];
+        this.stockInfoData.forEach((element,i) => {
+          stockCodeArray.push(element.code)
+        });
+
+        await this.getStockInfo(stockCodeArray)
+        this.interval = setInterval(async () => {
+          await this.getStockInfo(stockCodeArray)
+        }, reflashValue);
+
+    })
+
     onSnapshot(
       collection(this.firestore, "stockInfo"), { includeMetadataChanges: true }, async (collectionGroupData) => {
         this.stockInfoData = [];
@@ -274,6 +296,7 @@ getStockInfo(stockCodeArray) {
       }
 
       this.tableRowData = new MatTableDataSource(this.stockInfoData);
+      this.isLoading = false;
     });
     this.actions$.pipe(ofType(Action.cmdTestFail)).pipe(take(1)).subscribe(async (result) => {
       this.stockInfoData.forEach((element,i) => {

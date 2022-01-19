@@ -33,6 +33,7 @@ export class UserCompletionComponent implements OnInit {
   compliteData: any = [];
   docId: any = [];
   userGroup
+  isLoading = true;
 
   constructor(
     private MatBottomSheet: MatBottomSheet,
@@ -104,7 +105,7 @@ export class UserCompletionComponent implements OnInit {
 
       this.tableRowData = new MatTableDataSource(this.compliteData);
       this.tableRowData.paginator = this.paginator;
-
+      this.isLoading = false;
     })
   }
 

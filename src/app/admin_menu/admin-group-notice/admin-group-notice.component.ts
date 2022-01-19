@@ -103,7 +103,7 @@ export class AdminGroupNoticeComponent implements OnInit {
 
     this.store.dispatch(Action.sendMessage({ sendToken:sendToken, messageText:this.messageText }))
     this.actions$.pipe(ofType(Action.sendMessageSuccess)).pipe(take(1)).subscribe(async (result) => {
-
+      window.alert('메시지가 전송되었습니다.')
     });
 
 

@@ -10,7 +10,7 @@
 				 	<input matInput value="0" readonly disabled class="User_Total_Value">
 						<span matSuffix>&nbsp;%</span>
 			  </mat-form-field>
-			  <button mat-stroked-button  class="AddBtn">새로고침</button>
+			  <!-- <button mat-stroked-button  class="AddBtn">새로고침</button> -->
 		</div>
 
 	</div>
@@ -31,8 +31,8 @@
 	  </ng-container>
 
 	  <ng-container matColumnDef="name">
-		<th mat-header-cell *matHeaderCellDef style="width: calc(40vw - 35px); text-align: center; padding: 0 2vw;"> 종목명 </th>
-		<td mat-cell *matCellDef="let element" style="width: calc(40vw - 35px); text-align: center; padding: 0 2vw;"> {{element.name}} </td>
+		<th mat-header-cell *matHeaderCellDef style="width: calc(25vw - 35px); text-align: center; padding: 0 2vw;"> 종목명 </th>
+		<td mat-cell *matCellDef="let element" style="width: calc(25vw - 35px); text-align: center; padding: 0 2vw;"> {{element.name}} </td>
 	  </ng-container>
 
 
@@ -47,6 +47,11 @@
 		<td mat-cell *matCellDef="let element" style="width: 15vw; text-align: center; padding: 0 2vw;"> {{numChange(element.buyingPrice)}} </td>
 	  </ng-container>
 
+    <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef style="width: 15vw; text-align: center; padding: 0 2vw;"> 추천 일자 </th>
+      <td mat-cell *matCellDef="let element" style="width: 15vw; text-align: center; padding: 0 2vw;"> {{element.created_at}} </td>
+      </ng-container>
+
 	  <ng-container matColumnDef="yield">
 		<th mat-header-cell *matHeaderCellDef style="width: 15vw; text-align: center; padding: 0 2vw;"> 수익률 </th>
 		<td mat-cell *matCellDef="let element" style="width: 15vw; text-align: center; padding: 0 2vw; font-weight: bold;" class="{{element.yield >0? 'PlusNumber' : 'MinusNumber'}}"> {{element.yield}} %</td>
@@ -59,7 +64,7 @@
 
   <div *ngIf="tableRowData.filteredData.length>0">
     <tr class="Search_resulttext" *matNoDataRow>
-      <td class="mat-cell" colspan="6">
+      <td class="mat-cell" colspan="7">
       <mat-icon>search_off</mat-icon>
       <p>"{{input.value}}"에 대한 검색결과가 없습니다.</p>
       </td>
@@ -67,10 +72,11 @@
   </div>
   <div *ngIf="stockInfoData.length==0">
     <tr class="Search_resulttext" *matNoDataRow>
-      <td class="mat-cell" colspan="6">
-         <mat-progress-spinner mode="indeterminate" >
-      </mat-progress-spinner> 
-      <p>추천주를 불러오는 중입니다.</p>
+      <td class="mat-cell" colspan="7">
+         <mat-progress-spinner  *ngIf="isLoading==true" mode="indeterminate" >
+      </mat-progress-spinner>
+      <p *ngIf="isLoading==true">추천주를 불러오는 중입니다.</p>
+      <p *ngIf="isLoading==false">추천주가 없습니다.</p>
       </td>
     </tr>
   </div>

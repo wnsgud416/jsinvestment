@@ -17,7 +17,8 @@ export interface PeriodicElement {
 	code : string;
 	name : string;
 	currentPrice : string;
-	buyingPrice : string;
+  buyingPrice: string;
+  created_at: string
 	yield : number;
 }
 
@@ -29,13 +30,14 @@ export interface PeriodicElement {
 })
 export class UserRecommendedComponent implements OnInit {
 
-  displayedColumns: string[] = ['number', 'code', 'name', 'currentPrice', 'buyingPrice', 'yield'];
+  displayedColumns: string[] = ['number', 'code', 'name', 'currentPrice', 'buyingPrice', 'created_at','yield'];
   public tableRowData = new MatTableDataSource([]);
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   stockInfoData: any = [];
 
   interval;
+  isLoading = true;
 
   constructor(
     private firestore: Firestore,
@@ -163,6 +165,7 @@ export class UserRecommendedComponent implements OnInit {
       });
       this.tableRowData = new MatTableDataSource(this.stockInfoData);
       this.tableRowData.paginator = this.paginator;
+      this.isLoading = false;
     });
   }
 

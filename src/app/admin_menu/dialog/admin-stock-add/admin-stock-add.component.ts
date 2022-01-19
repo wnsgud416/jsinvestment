@@ -58,29 +58,33 @@ export class AdminStockAddComponent implements OnInit {
       if (this.buyingPrice == 0) {
         window.alert('매수단가를 입력해 주세요.');
       } else {
-        var today = new Date();
-        var year = today.getFullYear();
-        var month = ('0' + (today.getMonth() + 1)).slice(-2);
-        var day = ('0' + today.getDate()).slice(-2);
+        if (this.currentPrice == undefined || this.currentPrice == 0) {
+          window.alert('현재가를 확인해 주세요.');
+        } else {
+          var today = new Date();
+          var year = today.getFullYear();
+          var month = ('0' + (today.getMonth() + 1)).slice(-2);
+          var day = ('0' + today.getDate()).slice(-2);
 
-        var dateString = year + '-' + month + '-' + day
-        const newCityRef = doc(collection(this.firestore, "stockInfo"));
+          var dateString = year + '-' + month + '-' + day
+          const newCityRef = doc(collection(this.firestore, "stockInfo"));
 
-        var data = {
-          created_at:dateString,
-          id: newCityRef.id,
-          code: this.stockCode,
-          name: this.stockName,
-          buyingPrice: this.buyingPrice,
-          group: this.selectedObjects,
-          updated_at: dateString
+          var data = {
+            created_at:dateString,
+            id: newCityRef.id,
+            code: this.stockCode,
+            name: this.stockName,
+            buyingPrice: this.buyingPrice,
+            group: this.selectedObjects,
+            updated_at: dateString
+          }
+          await setDoc(newCityRef, data).then(() => {
+            window.alert('종목 정보 생성을 완료했습니다.')
+            this.bottomSheetRef.dismiss()
+          }).catch((error) => {
+            window.alert('종목 정보 생성중에 오류가 발생했습니다.');
+          })
         }
-        await setDoc(newCityRef, data).then(() => {
-          window.alert('종목 정보 생성을 완료했습니다.')
-          this.bottomSheetRef.dismiss()
-        }).catch((error) => {
-          window.alert('종목 정보 생성중에 오류가 발생했습니다.');
-        })
       }
 
     } else {
@@ -91,17 +95,49 @@ export class AdminStockAddComponent implements OnInit {
     this.bottomSheetRef.dismiss()
   }
 
-  NowCurrentPrice(){
-    var stockCodeArray:any = [];
-    stockCodeArray.push(this.stockCode)
+  NowCurrentPrice() {
+    var stockValue = undefined;
+    if (this.stockName == undefined) {
+      if (this.stockCode == undefined) {
+        var stockValue = undefined;
+      } else {
+        stockValue = this.stockCode
+      }
+    } else {
+      stockValue= this.stockName
+    }
+    if (stockValue == undefined) {
+      window.alert('종목 코드나 이름을 입력 해 주세요.')
+    } else {
+      var stockCodeArray:any = [];
+      stockCodeArray.push(stockValue)
 
-    this.store.dispatch(Action.cmdTest({ stockCodeArray:stockCodeArray}))
-    this.actions$.pipe(ofType(Action.cmdTestSuccess)).pipe(take(1)).subscribe(async (result) => {
-      var stock = JSON.parse(result.result)
-      this.stockName = stock[0].stockName
-      this.currentPrice = stock[0].currentPrice
+      this.store.dispatch(Action.cmdTest({ stockCodeArray:stockCodeArray}))
+      this.actions$.pipe(ofType(Action.cmdTestSuccess)).pipe(take(1)).subscribe(async (result) => {
+        if (result.result == "") {
+          window.alert('종목 코드나 이름에 문제가 있습니다.')
+          this.stockCode = undefined
+          this.stockName = undefined
+          this.currentPrice = 0
+        } else {
+          var stock = JSON.parse(result.result)
+          if (stock[0].currentPrice == "None") {
+            window.alert('종목 코드나 이름에 문제가 있습니다.')
+            this.stockCode = undefined
+            this.stockName = undefined
+            this.currentPrice = 0
+          } else {
+            this.stockCode = stock[0].stockCode
+            this.stockName = stock[0].stockName
+            this.currentPrice = stock[0].currentPrice
+          }
+        }
+      });
+      this.actions$.pipe(ofType(Action.cmdTestFail)).pipe(take(1)).subscribe(() => {
+        window.alert('현재가를 불러오는 중에 문제가 발생했습니다.')
+      });
+    }
 
-    });
   }
 
 }

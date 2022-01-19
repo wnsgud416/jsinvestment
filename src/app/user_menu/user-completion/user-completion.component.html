@@ -41,9 +41,10 @@
       <div *ngIf="tableRowData.filteredData.length==0">
         <tr class="Search_resulttext" *matNoDataRow>
           <td class="mat-cell" colspan="3">
-         <mat-progress-spinner mode="indeterminate" >
-      </mat-progress-spinner> 
-          <p>완료 수익률을 불러오는 중입니다.</p>
+         <mat-progress-spinner *ngIf="isLoading==true" mode="indeterminate" >
+      </mat-progress-spinner>
+          <p *ngIf="isLoading==true">완료 수익률을 불러오는 중입니다.</p>
+          <p *ngIf="isLoading==false">완료 수익률이 없습니다.</p>
           </td>
         </tr>
       </div>

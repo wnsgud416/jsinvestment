@@ -37,6 +37,7 @@ export class AdminCommunityEditComponent implements OnInit {
   public tableRowData = new MatTableDataSource ([]);
   classification
   quickActionValue
+  isLoading = true;
   constructor(
     private MatBottomSheet: MatBottomSheet,
     private firestore: Firestore,
@@ -63,7 +64,7 @@ export class AdminCommunityEditComponent implements OnInit {
         });
         this.tableRowData = new MatTableDataSource(this.noticeTableData);
         this.tableRowData.paginator = this.paginator;
-        //this.isLoading = false;
+        this.isLoading = false;
       });
   }
 

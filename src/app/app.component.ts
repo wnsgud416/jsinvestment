@@ -144,31 +144,33 @@ export class AppComponent {
             // doc.data() will be undefined in this case
           }
           var docData:any = docSnap.data();
-          if (docData['updated_at'] == '신규회원' || docData['updated_at'] == '구독종료') {
-            signOut(auth).then(() => {
-              window.alert('구독이 만료되었거나 신규회원입니다. 관리자에게 문의하세요.')
+
+          var today = new Date();
+
+          var year = today.getFullYear();
+          var month = ('0' + (today.getMonth() + 1)).slice(-2);
+          var day = ('0' + today.getDate()).slice(-2);
+
+          var dateString = year + '-' + month + '-' + day
+
+          var saveDate = new Date(docData['updated_at']);
+          var now = new Date(dateString);
+          if (now > saveDate) {
+            await updateDoc(docRef, {
+              updated_at: "일반회원",
+              group: "일반회원"
             })
+            window.alert('구독이 만료되었습니다. 일반회원으로 변경됩니다.')
+            this.userGroup = "일반회원";
+            $(".Login_Box").fadeOut(500);
+            $(".Main_PanelBox").fadeIn(300);
+            this.router.navigate(['/UserNotice']);
           } else {
-            var today = new Date();
-
-            var year = today.getFullYear();
-            var month = ('0' + (today.getMonth() + 1)).slice(-2);
-            var day = ('0' + today.getDate()).slice(-2);
-
-            var dateString = year + '-' + month + '-' + day
-
-            var saveDate = new Date(docData['updated_at']);
-            var now = new Date(dateString);
-            if (now > saveDate) {
-              signOut(auth).then(() => {
-                window.alert('구독이 만료되었습니다. 관리자에게 문의하세요.')
-              })
-            } else {
-              $(".Login_Box").fadeOut(500);
-              $(".Main_PanelBox").fadeIn(300);
-              this.router.navigate(['/UserNotice']);
-            }
+            $(".Login_Box").fadeOut(500);
+            $(".Main_PanelBox").fadeIn(300);
+            this.router.navigate(['/UserNotice']);
           }
+
         }else{
           window.alert('이메일 인증을 완료해주세요.')
         }
@@ -349,7 +351,7 @@ export class AppComponent {
   }
   notificationSetting() {
     const messaging = getMessaging();
-    getToken(messaging, { vapidKey: 'BBj3q3KDeyfrlopA-1Qg0dzg8BM1tfCx_Z3z82Pkl_VEThHgTWaKCypgw1CAfiKsPu-zhKoX4KN_FVnngJFeKJ8' }).then(async (currentToken) => {
+    getToken(messaging, { vapidKey: 'BDOosaQYQY_sitFae-VLhiQtXhuj_UeFKaqqRd-_KFLBoZOMKobWGjhE9SJOK9uXN6aorTl0JcyDoe1Smls95zU' }).then(async (currentToken) => {
       if (currentToken) {
         const washingtonRef = doc(this.firestore, "users", this.userUid);
 
