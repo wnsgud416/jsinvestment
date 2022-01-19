@@ -17,7 +17,8 @@ export interface PeriodicElement {
 	Number : number;
 	title : string;
 	author : string;
-	created_at : string;
+  created_at: string;
+  group: string;
   id:string;
 
 }
@@ -32,28 +33,29 @@ export class AdminCommunityEditComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   //displayedColumns: string[] = ['select', 'Number', 'classification', 'title', 'author', 'created_at', 'action'];
-  displayedColumns: string[] = ['select','Number', 'title', 'author', 'created_at', 'action'];
+  displayedColumns: string[] = ['select','Number', 'title', 'author','group', 'created_at', 'action'];
   public noticeTableData :any =[];
   public tableRowData = new MatTableDataSource ([]);
   classification
   quickActionValue
   isLoading = true;
+  allGroupData:any = [];
+
   constructor(
     private MatBottomSheet: MatBottomSheet,
     private firestore: Firestore,
 			  ) { }
 
   async ngOnInit(): Promise<void> {
-    // await getDocs(collection(this.firestore, "/notices/public/community")).then((querySnapshot)=>{
-    //   this.noticeTableData = []
-    //   querySnapshot.forEach((doc) => {
-    //     this.noticeTableData.push(doc.data());
-    //   });
-    //   this.tableRowData = new MatTableDataSource(this.noticeTableData);
-    //   // this.isLoading = false;
-    // })
+    await getDocs(collection(this.firestore, "groups")).then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        var docData:any = doc.data()
+        this.allGroupData.push(docData['name']);
+      });
+    })
     onSnapshot(
       collection(this.firestore, "/notices/public/community"), { includeMetadataChanges: true }, (collection) => {
+
         this.noticeTableData = []
         collection.forEach((doc) => {
           this.noticeTableData.push(doc.data());
@@ -103,7 +105,7 @@ export class AdminCommunityEditComponent implements OnInit {
 	Notice_Add(){
 		this.MatBottomSheet.open(AdminNoticeAddComponent, {
      panelClass: 'OptionModal',
-     data: {page:"community"}
+     data: {page:"community", allGroupData:this.allGroupData}
    }).afterDismissed().subscribe((result) => {
 
    });
@@ -119,10 +121,10 @@ export class AdminCommunityEditComponent implements OnInit {
 
    });
  }
-	Notice_Modify(data,classification,title,content,id){
+	Notice_Modify(data,classification,title,content,id,group){
 		this.MatBottomSheet.open(AdminNoticeModifyComponent, {
      panelClass: 'OptionModal',
-     data: {page:"community",classification:classification,title:title,content:content,id:id}
+     data: {page:"community",classification:classification,title:title,content:content,id:id ,group:group, allGroupData:this.allGroupData}
    }).afterDismissed().subscribe((result) => {
 
    });

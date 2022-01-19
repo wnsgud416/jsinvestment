@@ -14,6 +14,7 @@ export class AdminNoticeAddComponent implements OnInit {
 
   htmlContent = '';
   classification;
+  choiceGroup;
   title;
   dbPost;
   pageName
@@ -29,6 +30,7 @@ export class AdminNoticeAddComponent implements OnInit {
       this.dbPost = "/notices/public/community"
       this.pageName = "게시물"
       this.pagePlaceholder = "게시물 제목"
+
     } else if (this.data.page === "notice") {
       this.dbPost = "/notices/public/posts"
       this.pageName = "공지사항"
@@ -70,18 +72,36 @@ export class AdminNoticeAddComponent implements OnInit {
       this.classification =null
     }
     const newCityRef = doc(collection(this.firestore, this.dbPost));
-    var data ={
-      author: docSnap.data()['name'],
-      author_id: auth.currentUser?.uid,
-      classification:this.classification,
-      content: this.htmlContent,
-      contents: "",
-      created_at: dateString,
-      id: newCityRef.id,
-      num: "",
-      title: this.title,
-      updated_at: dateString
+    var data
+    if (this.data.page === "community") {
+      data ={
+        author: docSnap.data()['name'],
+        author_id: auth.currentUser?.uid,
+        classification:this.classification,
+        content: this.htmlContent,
+        contents: "",
+        created_at: dateString,
+        id: newCityRef.id,
+        num: "",
+        title: this.title,
+        group:this.choiceGroup,
+        updated_at: dateString
+      }
+    } else if (this.data.page === "notice") {
+      data ={
+        author: docSnap.data()['name'],
+        author_id: auth.currentUser?.uid,
+        classification:this.classification,
+        content: this.htmlContent,
+        contents: "",
+        created_at: dateString,
+        id: newCityRef.id,
+        num: "",
+        title: this.title,
+        updated_at: dateString
+      }
     }
+
     await setDoc(newCityRef, data).then(() => {
       if (this.data.page === "community") {
         window.alert('게시물 작성을 완료했습니다.')

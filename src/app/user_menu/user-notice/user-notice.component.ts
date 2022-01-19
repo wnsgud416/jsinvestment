@@ -69,7 +69,7 @@ export class UserNoticeComponent implements OnInit {
 
 
 
-	Notice_Detail(row){
+  Notice_Detail(row) {
 		 this.MatBottomSheet.open(UserNoticeDetailComponent, {
       panelClass: 'OptionModal',
       data: {classification:row.classification,title:row.title,content:row.content}

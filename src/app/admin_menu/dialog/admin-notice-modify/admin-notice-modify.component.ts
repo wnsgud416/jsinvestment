@@ -17,6 +17,7 @@ export class AdminNoticeModifyComponent implements OnInit {
   content = ''
   pageName
   pagePlaceholder
+  choiceGroup;
 
   constructor(private bottomSheetRef: MatBottomSheetRef<AdminNoticeModifyComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
@@ -27,6 +28,7 @@ export class AdminNoticeModifyComponent implements OnInit {
     this.classification = this.data.classification
     this.title = this.data.title
     this.content = this.data.content
+    this.choiceGroup = this.data.group
 
     if (this.data.page === "community") {
       this.config.placeholder = '게시물을 작성해주세요.'

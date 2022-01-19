@@ -76,6 +76,11 @@
 		<td mat-cell *matCellDef="let element" style="width: calc(20vw); text-align: center; padding: 0 2vw;"> {{element.author}} </td>
 	  </ng-container>
 
+    <ng-container matColumnDef="group">
+      <th mat-header-cell *matHeaderCellDef style="width: calc(20vw); text-align: center; padding: 0 2vw;"> 그룹 </th>
+      <td mat-cell *matCellDef="let element" style="width: calc(20vw); text-align: center; padding: 0 2vw;"> {{element.group}} </td>
+    </ng-container>
+
 
 	  <ng-container matColumnDef="created_at">
 		<th mat-header-cell *matHeaderCellDef style="width: calc(20vw - 100px); text-align: center; padding: 0 2vw;"> 게시일 </th>
@@ -88,7 +93,7 @@
 		<td mat-cell *matCellDef="let element" style="width: calc(20vw); text-align: center; padding: 0 2vw;">
 
 		<button mat-stroked-button (click)="Notice_Detail($event.stopPropagation(),element.classification,element.title,element.content)">보기</button>
-		<button mat-stroked-button (click)="Notice_Modify($event.stopPropagation(),element.classification,element.title,element.content,element.id)" class="AddBtn">수정</button>
+		<button mat-stroked-button (click)="Notice_Modify($event.stopPropagation(),element.classification,element.title,element.content,element.id,element.group)" class="AddBtn">수정</button>
 		<button mat-stroked-button (click)="Notice_Delete($event.stopPropagation(),element.classification,element.title,element.name,element.created_at,element.id)" class="RedBtn">삭제</button>
 
 
@@ -109,7 +114,7 @@
     </div>
     <div *ngIf="tableRowData.filteredData.length==0">
       <tr class="Search_resulttext" *matNoDataRow>
-        <td class="mat-cell" colspan="6">
+        <td class="mat-cell" colspan="7">
          <mat-progress-spinner *ngIf="isLoading==true" mode="indeterminate" >
       </mat-progress-spinner>
         <p *ngIf="isLoading==true">게시판을 불러오는 중입니다.</p>

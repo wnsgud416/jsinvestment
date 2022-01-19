@@ -14,10 +14,18 @@
 				  <mat-hint>분류 추가 관리자 문의</mat-hint>
 				</mat-form-field>
 
+        <mat-form-field appearance="outline" *ngIf="pageName == '게시물'">
+          <mat-label>그룹</mat-label>
+          <mat-select multiple required [(ngModel)]="choiceGroup">
+            <mat-option *ngFor="let groupName of data.allGroupData" [value]="groupName">
+              {{groupName}}
+            </mat-option>
+            </mat-select>
+        </mat-form-field>
+
    				<mat-form-field appearance="outline">
    				<mat-label>제목</mat-label>
-   				<input matInput #NoticeName maxlength="10" placeholder={{pagePlaceholder}} required [(ngModel)]="title">
-   				<mat-hint align="end">{{NoticeName.value?.length || 0}}/10</mat-hint>
+   				<input matInput #NoticeName placeholder={{pagePlaceholder}} required [(ngModel)]="title">
    				</mat-form-field>
 
 		<angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>

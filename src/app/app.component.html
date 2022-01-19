@@ -93,6 +93,9 @@
 				</mat-form-field>
         		<button mat-stroked-button class="NextBtn" (click)="reFrashSave()">리프레시 주기 적용</button>
 			</p>
+      <p class="Main_Setting_Logout">
+				<button mat-stroked-button class="RedBtn" (click)="logout()">로그아웃</button>
+			</p>
 		  </mat-expansion-panel>
 		  <mat-expansion-panel>
 			<mat-expansion-panel-header>
@@ -152,13 +155,12 @@
 			<button mat-stroked-button class="AddBtn" (click)="passwdReSave()">비밀번호 재설정</button>
 			<button mat-stroked-button class="NextBtn" (click)="save(userName,userPhone)">저장</button>
 		   </div>
-		   <p class="Main_Setting_Logout">
-				<button mat-stroked-button class="RedBtn" (click)="logout()">로그아웃</button>
-			</p>
+
 
 
 
 		  </mat-expansion-panel>
+
 		</mat-accordion>
 	  </mat-drawer>
 
