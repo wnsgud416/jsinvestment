@@ -1,0 +1,677 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/*최초 작성 날짜 : 2021.11.01 */
+
+/*작성 방법 :
+CSS변경 및 추가 사항은 필히 주석처리로 해당 내용 상세 기제
+스크립트 또는 Html 수정 후 출력화면 캡쳐 보관
+(주의)
+* 해당 CSS는 개발자가 직접 작성한 코드입니다.
+* 수정 및 변경, 삭제 시 관리자에게 문의하세요.
+* 메인컬러 : 61acdf     * 하이라이트 : 0099cc,528db6
+* 단색컬러 : EEE / CCC / efefef /333 ~ 999 / F5F5F5 / F9F9F9 / F7F7F7 ..
+*/
+
+:root {
+	--main-color:#61acdf;
+	--mainwhite-color:#0099cc;
+	--maindark-color:#528db6;
+	--red-color:#dc143c;
+	--sub-red-color:#c82848;
+	--main-font-color:#333333;
+	--sub-font-color:#666666;
+	--main-whitefont-color:#eeeeee;
+	--sub-whitefont-color:#cccccc;
+}
+
+@font-face {font-family: 'NotoSansKR';font-style: normal;font-weight: 100;src: url(assets/fonts/NotoSansKr/NotoSansKR-Thin.woff2) format('woff2'),url(assets/fonts/NotoSansKr/NotoSansKR-Thin.woff) format('woff'),url(assets/fonts/NotoSansKr/NotoSansKR-Thin.otf) format('opentype');}
+@font-face {font-family: 'NotoSansKR';font-style: normal;font-weight: 300;src: url(assets/fonts/NotoSansKr/NotoSansKR-Light.woff2) format('woff2'),url(assets/fonts/NotoSansKr/NotoSansKR-Light.woff) format('woff'),url(assets/fonts/NotoSansKr/NotoSansKR-Light.otf) format('opentype');}
+@font-face {font-family: 'NotoSansKR';font-style: normal;font-weight: 400;src: url(assets/fonts/NotoSansKr/NotoSansKR-Regular.woff2) format('woff2'),url(assets/fonts/NotoSansKr/NotoSansKR-Regular.woff) format('woff'),url(assets/fonts/NotoSansKr/NotoSansKR-Regular.otf) format('opentype');}
+@font-face {font-family: 'NotoSansKR';font-style: normal;font-weight: 500;src: url(assets/fonts/NotoSansKr/NotoSansKR-Medium.woff2) format('woff2'),url(assets/fonts/NotoSansKr/NotoSansKR-Medium.woff) format('woff'),url(assets/fonts/NotoSansKr/NotoSansKR-Medium.otf) format('opentype');}
+@font-face {font-family: 'NotoSansKR';font-style: normal;font-weight: 700;src: url(assets/fonts/NotoSansKr/NotoSansKR-Bold.woff2) format('woff2'),url(assets/fonts/NotoSansKr/NotoSansKR-Bold.woff) format('woff'),url(assets/fonts/NotoSansKr/NotoSansKR-Bold.otf) format('opentype');}
+@font-face {font-family: 'NotoSansKR';font-style: normal;font-weight: 900;src: url(assets/fonts/NotoSansKr/NotoSansKR-Black.woff2) format('woff2'),url(assets/fonts/NotoSansKr/NotoSansKR-Black.woff) format('woff'),url(assets/fonts/NotoSansKr/NotoSansKR-Black.otf) format('opentype');}
+
+/*기본 설정*/
+* { margin:0; padding: 0;
+box-sizing:border-box; cursor: default;-ms-user-select: none;
+-moz-user-select: -moz-none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+user-select: none; ; font-size: 12px; font-family:'NotoSansKR' !important;}
+input[type = "text"]{cursor: text; user-select: text;}
+input.mat-input-element{cursor: text; user-select: text;}
+button{cursor: pointer; }
+a { color:inherit; text-decoration: none ; }
+img { border:none; max-width:100% }
+ol, ul { list-style-type: none }
+table { border-collapse:collapse; table-layout:fixed; }
+fieldset { border:none }
+legend, caption { text-indent:-99999px; display:none }
+address{font-style: normal; }
+html, body, div, span, p, a, del, em, img, ol, ul, li, fieldset, form, label {border: 0;font-size: 100%;font: inherit;vertical-align: baseline;}
+strong{font-weight: normal; }
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {display: block;}
+a{text-decoration: none;}
+li{list-style: none; }
+html, body {min-height:100%; }
+body {background: #f5f5f5;background: -webkit-linear-gradient(top, #f5f5f5, #cccccc 100%);background: -moz-linear-gradient(top, #f5f5f5, #cccccc 100%);background: -o-linear-gradient(top, #f5f5f5, #cccccc 100%);background: -ms-linear-gradient(top, #f5f5f5, #cccccc 100%);background: linear-gradient(top, #f5f5f5, #cccccc 100%);background-attachment:fixed; }
+i{font: normal normal normal 14px/1 FontAwesome !important;}
+mat-card.mat-card{}
+div.mat-line{}
+span.mat-checkbox-label{}
+span.mat-radio-label-content{}
+input.mat-input-element{}
+mat-form-field *{line-height: normal; font-size: 14px;}
+*.material-icons{font-family:'Material Icons' !important;}
+mat-icon{text-align: center; display: inline-block; position: relative; font-family:'Material Icons' !important;}
+.mat-icon{text-align: center; display: inline-block; position: relative; font-family:'Material Icons' !important;}
+.mat-form-field-ripple{background-color: var(--mainwhite-color);}
+.mat-form-field.mat-focused .mat-form-field-ripple{background-color: var(--main-color) !important;}
+.mat-form-field.mat-focused .mat-form-field-label{color: var(--maindark-color) !important;}
+.mat-hint{font-size: 12px; font-weight: 300; letter-spacing: 0.01vw;}
+.mat-error{font-size: 12px; font-weight: 300; letter-spacing: 0.01vw;}
+mat-bottom-sheet-container{padding: 0 !important;}
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{background-color: var(--maindark-color);}
+.mat-accent .mat-pseudo-checkbox-checked, .mat-accent .mat-pseudo-checkbox-indeterminate, .mat-pseudo-checkbox-checked, .mat-pseudo-checkbox-indeterminate{background-color: var(--maindark-color);}
+.mat-expansion-panel-header{transition: .3s !important;}
+.mat-expansion-panel:not(.mat-expanded){background-color: var(--main-whitefont-color) !important;}
+.mat-expansion-panel-header:hover{background-color: var(--main-whitefont-color) !important;}
+.mat-menu-content{padding: 0 !important;}
+.mat-menu-content button{height: 35px; line-height: 35px;}
+.mat-menu-content span{font-size: 12px; color: var(--sub-font-color) !important;}
+.mat-menu-content mat-icon{font-size: 18px; line-height: 24px; color: var(--main-color) !important;}
+.Search_resulttext{text-align: center; font-size: 14px; color: var(--sub-font-color); height: 300px;  min-width: 100%; max-width: 200%;}
+.Search_resulttext mat-icon{text-align: center; font-size: 48px; color: var(--sub-font-color); height: 150px; line-height: 150px; display: block; width: 150px; margin: 0 auto; margin-top: 50px;}
+.Search_resulttext p{text-align: center; font-size: 14px; color: var(--sub-font-color); width: 100%;}
+.Search_resulttext mat-progress-spinner{position: relative; top: 50%; left: 50%; transform: translate(-50%,-50%); height: 150px !important; line-height: 150px !important; margin-top: 2vh;}
+.Search_resulttext mat-progress-spinner svg circle{stroke : var(--main-color); position: relative; top: 50%; }
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background{background-color: var(--maindark-color);}
+.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element, .mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element{background-color: var(--main-color);}
+.cdk-keyboard-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical), .cdk-program-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical), .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){background-color: var(--sub-whitefont-color); transition: .3s;}
+.mat-calendar-body-selected{background-color: var(--maindark-color);}
+.mat-datepicker-toggle-active{color: var(--maindark-color);}
+.mat-badge-content{background-color: var(--red-color); font-size: 10px; width: 20px !important;height: 20px !important; line-height: 20px !important; border-radius: 3px;}
+.mat-badge-medium.mat-badge-overlap.mat-badge-after .mat-badge-content{right: -8px !important; top: -8px !important;}
+.mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate{background: var(--main-color);}
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled){color: var(--main-color);}
+.Table_AllCheckBox{min-width: 50px; width: 50px; padding: 0 !important; background: var(--maindark-color);}
+.Table_AllCheckBox .mat-checkbox-checked.mat-accent .mat-checkbox-background{background: var(--red-color) !important;}
+.Table_AllCheckBox .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background{background: var(--red-color) !important;}
+.Table_CheckBox{min-width: 50px; width: 50px; padding: 0 !important;}
+.Table_CheckBox:nth-child(even){background: var(--main-whitefont-color);}
+.User_Total_Value{font-weight: bold !important;}
+.User_Total_Value.PlusNumber{color: var(--mainwhite-color) !important;}
+.User_Total_Value.MinusNumber{color: var(--red-color) !important;}
+.PlusNumber{color: var(--mainwhite-color) !important;}
+.MinusNumber{color: var(--red-color) !important;}
+.mat-drawer-inner-container::-webkit-scrollbar{display: contents !important;}
+div.mat-paginator-page-size {display: none;}
+div.mat-paginator-range-label{position: absolute; left: 50%; transform: translateX(-50%); margin: 0 !important; width: 60px; font-size: 12px; color: var(--main-whitefont-color) !important; font-weight: 500;}
+/*크롬 테두리 삭제*/
+ *:focus {outline:none;}
+body,html{position: relative; width: 100%; height: auto; overflow: hidden;}
+body { margin: 0; font-family:'NotoSansKR'}
+
+/*스크롤 디자인*/
+body{-ms-overflow-style: none; }
+::-webkit-scrollbar {display: none;}
+::-webkit-scrollbar {-webkit-appearance: none;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);height: 5px;width: 5px;}
+::-webkit-scrollbar-track {background: none;}
+::-webkit-scrollbar-corner {background: none;}
+::-webkit-resizer {background: none;}
+::-webkit-scrollbar-thumb {background-color:  var(--main-color);border-radius: 2px;}
+
+/*버튼 디자인*/
+button.mat-stroked-button{background-color: var(--main-whitefont-color); color: var(--sub-font-color); border: 1px solid var(--sub-whitefont-color);letter-spacing: 0.1px;}
+button.mat-stroked-button:hover{color: var(--main-color); border-color: var(--main-color);}
+button.mat-stroked-button.NextBtn{background-color: var(--main-color); color: var(--main-whitefont-color); font-weight: 500; transition: .3s;}
+button.mat-stroked-button.NextBtn:hover{background-color: var(--maindark-color); color: var(--main-whitefont-color);}
+button.mat-stroked-button.AddBtn{background-color: var(--sub-font-color); color: var(--main-whitefont-color); font-weight: 500; transition: .3s;}
+button.mat-stroked-button.AddBtn:hover{background-color: var(--main-font-color); color: var(--main-whitefont-color);}
+button.mat-stroked-button.RedBtn{background-color: var(--sub-red-color); color: var(--main-whitefont-color); font-weight: 500; transition: .3s;}
+button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color: var(--main-whitefont-color); border-color: var(--red-color);}
+
+/*로그인 박스*/
+.Login_Box{position: relative; width: 100%; height: 100vh;}
+.Login_FormBox{position: absolute; left: 50%; right: 50%; top: 50%; transform: translate(-50%, -50%); width: 25vw; height: 80vh;  z-index: 1; background: var(--main-whitefont-color); box-shadow: 1px 1px 3px #666 !important; border: 1px solid #ccc; border-radius: 10px !important; transition: .3s;}
+.Login_BgBox{position: absolute; z-index: 0; width: 100%; height: 100vh; top: 0; left: 0; text-align: center;}
+.Login_BgBox video{display: none;}
+.Login_Bg{position: absolute; z-index: 0; background: var(--main-font-color); width: 100%; height: 100vh; top: 0; left: 0; opacity: 0.1; transition: .3s;}
+.Login_FormBox img{width: 300px; margin: 0 auto; display: block; margin-top: 5vh !important; margin-bottom: 5vh;}
+.Login_FormBox mat-form-field{display: block; padding: 0 16px; margin-top: 2vh;}
+.Login_FormBox mat-form-field .mat-form-field-prefix .mat-icon{position: relative; top: 5px; margin-right: 5px; color: var(--main-color);;}
+.Login_FormBox mat-form-field .mat-form-field-suffix .mat-icon{position: relative; top: 0px; color: var(--main-font-color); opacity: 0.8}
+.Login_FormBox mat-form-field .mat-input-element{color: var(--main-font-color);}
+.Login_FormBox .Login_ButtonBox{display: block; padding: 0 16px; margin-top: 5vh;}
+.Login_FormBox .Login_ButtonBox button{display: block; width: 100%; margin-top: 3vh; border-radius: 10px; height: 45px; line-height: 45px; font-weight: 500; font-size: 14px;}
+.Login_FormBox .Login_ButtonBox > span{display: inline-block; width: auto; margin-top: 2vh; border-radius: 10px; height: 35px; line-height: 35px; text-align: center; transition: .2s; position: relative; left: 50%; transform: translateX(-50%);}
+.Login_FormBox .Login_ButtonBox > span:hover{font-weight: 500;}
+
+/*로그인 옵션 다이얼로그*/
+.Login_OptionPanelButtonBox{text-align: right; margin-bottom: 5vh; margin-top: 5vh;}
+.Login_OptionPanelButtonBox button {line-height: 36px ; height: 40px; width: auto; margin-right: 15px ; font-size: 14px; padding: 0 24px;}
+.Login_OptionPanelButtonBox button mat-icon{vertical-align: baseline !important;}
+
+.Login_OptionPanel h3{width: 100%; padding: 0 10px; height: 50px; line-height: 50px; font-size: 14px; background: var(--main-color); color: var(--main-whitefont-color); font-weight: 500; margin-bottom: 2vh;}
+.Login_OptionPanel h3 mat-icon{position: absolute; right: 0; top: 0; height: 50px !important; line-height: 50px !important; font-size: 20px; margin-right: 10px;}
+.Login_OptionPanel p{width: 100%; padding: 0 15px; height: 35px; line-height: 35px; font-size: 12px; color: var(--sub-font-color);}
+.Login_OptionPanel mat-form-field{display: block; padding: 0 24px; margin-top: 2vh; margin-bottom: 2vh;}
+.Login_OptionPanel mat-form-field .mat-form-field-prefix .mat-icon{position: relative; top: 5px; margin-right: 5px; color: var(--mainwhite-color);}
+.Login_OptionPanel mat-form-field .mat-form-field-suffix .mat-icon{position: relative; top: 0px; color: var(--main-font-color); opacity: 0.8}
+
+/*메인 패널 설정*/
+.Main_PanelBox{position: relative; width: 100%; height: 100vh; display: none;}
+.Main_Panel{position: relative; width: 100%;  height: calc(100vh - 64px);}
+
+/*메뉴*/
+.Main_PanelBox .mat-toolbar{background: var(--main-font-color); position: relative; width: 100%;}
+.Main_PanelBox .mat-toolbar .Menu_Logo{flex: 1 1 auto; text-align: center;}
+.Main_PanelBox .mat-toolbar .Menu_Logo img{width: 165px; display: block; margin: 0 auto;}
+.Main_PanelBox .mat-toolbar > .mat-icon-button{color: var(--main-color); width: 37px; height: 37px; line-height: 37px; transition: .3s; cursor: pointer;}
+.Main_PanelBox .mat-toolbar > .mat-icon-button:hover{color: var(--main-whitefont-color);}
+.Main_PanelBox .mat-toolbar > .mat-icon-button .mat-icon{width: 37px; height: 37px; line-height: 37px; position: relative; top: -1px; font-size: 24px;}
+
+.Main_Menu{min-width: 300px;}
+.Main_Menu .mat-subheader{background: var(--main-whitefont-color); border-bottom: 1px solid var(--mainwhite-color); border-top: 1px solid var(--mainwhite-color); color: var(--sub-font-color); font-weight: 300; font-size: 12px;}
+.Main_Menu .mat-subheader mat-icon{margin-right: 10px;}
+
+
+.Main_Menu .mat-list-option{border-bottom: 1px solid var(--sub-whitefont-color);}
+.Main_Menu .mat-list-option mat-icon{color: var(--sub-font-color); transition: .3s; font-size: 21px !important;}
+.Main_Menu mat-list-option .mat-list-text{color: var(--main-font-color); transition: .3s; font-size: 14px; font-weight: 500;}
+.Main_Menu .mat-list-option:hover mat-icon{color: var(--mainwhite-color);}
+.Main_Menu .mat-list-option:hover .mat-list-text{color: var(--mainwhite-color);}
+.Main_Menu .mat-list-single-selected-option mat-icon{color: var(--maindark-color);}
+.Main_Menu .mat-list-single-selected-option .mat-list-text{color: var(--maindark-color);}
+.Main_Menu .mat-list-single-selected-option:focus mat-icon{color: var(--maindark-color);}
+.Main_Menu .mat-list-single-selected-option:focus .mat-list-text{color: var(--maindark-color);}
+.Main_Menu .mat-list-single-selected-option{transition: .3s; border-right: 10px solid var(--maindark-color); background: #f9f9f9;}
+.Main_Menu .mat-list-single-selected-option:focus{border-right: 10px solid var(--maindark-color); background: #f9f9f9;}
+.Main_Menu .mat-list-item, .Main_Menu .mat-list-option, .Main_Menu .mat-list-item{transition: .3s;}
+.Main_Menu .mat-list-item:hover, .Main_Menu .mat-list-option:hover, .Main_Menu .mat-list-item:hover{background-color: #f9f9f9;}
+
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb{background-color: var(--maindark-color);}
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar{background-color: var(--mainwhite-color);}
+.Main_Setting{min-width: 300px; height: auto !important; background: none !important; box-shadow: none !important;}
+.Main_Setting .Notification_Setting{height: 60px; line-height: 60px; text-align: center;}
+.Main_Setting .Notification_Setting::after{content: ''; display: block; clear: both;}
+.Main_Setting .Notification_Setting .mat-icon{height: 60px; line-height: 60px; width: 60px; text-align: center; float: left; color: var(--main-color);}
+.Main_Setting .Notification_Setting .mat-slide-toggle{height: 60px; line-height: 60px; float: right;}
+.Main_Setting .Notification_Setting .mat-slide-toggle .mat-slide-toggle-content{color: var(--sub-font-color); font-size: 12px;}
+.Main_Setting .Notification_Setting .mat-slide-toggle.mat-checked .mat-ripple-element{background: var(--mainwhite-color);}
+
+.Main_Setting .Admin_SettingMenu mat-form-field{display: block; margin-bottom: 2vh; margin-top: 2vh; }
+.Main_Setting .Admin_SettingMenu button{width: calc(100%); margin: 0 auto;}
+.Main_Setting .Admin_SettingMenu input{text-align: right; padding-right: 20px;}
+
+.Main_Setting_User{width: 90%; margin: 0 auto; text-align: center; color: var(--sub-font-color); margin-top: 1vh; font-size: 10px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+.Main_Setting_User span{font-size: 12px; color: var(--maindark-color); display: inline-block; width: 70%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; top: 4px;}
+.Main_Setting_Logout{width: 100%; text-align: center; margin-top: 1vh;}
+.Main_Setting_Logout button{width: calc(100% - 10px); margin: 0 auto;}
+
+.Main_Setting mat-form-field{display: block; margin-bottom: 1vh;}
+.Main_Setting mat-form-field .mat-form-field-prefix .mat-icon{position: relative; top: 5px; margin-right: 5px; color: var(--main-color);}
+.Main_Setting mat-form-field .mat-form-field-suffix .mat-icon{position: relative; top: 0px; color: var(--main-font-color); opacity: 0.8;}
+.Main_Setting .mat-expansion-panel{border-bottom: 1px solid var(--mainwhite-color);}
+.Main_Setting .mat-expansion-panel-spacing{margin: 0; border-radius: 0;}
+.Main_Setting .mat-expansion-panel-header mat-panel-title{font-size: 14px; color: var(--main-font-color); font-weight: 300;}
+.Main_Setting .mat-expansion-panel-header mat-panel-title mat-icon{font-size: 21px; color: var(--sub-font-color); margin-right: 10px;}
+.Main_Setting .Sub_Title{color: var(--main-font-color); font-weight: 300; font-size: 14px; margin-top: 4vh; margin-bottom: 2vh;}
+.Main_Setting .Sub_Title mat-icon{margin-right: 10px; font-size: 20px; position: relative; top: 4px; color: var(--sub-font-color);}
+
+.Main_SettingButtonBox{text-align: right; margin-bottom: 2vh; margin-top: 2vh;}
+.Main_SettingButtonBox button {line-height: 36px ; height: 40px; width: auto; margin-right: 5px; margin-left: 5px; font-size: 12px;}
+.Main_SettingButtonBox button mat-icon{vertical-align: baseline !important;}
+
+/*유저 메뉴 기본 설정*/
+.User_MenuPanel{width: 100%; height: calc(100vh - 64px); overflow: hidden;}
+.User_MenuPanel_Title{height: 70px; width: 100%;}
+.User_MenuPanel_Title h3{font-size: 16px; color: #888; font-weight: 500; width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; border-bottom: 1px solid var(--sub-font-color);  height: 70px; line-height: 70px; padding: 0 16px; color: var(--main-font-color);}
+.User_MenuPanel_Title h3 mat-icon{position: relative; top: 5px; margin-right: 5px; color: var(--sub-font-color);}
+.User_MenuPanel div.mat-paginator-container { display: block !important; position: absolute; bottom: 0; left: 0; background: var(--sub-font-color); height: 50px; line-height: 50px; min-height: 50px;}
+.User_MenuPanel div.mat-paginator-range-actions {display: block; text-align: center;}
+.User_MenuPanel div.mat-paginator-range-actions button{margin-right: 5%; margin-left: 5%;}
+.User_MenuPanel .mat-paginator-icon{color: var(--mainwhite-color); transition: .3s; transform: scale(1.3);}
+.User_MenuPanel .mat-button-disabled .mat-paginator-icon{color: var(--sub-whitefont-color);}
+
+/*공지사항 (유저 메뉴)*/
+.User_notice_TableBox{position: relative; width: 100%; height: calc(100vh - 264px); overflow-x: hidden; overflow-y: auto; background: var(--main-whitefont-color);}
+.User_notice_TableBox::-webkit-scrollbar{display: contents !important;}
+.User_notice_TableBox table{width: 100%;}
+.User_notice_TableBox table thead {background: var(--maindark-color); height: 5vh;}
+.User_notice_TableBox table thead tr{border-color: var(--main-font-color); height: 5vh;}
+.User_notice_TableBox table thead tr th{height: 5vh; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color: var(--main-whitefont-color);}
+.User_notice_TableBox table tbody tr:nth-child(odd){background: #f5f5f5;}
+.User_notice_TableBox table tbody tr:nth-child(even){background: var(--main-whitefont-color);}
+.User_notice_TableBox table tbody tr{height: 5vh; transition: .3s; }
+.User_notice_TableBox table tbody tr:hover{background: var(--sub-whitefont-color);}
+.User_notice_TableBox table tbody tr td{color:  var(--sub-font-color); height: 5vh; white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; cursor: pointer;}
+
+.User_notice_Search{height: 80px; width: 100%; line-height: 80px; background: var(--main-whitefont-color); text-align: center;}
+.User_notice_Search mat-form-field{width: 50%; margin: 0 auto; padding: 0 16px;}
+.User_notice_Search .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.User_notice_Search .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+.User_notice_Search .mat-form-field.mat-focused .mat-form-field-label mat-label{ position: relative;top: -5px; font-size: 14px; right: 1px;}
+.User_notice_Search .mat-form-field-suffix .mat-icon{font-size: 21px !important; color: var(--sub-font-color); position: relative; top: -4px;}
+
+/*추천주 (유저 메뉴)*/
+.User_Recommended_TableBox{position: relative; width: 100%; height: calc(100vh - 264px); overflow-x: hidden; overflow-y: auto; background: var(--main-whitefont-color);}
+.User_Recommended_TableBox::-webkit-scrollbar{display: contents !important;}
+.User_Recommended_TableBox table{width: 100%;}
+.User_Recommended_TableBox table thead {background: var(--maindark-color); height: 5vh;}
+.User_Recommended_TableBox table thead tr{border-color: var(--main-font-color); height: 5vh;}
+.User_Recommended_TableBox table thead tr th{height: 5vh; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color: var(--main-whitefont-color);}
+.User_Recommended_TableBox table tbody tr:nth-child(odd){background: #f5f5f5;}
+.User_Recommended_TableBox table tbody tr:nth-child(even){background: var(--main-whitefont-color);}
+.User_Recommended_TableBox table tbody tr{height: 5vh; transition: .3s; }
+.User_Recommended_TableBox table tbody tr td{color:  var(--sub-font-color); height: 5vh; white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+
+.User_Recommended_Search{height: 80px; width: 100%; line-height: 80px; background: var(--main-whitefont-color); text-align: center;}
+.User_Recommended_Search mat-form-field{width: 50%; margin: 0 auto; padding: 0 16px;}
+.User_Recommended_Search .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.User_Recommended_Search .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+.User_Recommended_Search .mat-form-field.mat-focused .mat-form-field-label mat-label{ position: relative;top: -5px; font-size: 14px; right: 1px;}
+.User_Recommended_Search .mat-form-field-suffix .mat-icon{font-size: 21px !important; color: var(--sub-font-color); position: relative; top: -4px;}
+
+.User_Recommended_Allbox{position: absolute; right: 0px; top: 0; text-align: right}
+.User_Recommended_Allbox .mat-form-field-flex{position: relative; top: 13px; height: 43px; line-height: 43px;}
+.User_Recommended_Allbox mat-form-field{margin: 0 auto; padding: 0 16px; height: 40px; line-height: 40px; width: 20%; min-width: 200px;}
+.User_Recommended_Allbox > button{min-width: 40px; margin-right: 16px; height: 40px; line-height: 39px;}
+.User_Recommended_Allbox mat-form-field .mat-form-field-prefix .mat-icon{position: relative; top: -12px; margin-right: 5px; color: var(--main-color);}
+.User_Recommended_Allbox mat-form-field .mat-form-field-suffix span{ color: var(--sub-font-color); position: relative; top: -16px;}
+.User_Recommended_Allbox .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline{color: var(--mainwhite-color) !important;}
+.User_Recommended_Allbox .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label{color: var(--sub-font-color) !important;}
+.User_Recommended_Allbox input{white-space: nowrap; font-size: 14px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; text-align: right; position: relative; top: -13px; color: var(--sub-font-color) !important;}
+
+/*완료 수익률 (유저 메뉴)*/
+.User_Completion_TableBox{position: relative; width: 100%; height: calc(100vh - 264px); overflow-x: hidden; overflow-y: auto; background: var(--main-whitefont-color);}
+.User_Completion_TableBox::-webkit-scrollbar{display: contents !important;}
+.User_Completion_TableBox table{width: 100%;}
+.User_Completion_TableBox table thead {background: var(--maindark-color); height: 5vh;}
+.User_Completion_TableBox table thead tr{border-color: var(--main-font-color); height: 5vh;}
+.User_Completion_TableBox table thead tr th{height: 5vh; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color: var(--main-whitefont-color);}
+.User_Completion_TableBox table tbody tr:nth-child(odd){background: #f5f5f5;}
+.User_Completion_TableBox table tbody tr:nth-child(even){background: var(--main-whitefont-color);}
+.User_Completion_TableBox table tbody tr{height: 5vh; transition: .3s; }
+.User_Completion_TableBox table tbody tr:hover{background: var(--sub-whitefont-color);}
+.User_Completion_TableBox table tbody tr td{color:  var(--sub-font-color); height: 5vh; white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; cursor: pointer;}
+
+.User_Completion_Search{height: 80px; width: 100%; line-height: 80px; background: var(--main-whitefont-color); text-align: center;}
+.User_Completion_Search mat-form-field{width: 50%; margin: 0 auto; padding: 0 16px;}
+.User_Completion_Search .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.User_Completion_Search .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+.User_Completion_Search .mat-form-field.mat-focused .mat-form-field-label mat-label{ position: relative;top: -5px; font-size: 14px; right: 1px;}
+.User_Completion_Search .mat-form-field-suffix .mat-icon{font-size: 21px !important; color: var(--sub-font-color); position: relative; top: -4px;}
+
+
+/*유저 Dialog (유저 메뉴) - 기본설정*/
+.OptionModal.mat-bottom-sheet-container{max-height: calc(100vh - 64px); min-width: 60vw;}
+.OptionModal .mat-dialog-container{padding: 0 !important; min-width: 50vw;}
+.OptionModal.mat-bottom-sheet-container::-webkit-scrollbar{display: contents !important;}
+.User_Option_DialogButtonBox{text-align: right; margin-bottom: 2vh; margin-top: 2vh;}
+.User_Option_DialogButtonBox button {line-height: 36px ; height: 40px; width: auto; margin-right: 15px ; font-size: 14px; padding: 0 24px;}
+.User_Option_DialogButtonBox button mat-icon{vertical-align: baseline !important;}
+
+.User_Option_Dialog h3{width: 100%; padding: 0 10px; height: 50px; line-height: 50px; font-size: 12px; background: var(--main-whitefont-color); color: var(--main-font-color); font-weight: 500; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; padding-right: 40px;}
+.User_Option_Dialog h3 > span{display: inline-block;}
+.User_Option_Dialog h3 > strong{font-weight: 400; font-size: 12px; margin-left: 5px; display: inline-block; }
+.User_Option_Dialog h3 mat-icon{position: absolute; right: 0; top: 0; height: 50px !important; line-height: 50px !important; font-size: 20px; margin-right: 10px;}
+.User_Option_Dialog p{width: 100%; padding: 0 16px; height: 50px; line-height: 50px; font-size: 12px; color: var(--main-font-color); font-weight: 500; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; text-align: right; position: relative;}
+.User_Option_Dialog p > span{display: inline-block; margin-left: 5px; border: 1px solid var(--sub-whitefont-color); padding: 4px 12.5px; font-size: 10px; height: 25px; line-height: 15px; border-radius: 3px; color: var(--main-color);}
+.User_Option_Dialog p mat-form-field{margin: 0 16px; position: absolute; left: 0; top: 9px;}
+.User_Option_Dialog p mat-form-field *{font-size: 8px;}
+
+/*공지사항 (유저 메뉴) - 세부내용*/
+.User_notice_Dialog_Contant{width: 100%; padding: 0 16px; min-height: 500px; max-height: calc(100vh - 155px - 4vh); overflow: auto;}
+.User_notice_Dialog_Contant::-webkit-scrollbar{display: contents !important;}
+
+/*완료 수익률 (유저 메뉴) - 세부내용*/
+.User_Completion_Detail_TableBox{position: relative; width: auto; height: calc(100vh - 264px); overflow-x: hidden; overflow-y: auto; background: var(--main-whitefont-color);}
+.User_Completion_Detail_TableBox::-webkit-scrollbar{display: contents !important;}
+.User_Completion_Detail_TableBox table{min-width: 100%; max-width: 200%;}
+.User_Completion_Detail_TableBox table thead {background: var(--maindark-color); height: 5vh;}
+.User_Completion_Detail_TableBox table thead tr{border-color: var(--main-font-color); height: 5vh;}
+.User_Completion_Detail_TableBox table thead tr th{height: 5vh; font-size: 12px; white-space: nowrap; color: var(--main-whitefont-color);}
+.User_Completion_Detail_TableBox table tbody tr:nth-child(odd){background: #f5f5f5;}
+.User_Completion_Detail_TableBox table tbody tr:nth-child(even){background: var(--main-whitefont-color);}
+.User_Completion_Detail_TableBox table tbody tr{height: 5vh; transition: .3s; }
+.User_Completion_Detail_TableBox table tbody tr td{color:  var(--sub-font-color); height: 5vh; white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+.User_Completion_Detail_TableBox table button{margin-left: 5px; margin-right: 5px; position: relative; z-index: 1; font-size: 10px; height: 30px; line-height: 30px; padding: 0 4px; font-weight: 500; min-width: 55px;}
+
+
+
+/*관리자 메뉴 기본 설정*/
+.Admin_MenuPanel{width: 100%; height: calc(100vh - 64px); overflow: hidden;}
+.Admin_MenuPanel .mat-tab-body-wrapper{height: calc(100vh - 182px);}
+.Admin_MenuPanel .mat-tab-body-content::-webkit-scrollbar{display: contents !important;}
+.Admin_MenuPanel_Title{height: 70px; width: 100%;}
+.Admin_MenuPanel_Title h3{font-size: 16px; color: #888; font-weight: 500; width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; border-bottom: 1px solid var(--sub-font-color);  height: 70px; line-height: 70px; padding: 0 16px; color: var(--main-font-color);}
+.Admin_MenuPanel_Title h3 mat-icon{position: relative; top: 5px; margin-right: 5px; color: var(--sub-font-color);}
+.Admin_MenuPanel div.mat-paginator-container { display: block !important; position: absolute; bottom: 0; left: 0; background: var(--sub-font-color); height: 50px; line-height: 50px; min-height: 50px;}
+.Admin_MenuPanel div.mat-paginator-range-actions {display: block; text-align: center;}
+.Admin_MenuPanel div.mat-paginator-range-actions button{margin-right: 5%; margin-left: 5%;}
+.Admin_MenuPanel .mat-paginator-icon{color: var(--mainwhite-color); transition: .3s; transform: scale(1.3);}
+.Admin_MenuPanel .mat-button-disabled .mat-paginator-icon{color: var(--sub-whitefont-color);}
+
+/*그룹별 알림 (관리자 메뉴)*/
+.Admin_Notice_SendBox{position: relative; min-height: 220px; height: fit-content; max-height: 285px; margin-bottom: 30px;}
+.Admin_notice_UserList{position: relative; width: 100%; max-height: calc(100vh - 212px - 285px); overflow: auto; border-bottom: 1px solid var(--sub-whitefont-color); height: calc(100vh - 212px - 220px); background: #f9f9f9;}
+.Admin_notice_UserList::-webkit-scrollbar{display: contents !important;}
+.Admin_Notice_SendBox p{height: 50px; line-height: 50px; width: 100%; padding: 0 16px; font-size: 10px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+.Admin_Notice_SendBox p mat-icon{position: relative; top: 5px; margin-right: 5px; font-size: 18px; color: var(--red-color);}
+.Admin_Notice_SendBox p span{color: var(--red-color); position: absolute; right: 16px; font-size: 12px; top: 0; height: 50px; line-height: 50px;}
+.Admin_Notice_SendBox mat-form-field{width: 100%; margin: 0 auto; padding: 0 16px;}
+.Admin_Notice_SendBox .mat-form-field-flex{position: relative;}
+.Admin_Notice_SendBox .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.Admin_Notice_SendBox .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+.Admin_Notice_SendBox .mat-form-field-label mat-label{ position: relative;top: -5px; font-size: 14px; right: 0; border-right: 0.5vw solid #fff; background: #fff}
+.Admin_Notice_SendBox textarea.mat-input-element{padding: 0; margin: 0;}
+.Admin_Notice_SendBox textarea::-webkit-scrollbar{display: contents !important;}
+.Admin_Notice_SendBox >  button{width: calc(100% - 32px); margin: 0 auto; display: block; height: 50px; line-height: 50px; margin-bottom: 30px; margin-top: 30px;}
+.Admin_notice_UserList .mat-list-base{padding: 0;}
+.Admin_notice_UserList mat-list-option{transition: .3s; border-bottom: 1px solid var(--sub-whitefont-color);}
+.Admin_notice_UserList mat-list-option:nth-child(odd){background: #f5f5f5;}
+.Admin_notice_UserList mat-list-option:nth-child(even){background: var(--main-whitefont-color);}
+.Admin_notice_UserList mat-list-option:hover{background: var(--sub-whitefont-color);}
+.Admin_notice_UserList mat-list-option.mat-list-option.mat-list-item{height: 50px;}
+.Admin_notice_UserList span.mat-list-icon{color: var(--sub-font-color); font-size: 10px !important; line-height: 24px; min-width: 50px !important; max-width: 75px; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+.Admin_notcie_UserList_ID{font-size: 14px !important; color: var(--main-font-color);}
+.Admin_notcie_UserList_Name{font-size: 10px !important; color: var(--sub-font-color);}
+
+/*그룹 관리 (관리자 메뉴)*/
+.Admin_Group_EditBox{position: relative; height: 170px; margin-bottom: 30px; margin-top: 30px;}
+.Admin_Group_EditBox mat-form-field{width: 100%; margin: 0 auto; padding: 0 16px;}
+.Admin_Group_EditBox .mat-form-field-flex{position: relative;}
+.Admin_Group_EditBox .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.Admin_Group_EditBox .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+.Admin_Group_EditBox .mat-form-field-label mat-label{ position: relative;top: -5px; font-size: 14px; right: 0; border-right: 0.5vw solid #fff; background: #fff}
+
+.Admin_Group_EditBox >  button{width: calc(100% - 32px); margin: 0 auto; display: block; height: 50px; line-height: 50px; margin-bottom: 30px; margin-top: 30px;}
+
+.Admin_Group_UserList{position: relative; width: 100%; overflow: auto; border-bottom: 1px solid var(--sub-whitefont-color); height: calc(100vh - 230px - 64px - 70px); background: #f9f9f9;}
+.Admin_Group_UserList::-webkit-scrollbar{display: contents !important;}
+.Admin_Group_UserList .mat-list-base{padding: 0;}
+.Admin_Group_UserList .mat-expansion-panel-header.mat-expanded{height: 48px;}
+.Admin_Group_UserList .mat-expansion-panel-header-description{position: absolute; right: 36px;}
+.Admin_Group_UserList mat-list{margin-top: 10px;}
+.Admin_Group_UserList mat-list-item:nth-child(1){border-top: 1px solid var(--sub-whitefont-color);}
+.Admin_Group_UserList mat-list-item{transition: .3s; border-bottom: 1px solid var(--sub-whitefont-color); height: 50px !important; border-right: 1px solid var(--sub-whitefont-color); border-left: 1px solid var(--sub-whitefont-color);}
+.Admin_Group_UserList mat-list-item .mat-list-item-content{padding: 0 !important;}
+.Admin_Group_UserList mat-accordion mat-expansion-panel mat-expansion-panel-header{transition: .3s;}
+.Admin_Group_UserList mat-accordion mat-expansion-panel mat-expansion-panel-header:hover{background:var(--red-color);}
+.Admin_Group_UserList mat-accordion mat-expansion-panel:nth-child(odd) mat-expansion-panel-header{background: #f5f5f5;}
+.Admin_Group_UserList mat-accordion mat-expansion-panel:nth-child(even) mat-expansion-panel-header{background: var(--main-whitefont-color);}
+.Admin_Group_UserList mat-list-item:nth-child(odd){background: #f5f5f5;}
+.Admin_Group_UserList mat-list-item:nth-child(even){background: var(--main-whitefont-color);}
+.Admin_Group_UserList button{ border-radius: 0; height: 50px; line-height: 50px; width: 50px;}
+.Admin_Group_UserList button .mat-list-icon{color: var(--sub-font-color); transition: .3s;}
+.Admin_Group_UserList button:hover .mat-list-icon{color: var(--main-color);}
+.Admin_Group_UserList_ID{font-size: 12px !important; color: var(--main-font-color);}
+.Admin_Group_UserList_Name{font-size: 10px !important; color: var(--sub-font-color);}
+
+.Admin_Group_UserList .mat-expansion-panel{border-bottom: 1px solid var(--sub-whitefont-color); box-shadow: none;}
+.Admin_Group_UserList .mat-expansion-panel-spacing{margin: 0; border-radius: 0;}
+.Admin_Group_UserList .mat-expansion-panel-header{border-bottom: 1px solid var(--main-whitefont-color);}
+.Admin_Group_UserList .mat-expansion-panel-header mat-panel-title{font-size: 14px; color: var(--main-font-color); font-weight: 300;}
+.Admin_Group_UserList p{position: relative; height: 45px; line-height: 45px; font-size: 12px; width: 100%; color: var(--sub-font-color); border-bottom: 1px dashed var(--sub-whitefont-color);}
+.Admin_Group_UserList p span{position: absolute; right: 4px; top: 0; height: 45px; line-height: 45px; font-size: 14px; color: var(--main-color);}
+.Admin_Group_UserList p mat-icon{color: var(--main-font-color); position: relative; top: 7px; margin-right: 5px;}
+
+/*관리자 dialog 기본설정*/
+.Admin_Option_Dialog::-webkit-scrollbar{display: contents !important;}
+.Admin_Option_DialogButtonBox{text-align: right; margin-bottom: 2vh; margin-top: 2vh;}
+.Admin_Option_DialogButtonBox button {line-height: 36px ; height: 40px; width: auto; margin-right: 15px ; font-size: 14px; padding: 0 24px;}
+.Admin_Option_ButtonBox{text-align: right; margin-bottom: 2vh; margin-top: 2vh;}
+.Admin_Option_ButtonBox button {line-height: 36px ; height: 40px; width: auto; margin-left: 15px ; font-size: 12px; padding: 0 24px; border-radius: 3px;}
+
+.Admin_Option_DialogButtonBox button mat-icon{vertical-align: baseline !important;}
+.Admin_Option_Dialog > h3{width: 100%; padding: 0 10px; height: 50px; line-height: 50px; font-size: 12px; background: var(--main-whitefont-color); color: var(--main-font-color); font-weight: 500; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; padding-right: 40px;}
+.Admin_Option_Dialog > h3 > mat-icon.Dialog_TitleIcon{display: inline-block; color: var(--red-color); height: 50px; line-height: 50px;}
+.Admin_Option_Dialog > h3 > mat-icon.Dialog_TitleIcon2{display: inline-block; color: var(--main-color); height: 50px; line-height: 50px;}
+.Admin_Option_Dialog > h3 > strong{font-weight: 500; margin-left: 5px; display: inline-block;position: relative; top: -7px;}
+.Admin_Option_Dialog > h3 mat-icon.Dialog_closeBtn{position: absolute; right: 0; top: 0; height: 50px !important; line-height: 50px !important; font-size: 20px; margin-right: 10px;}
+.Admin_Option_Dialog_Contant{width: 100%; padding: 0 16px; max-height: calc(100vh - 155px - 4vh); overflow: auto;}
+.Admin_Option_Dialog_Contant::-webkit-scrollbar{display: contents !important;}
+
+/*유저 삭제 dialog*/
+.User_RemovePanel{position: relative;height: auto; padding: 0px;}
+.User_RemovePanel_Text{margin-top: 2vh; padding: 0 16px;}
+.User_RemovePanel_Left{float: left;line-height: 60px; height: 60px; text-align: center;}
+.User_RemovePanel_Left mat-icon{width: 100px; font-size: 50px; height: 50px; color: var(--sub-font-color); position: relative; top: 50%; transform: translateY(50%)}
+.User_RemovePanel_Right{float: left; width: calc(100% - 100px);}
+.User_RemovePanel_Right p strong{display: inline-block; width: 100px;}
+.User_RemovePanel_Right p span{display: inline-block; width: 100px;}
+.User_RemovePanel_Text::after{content: ''; display: block; clear: both;}
+.User_RemovePanel p{margin-left: 5px; position: relative; height: 25px; line-height: 25px; font-size: 14px;letter-spacing: 0.1px; font-weight: 400; color: var(--main-font-color); width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+.User_RemovePanel p span{color: var(--sub-font-color); font-size: 10px;}
+.User_RemovePanel h3{margin-left: 5px; position: relative; height: 25px; line-height: 25px; font-size: 14px; color: var(--red-color); letter-spacing: 0.1px; font-weight: 400; width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+
+/*유저 정보 변경 dialog*/
+.Admin_User_ModifyBox{margin-top: 2vh; padding: 0 24px;}
+.Admin_User_ModifyBox mat-form-field{display: block; margin-bottom: 1vh;}
+.Admin_User_ModifyBox mat-form-field .mat-form-field-prefix .mat-icon{position: relative; top: 5px; margin-right: 5px; color: var(--main-color);}
+.Admin_User_ModifyBox mat-form-field .mat-form-field-suffix .mat-icon{position: relative; top: 0px; color: var(--main-font-color); opacity: 0.8;}
+
+/*유저 관리 메뉴 (관리자 메뉴)*/
+.Admin_User_EditBox{position: relative; width: 100%; height: calc(100vh - 214px); overflow: auto; background: var(--main-whitefont-color);}
+.Admin_User_EditBox::-webkit-scrollbar{display: contents !important;}
+.Admin_User_EditBox table{min-width: 100%; max-width: 200%;}
+.Admin_User_EditBox table thead {background: var(--maindark-color); height: 5vh;}
+.Admin_User_EditBox table thead tr{border-color: var(--main-font-color); height: 5vh;}
+.Admin_User_EditBox table thead tr th{height: 5vh; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color: var(--main-whitefont-color);}
+.Admin_User_EditBox table tbody tr:nth-child(odd){background: #f5f5f5;}
+.Admin_User_EditBox table tbody tr:nth-child(even){background: var(--main-whitefont-color);}
+.Admin_User_EditBox table tbody tr{height: 5vh; transition: .3s; }
+.Admin_User_EditBox table tbody tr td{color:  var(--sub-font-color); height: 5vh; white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; cursor: pointer;}
+.Admin_User_EditBox table button{margin-left: 5px; margin-right: 5px; position: relative; z-index: 1; font-size: 10px; height: 30px; line-height: 30px; padding: 0 4px; font-weight: 500; min-width: 55px;}
+.Action_Backgournd{position: relative; z-index: 1;}
+.Admin_User_EditBox table tbody tr:nth-child(odd) .Action_Backgournd{background: #f5f5f5;}
+.Admin_User_EditBox table tbody tr:nth-child(even) .Action_Backgournd{background: var(--main-whitefont-color);}
+.Admin_User_EditBox .Subscription_Filed mat-form-field *{padding: 0 !important; margin: 0 !important; border: none;}
+.Admin_User_EditBox input{white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; height: 30px; line-height: 30px; width: 100px; text-align: center;}
+.Admin_User_EditBox .mat-form-field-wrapper{width: 100px; height: 30px; line-height: 30px}
+.Admin_User_EditBox .mat-form-field-appearance-outline .mat-form-field-flex{width: 100px; height: 30px; line-height: 30px}
+.Subscription_Filed .Subscription_Result{color: var(--maindark-color); font-weight: bold; position:relative; top: 5px; display: inline-block; white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; height: 30px; line-height: 30px; width: 100px; text-align: center;}
+.Subscription_Filed .Subscription_Result.구독종료{color: var(--red-color);}
+.Subscription_Filed .mat-input-element{color: var(--maindark-color);}
+.Admin_User_Edit_SeachBox{height: 80px; width: 100%; line-height: 80px; background: var(--main-whitefont-color); text-align: center; overflow-x: auto; white-space: nowrap; overflow-y: hidden;}
+.Subscription_Filed button{position: relative; top: -5px;}
+
+.Admin_User_Edit_SeachBox::-webkit-scrollbar{display: contents !important;}
+.Admin_User_Edit_SeachBox .mat-form-field-flex{position: relative; top: 5px;}
+.Admin_User_Edit_SeachBox mat-form-field{margin: 0 auto; padding: 0 16px;}
+.Admin_User_Edit_SeachBox mat-form-field.AdminUser_Edit_SearchFiled{width: 20%; margin-right: 3%; min-width: 200px;}
+.Admin_User_Edit_SeachBox mat-form-field.AdminUser_Edit_SubFiled{width: 20%; min-width: 200px;}
+.Admin_User_Edit_SeachBox > button{min-width: 55px; margin-right: 16px; height: 55px; line-height: 55px;}
+.Admin_User_Edit_SeachBox mat-form-field .mat-form-field-prefix .mat-icon{position: relative; top: -2px; margin-right: 5px; color: var(--main-color);}
+.Admin_User_Edit_SeachBox mat-form-field .mat-form-field-suffix .mat-icon{position: relative; top: -2px; color: var(--main-font-color); opacity: 0.8;}
+
+.Admin_User_Edit_SeachBox .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.Admin_User_Edit_SeachBox .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+.Admin_User_Edit_SeachBox .mat-form-field.mat-focused .mat-form-field-label mat-label{ position: relative;top: -5px; font-size: 14px; right: 1px;}
+.Admin_User_Edit_SeachBox .mat-form-field-suffix .mat-icon{font-size: 21px !important; color: var(--sub-font-color); position: relative; top: -4px;}
+
+/*공지사항 관리 (관리자 메뉴)*/
+.Admin_Notice_EditBox{position: relative; width: 100%; height: calc(100vh - 214px); overflow: auto; background: var(--main-whitefont-color);}
+.Admin_Notice_EditBox::-webkit-scrollbar{display: contents !important;}
+.Admin_Notice_EditBox table{min-width: 100%; max-width: 200%;}
+.Admin_Notice_EditBox table thead {background: var(--maindark-color); height: 5vh;}
+.Admin_Notice_EditBox table thead tr{border-color: var(--main-font-color); height: 5vh;}
+.Admin_Notice_EditBox table thead tr th{height: 5vh; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color: var(--main-whitefont-color);}
+.Admin_Notice_EditBox table tbody tr:nth-child(odd){background: #f5f5f5;}
+.Admin_Notice_EditBox table tbody tr:nth-child(even){background: var(--main-whitefont-color);}
+.Admin_Notice_EditBox table tbody tr{height: 5vh; transition: .3s; }
+.Admin_Notice_EditBox table tbody tr td{color:  var(--sub-font-color); height: 5vh; white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; cursor: pointer;}
+.Admin_Notice_EditBox table button{margin-left: 5px; margin-right: 5px; position: relative; z-index: 1; font-size: 10px; height: 30px; line-height: 30px; padding: 0 4px; font-weight: 500; min-width: 55px;}
+.Action_Backgournd{position: relative; z-index: 1;}
+.Admin_Notice_EditBox table tbody tr:nth-child(odd) .Action_Backgournd{background: #f5f5f5;}
+.Admin_Notice_EditBox table tbody tr:nth-child(even) .Action_Backgournd{background: var(--main-whitefont-color);}
+.Admin_Notice_EditBox .Subscription_Filed mat-form-field *{padding: 0 !important; margin: 0 !important; border: none;}
+.Admin_Notice_EditBox input{white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; height: 30px; line-height: 30px; width: 100px; text-align: center;}
+.Admin_Notice_EditBox .mat-form-field-wrapper{width: 100px; height: 30px; line-height: 30px}
+.Admin_Notice_EditBox .mat-form-field-appearance-outline .mat-form-field-flex{width: 100px; height: 30px; line-height: 30px}
+.Subscription_Filed .mat-input-element{color: var(--maindark-color);}
+.Admin_Notice_Edit_SeachBox{height: 80px; width: 100%; line-height: 80px; background: var(--main-whitefont-color); text-align: center; overflow-x: auto; white-space: nowrap; overflow-y: hidden; }
+.Subscription_Filed button{position: relative; top: -5px;}
+
+.Admin_Notice_Edit_SeachBox::-webkit-scrollbar{display: contents !important;}
+.Admin_Notice_Edit_SeachBox .mat-form-field-flex{position: relative; top: 5px;}
+.Admin_Notice_Edit_SeachBox mat-form-field{margin: 0 auto; padding: 0 16px;}
+.Admin_Notice_Edit_SeachBox mat-form-field.AdminNotice_Edit_SearchFiled{width: 20%; margin-right: 16px; min-width: 200px;}
+.Admin_Notice_Edit_SeachBox mat-form-field.AdminNotice_Edit_SubFiled{width: 20%; min-width: 200px;}
+.Admin_Notice_Edit_SeachBox > button{min-width: 55px; margin-right: 16px; height: 55px; line-height: 55px;}
+.Admin_Notice_Edit_SeachBox mat-form-field .mat-form-field-prefix .mat-icon{position: relative; top: -2px; margin-right: 5px; color: var(--main-color);}
+.Admin_Notice_Edit_SeachBox mat-form-field .mat-form-field-suffix .mat-icon{position: relative; top: -2px; color: var(--main-font-color); opacity: 0.8;}
+
+.Admin_Notice_Edit_SeachBox .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.Admin_Notice_Edit_SeachBox .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+.Admin_Notice_Edit_SeachBox .mat-form-field.mat-focused .mat-form-field-label mat-label{ position: relative;top: -5px; font-size: 14px; right: 1px;}
+.Admin_Notice_Edit_SeachBox .mat-form-field-suffix .mat-icon{font-size: 21px !important; color: var(--sub-font-color); position: relative; top: -4px;}
+
+/*공지사항 관리 - 공지사항 삭제 모달*/
+.Notice_DeletePanel{position: relative;height: auto; padding: 0px;}
+.Notice_DeletePanel_Text{margin-top: 2vh; padding: 0 16px;}
+.Notice_DeletePanel_Left{float: left;line-height: 60px; height: 60px; text-align: center;}
+.Notice_DeletePanel_Left mat-icon{width: 100px; line-height: 50px; font-size: 50px; height: 50px; color: var(--sub-font-color);}
+.Notice_DeletePanel_Right{float: left; width: calc(100% - 100px);}
+.Notice_DeletePanel_Text::after{content: ''; display: block; clear: both;}
+.Notice_DeletePanel p{margin-left: 5px; position: relative; height: 25px; line-height: 25px; font-size: 12px;letter-spacing: 0.1px; font-weight: 400; color: var(--main-font-color); width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+.Notice_DeletePanel p em{margin-right: 5px; display: inline-block; position: relative; top: -8px;}
+.Notice_DeletePanel p span{color: var(--maindark-color); font-size: 12px; margin-right: 10px; display: inline-block; text-align: center; max-width: 100px; text-overflow: ellipsis;  white-space: nowrap; overflow-x: hidden; font-weight: 500;}
+.Notice_DeletePanel h3{margin-left: 5px; position: relative; height: 25px; line-height: 25px; font-size: 14px; color: var(--red-color); letter-spacing: 0.1px; font-weight: 400; width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+
+.Admin_Notice_ModifyBox{position: relative; width: 100%; max-height: calc(100vh - 64px - 50px);}
+.Admin_Notice_ModifyBox::-webkit-scrollbar{display: contents !important;}
+.Admin_Notice_ModifyBox mat-form-field{width: 50%; margin: 3vh auto; padding: 0 16px;}
+.Admin_Notice_ModifyBox .mat-form-field-flex{position: relative;}
+.Admin_Notice_ModifyBox .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.Admin_Notice_ModifyBox .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+.Admin_Notice_ModifyBox .mat-form-field-label mat-label{ position: relative;top: -5px; font-size: 14px; right: 0; border-right: 0.5vw solid #fff; background: #fff}
+div.angular-editor{padding: 16px;  overflow: auto; height: calc(100vh - 64px - 50px - 122px - 10vh);}
+div.angular-editor-textarea{height: calc(100vh - 64px - 50px - 210px - 10vh);}
+div.angular-editor::-webkit-scrollbar{display: contents !important;}
+div.angular-editor-textarea::-webkit-scrollbar{display: contents !important;}
+
+/*종목 정보 (관리자 메뉴)*/
+.Admin_InformationBox{position: relative; width: 100%; height: calc(100vh - 214px); overflow: auto; background: var(--main-whitefont-color);}
+.Admin_InformationBox::-webkit-scrollbar{display: contents !important;}
+.Admin_InformationBox table{min-width: 100%; max-width: 200%;}
+.Admin_InformationBox table thead {background: var(--maindark-color); height: 5vh;}
+.Admin_InformationBox table thead tr{border-color: var(--main-font-color); height: 5vh;}
+.Admin_InformationBox table thead tr th{height: 5vh; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color: var(--main-whitefont-color);}
+.Admin_InformationBox table tbody tr:nth-child(odd){background: #f5f5f5;}
+.Admin_InformationBox table tbody tr:nth-child(even){background: var(--main-whitefont-color);}
+.Admin_InformationBox table tbody tr{height: 5vh; transition: .3s; }
+.Admin_InformationBox table tbody tr td{color:  var(--sub-font-color); height: 5vh; white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; cursor: pointer;}
+.Admin_InformationBox table button{margin-left: 5px; margin-right: 5px; position: relative; z-index: 1; font-size: 10px; height: 30px; line-height: 30px; padding: 0 4px; font-weight: 500; min-width: 55px;}
+.Action_Backgournd{position: relative; z-index: 1;}
+.Admin_InformationBox table tbody tr:nth-child(odd) .Action_Backgournd{background: #f5f5f5;}
+.Admin_InformationBox table tbody tr:nth-child(even) .Action_Backgournd{background: var(--main-whitefont-color);}
+.Admin_InformationBox .selling_Filed mat-form-field *{padding: 0 !important; margin: 0 !important; border-top: none; border-right: none; border-left: none; border-radius: 0px;}
+.Admin_InformationBox .selling_Filed mat-form-field{margin-right: 10px;}
+.Admin_InformationBox input{white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; height: 30px; line-height: 30px; width: 150px; text-align: right;}
+.Admin_InformationBox .mat-form-field-wrapper{width: 150px; height: 30px; line-height: 30px}
+.Admin_InformationBox .mat-form-field-appearance-outline .mat-form-field-flex{width: 150px; height: 30px; line-height: 30px}
+
+.Admin_Information_SeachBox{height: 80px; width: 100%; line-height: 80px; background: var(--main-whitefont-color); text-align: center; overflow-x: auto; white-space: nowrap; overflow-y: hidden;}
+.selling_Filed button{position: relative; top: -5px;}
+.selling_Filed .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.selling_Filed .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+.selling_Filed .mat-form-field-prefix span{ color: var(--sub-font-color); position: relative; top: -10px;}
+.selling_Filed .mat-form-field-suffix span{ color: var(--sub-font-color); position: relative; top: -10px;}
+
+.Admin_Information_SeachBox::-webkit-scrollbar{display: contents !important;}
+.Admin_Information_SeachBox .mat-form-field-flex{position: relative; top: 5px;}
+.Admin_Information_SeachBox mat-form-field{margin: 0 auto; padding: 0 16px;}
+.Admin_Information_SeachBox mat-form-field.AdminInformation_SearchFiled{width: 20%; margin-right: 16px; min-width: 200px;}
+.Admin_Information_SeachBox mat-form-field.AdminInformation_SubFiled{width: 20%; min-width: 200px;}
+.Admin_Information_SeachBox > button{min-width: 55px; margin-right: 16px; height: 55px; line-height: 55px;}
+.Admin_Information_SeachBox mat-form-field .mat-form-field-prefix .mat-icon{position: relative; top: -2px; margin-right: 5px; color: var(--main-color);}
+.Admin_Information_SeachBox mat-form-field .mat-form-field-suffix .mat-icon{position: relative; top: 6px; color: var(--main-font-color); opacity: 0.8;}
+.Admin_Information_SeachBox mat-form-field .mat-form-field-suffix span{ color: var(--sub-font-color); position: relative; top: -10px;}
+.Admin_Information_SeachBox .Total_Filed input{white-space: nowrap; font-size: 14px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; text-align: right; position: relative; top: -5px;}
+.Admin_Information_SeachBox .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.Admin_Information_SeachBox .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+.Admin_Information_SeachBox .mat-form-field.mat-focused .mat-form-field-label mat-label{ position: relative;top: -5px; font-size: 14px; right: 1px;}
+.Admin_Information_SeachBox .mat-form-field-suffix .mat-icon{font-size: 21px !important; color: var(--sub-font-color); position: relative; top: -4px;}
+
+.AdminInformation_OptionFiled.mat-menu-panel{min-height: inherit; padding: 4px;}
+.AdminInformation_OptionFiled .mat-form-field-appearance-outline .mat-form-field-wrapper{margin: 0; padding: 0;}
+.AdminInformation_OptionFiled .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.AdminInformation_OptionFiled .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+
+/*주식 추가 dialog*/
+.Admin_Stock_OptionBox{position: relative; width: 100%; max-height: calc(100vh - 64px - 50px); overflow: auto;}
+.Admin_Stock_OptionBox::-webkit-scrollbar{display: contents !important;}
+.Admin_Stock_OptionBox mat-form-field{width: 50%; margin: 0 auto; margin-top: 2vh; padding: 0 16px;}
+.Admin_Stock_OptionBox mat-form-field .mat-form-field-prefix span{ color: var(--sub-font-color); position: relative; top: -10px;}
+.Admin_Stock_OptionBox mat-form-field .mat-form-field-suffix span{ color: var(--sub-font-color); position: relative; top: -10px;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(1){width: 20%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(2){width: 20%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(3){width: 20%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(4){width: 20%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(5){width: 20%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(6){width: 25%;}
+.Admin_Stock_OptionBox mat-form-field.SeletedOpiton .mat-form-field-flex{line-height: 70px; height: 70px; position: relative; top: -8px;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(7){width: 25%;}
+.Admin_Stock_OptionBox mat-form-field:nth-child(8){width: 25%;}
+
+.Admin_Stock_OptionBox mat-form-field input{white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; height: 30px; line-height: 30px; width: 100%; text-align: right;}
+.Admin_Stock_OptionBox mat-form-field .mat-select-value{white-space: nowrap; font-size: 12px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; height: 30px; line-height: 30px; width: 100%; text-align: center;}
+.Admin_Stock_OptionBox .mat-form-field-flex{position: relative;}
+.Admin_Stock_OptionBox .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
+.Admin_Stock_OptionBox .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
+.Admin_Stock_OptionBox .mat-form-field-label mat-label{ position: relative;top: -5px; font-size: 14px; right: 0; border-right: 0.5vw solid #fff; background: #fff}
+
+/*주식 삭제  dialog*/
+.Stock_RemovePanel{position: relative;height: auto; padding: 0px;}
+.Stock_RemovePanel_Text{margin-top: 2vh; padding: 0 16px;}
+.Stock_RemovePanel_Left{float: left;line-height: 60px; height: 60px; text-align: center;}
+.Stock_RemovePanel_Left mat-icon{width: 100px; line-height: 50px; font-size: 50px; height: 50px; color: var(--sub-font-color);}
+.Stock_RemovePanel_Right{float: left; width: calc(100% - 100px);}
+.Stock_RemovePanel_Text::after{content: ''; display: block; clear: both;}
+.Stock_RemovePanel p{margin-left: 5px; position: relative; height: 25px; line-height: 25px; font-size: 12px;letter-spacing: 0.1px; font-weight: 400; color: var(--main-font-color); width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+.Stock_RemovePanel p em{margin-right: 5px; display: inline-block; position: relative; top: -8px;}
+.Stock_RemovePanel p span{color: var(--maindark-color); font-size: 12px; margin-right: 10px; display: inline-block; text-align: center; max-width: 100px; text-overflow: ellipsis;  white-space: nowrap; overflow-x: hidden; font-weight: 500;}
+.Stock_RemovePanel h3{margin-left: 5px; position: relative; height: 25px; line-height: 25px; font-size: 14px; color: var(--red-color); letter-spacing: 0.1px; font-weight: 400; width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+
+
+@media screen and (max-width: 1024px) {
+
+	.Login_FormBox{width: 95vw; height: 96vh;}
+	.Login_Bg{opacity: 0.8;}
+	.Main_Panel{height: calc(100vh - 54px);}
+	.Main_Menu{min-width: 100vw;}
+	.Main_Setting{min-width: 100vw;}
+	.Main_Setting{min-width: 100vw;}
+	.User_notice_TableBox{height: calc(100vh - 254px);}
+	.User_Recommended_TableBox{height: calc(100vh - 254px);}
+	.User_Completion_TableBox{height: calc(100vh - 254px);}
+	.User_notice_Search mat-form-field{width: 100%;}
+	.User_Recommended_Search mat-form-field{width: 100%;}
+	.User_Completion_Search mat-form-field{width: 100%;}
+	.OptionModal.mat-bottom-sheet-container{max-height: calc(100vh - 48px); min-width: 100vw;}
+	.OptionModal .mat-dialog-container{max-height: calc(100vh - 48px); min-width: 80vw;}
+	.User_notice_Dialog_Contant{max-height: calc(100vh - 142px - 4vh); }
+	.User_Completion_Detail_TableBox{height: calc(100vh - 188px - 4vh); }
+	.Admin_MenuPanel{height: calc(100vh - 54px);}
+    .Admin_MenuPanel .mat-tab-body-wrapper{height: calc(100vh - 172px);}
+	.Admin_notice_UserList{max-height: calc(100vh - 212px - 275px);}
+	.Admin_Group_UserList{max-height: calc(100vh - 230px - 54px - 70px);}
+	.Admin_User_EditBox{height: calc(100vh - 206px);}
+	.Admin_InformationBox{height: calc(100vh - 206px);}
+	.Admin_Notice_EditBox{height: calc(100vh - 206px);}
+	.Admin_NoticeEdit_TableBox{height: calc(100vh - 254px);}
+	div.angular-editor{height: calc(100vh - 54px - 50px - 122px - 10vh);}
+	div.angular-editor-textarea{height: calc(100vh - 54px - 50px - 280px - 10vh);}
+	.Admin_Notice_ModifyBox{max-height: calc(100vh - 54px - 50px);}
+	.Admin_Stock_OptionBox{max-height: calc(100vh - 54px - 90px - 4vh);}
+	.Admin_Stock_OptionBox mat-form-field:nth-child(1){margin-top: 1.5vh;}
+	.Admin_Stock_OptionBox mat-form-field{margin-top: 0vh; width: 100% !important;}
+	.User_Completion_Detail_TableBox table tbody tr td{font-size: 10px; padding: 0 !important;}
+	.User_Completion_Detail_TableBox table thead tr th{font-size: 10px; padding: 0 !important;}
+	.User_Completion_Detail_TableBox table button{margin-left: 2.5px; margin-right: 2.5px; position: relative; z-index: 1; font-size: 8px; height: 18px; line-height: 18px; padding: 0 2px; font-weight: 300; min-width: 45px;}
+}
