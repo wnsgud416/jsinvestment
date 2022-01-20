@@ -26,35 +26,40 @@
 
 
 	  <ng-container matColumnDef="code" sticky>
-		<th mat-header-cell *matHeaderCellDef style="width: calc(15vw); text-align: center; padding: 0 2vw;"> 종목코드 </th>
-		<td mat-cell *matCellDef="let element" style="width: calc(15vw); text-align: center; padding: 0 2vw;"> {{element.code}} </td>
+		<th mat-header-cell *matHeaderCellDef style="width: calc(10vw); text-align: center; padding: 0 2vw;"> 종목코드 </th>
+		<td mat-cell *matCellDef="let element" style="width: calc(10vw); text-align: center; padding: 0 2vw;"> {{element.code}} </td>
 	  </ng-container>
 
 	  <ng-container matColumnDef="name">
-		<th mat-header-cell *matHeaderCellDef style="width: calc(25vw - 35px); text-align: center; padding: 0 2vw;"> 종목명 </th>
-		<td mat-cell *matCellDef="let element" style="width: calc(25vw - 35px); text-align: center; padding: 0 2vw;"> {{element.name}} </td>
+		<th mat-header-cell *matHeaderCellDef style="width: calc(20vw - 35px); text-align: center; padding: 0 2vw;"> 종목명 </th>
+		<td mat-cell *matCellDef="let element" style="width: calc(20vw - 35px); text-align: center; padding: 0 2vw;"> {{element.name}} </td>
 	  </ng-container>
 
 
 	  <ng-container matColumnDef="currentPrice">
-		<th mat-header-cell *matHeaderCellDef style="width: 15vw; text-align: center; padding: 0 2vw;"> 현재가 </th>
-		<td mat-cell *matCellDef="let element" style="width: 15vw; text-align: center; padding: 0 2vw;"> {{numChange(element.currentPrice)}} </td>
+		<th mat-header-cell *matHeaderCellDef style="width: 14vw; text-align: center; padding: 0 2vw;"> 현재가 </th>
+		<td mat-cell *matCellDef="let element" style="width: 14vw; text-align: center; padding: 0 2vw;"> {{numChange(element.currentPrice)}} </td>
 	  </ng-container>
 
 
 	  <ng-container matColumnDef="buyingPrice">
-		<th mat-header-cell *matHeaderCellDef style="width: 15vw; text-align: center; padding: 0 2vw;"> 매수 단가 </th>
-		<td mat-cell *matCellDef="let element" style="width: 15vw; text-align: center; padding: 0 2vw;"> {{numChange(element.buyingPrice)}} </td>
+		<th mat-header-cell *matHeaderCellDef style="width: 14vw; text-align: center; padding: 0 2vw;"> 매수 단가 </th>
+		<td mat-cell *matCellDef="let element" style="width: 14vw; text-align: center; padding: 0 2vw;"> {{numChange(element.buyingPrice)}} </td>
 	  </ng-container>
 
+    <ng-container matColumnDef="group" *ngIf="userGroup =='관리자'">
+      <th mat-header-cell *matHeaderCellDef style="width: 14vw; text-align: center; padding: 0 2vw;"> 그룹 </th>
+      <td mat-cell *matCellDef="let element" style="width: 14vw; text-align: center; padding: 0 2vw;"> {{element.group}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="created_at">
-      <th mat-header-cell *matHeaderCellDef style="width: 15vw; text-align: center; padding: 0 2vw;"> 추천 일자 </th>
-      <td mat-cell *matCellDef="let element" style="width: 15vw; text-align: center; padding: 0 2vw;"> {{element.created_at}} </td>
+      <th mat-header-cell *matHeaderCellDef style="width: 14vw; text-align: center; padding: 0 2vw;"> 추천 일자 </th>
+      <td mat-cell *matCellDef="let element" style="width: 14vw; text-align: center; padding: 0 2vw;"> {{element.created_at}} </td>
       </ng-container>
 
 	  <ng-container matColumnDef="yield">
-		<th mat-header-cell *matHeaderCellDef style="width: 15vw; text-align: center; padding: 0 2vw;"> 수익률 </th>
-		<td mat-cell *matCellDef="let element" style="width: 15vw; text-align: center; padding: 0 2vw; font-weight: bold;" class="{{element.yield >0? 'PlusNumber' : 'MinusNumber'}}"> {{element.yield}} %</td>
+		<th mat-header-cell *matHeaderCellDef style="width: 14vw; text-align: center; padding: 0 2vw;"> 수익률 </th>
+		<td mat-cell *matCellDef="let element" style="width: 14vw; text-align: center; padding: 0 2vw; font-weight: bold;" class="{{element.yield >0? 'PlusNumber' : 'MinusNumber'}}"> {{element.yield}} %</td>
 	  </ng-container>
 
 
@@ -64,7 +69,7 @@
 
   <div *ngIf="tableRowData.filteredData.length>0">
     <tr class="Search_resulttext" *matNoDataRow>
-      <td class="mat-cell" colspan="7">
+      <td class="mat-cell" colspan="8">
       <mat-icon>search_off</mat-icon>
       <p>"{{input.value}}"에 대한 검색결과가 없습니다.</p>
       </td>
@@ -72,7 +77,7 @@
   </div>
   <div *ngIf="stockInfoData.length==0">
     <tr class="Search_resulttext" *matNoDataRow>
-      <td class="mat-cell" colspan="7">
+      <td class="mat-cell" colspan="8">
          <mat-progress-spinner  *ngIf="isLoading==true" mode="indeterminate" >
       </mat-progress-spinner>
       <p *ngIf="isLoading==true">추천주를 불러오는 중입니다.</p>

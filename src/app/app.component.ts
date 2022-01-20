@@ -72,51 +72,49 @@ export class AppComponent {
       this.refresh = docValue['value']
 
     });
-    const auth = getAuth();
-    setTimeout(async () => {
-      this.user = auth.currentUser;
+    const auth = await getAuth();
+    this.user = auth.currentUser;
 
-      if (this.user ==null) {
-        this.loginSuccess = false;
-        // window.alert('로그인이 필요합니다.')
+    if (this.user ==null) {
+      this.loginSuccess = false;
+      // window.alert('로그인이 필요합니다.')
 
-        // this.router.navigate(['/']);
-      } else {
-		$(".Main_PanelBox").fadeIn(0);
+      // this.router.navigate(['/']);
+    } else {
+      $(".Main_PanelBox").fadeIn(0);
 
-        this.loginSuccess = true;
-        this.userUid = this.user.uid;
-        this.userEmail = this.user.email;
+      this.loginSuccess = true;
+      this.userUid = this.user.uid;
+      this.userEmail = this.user.email;
 
-        const docRef = doc(this.firestore, "users", this.userUid);
-        const docSnap = await getDoc(docRef);
+      const docRef = doc(this.firestore, "users", this.userUid);
+      const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-          this.notificationOnOff = docSnap.data()['notification_onoff']
-          this.userGroup = docSnap.data()['group']
-          if (docSnap.data()['name'] == undefined || docSnap.data()['name'] == null || docSnap.data()['name'] == "") {
-            this.userName = ""
-          } else {
-            this.userName = docSnap.data()['name']
-          }
-          if (docSnap.data()['phone'] == undefined || docSnap.data()['phone'] == null || docSnap.data()['phone']== "") {
-            this.userPhone = ""
-          } else {
-            this.userPhone = docSnap.data()['phone']
-          }
+      if (docSnap.exists()) {
+        this.notificationOnOff = docSnap.data()['notification_onoff']
+        this.userGroup = docSnap.data()['group']
+        if (docSnap.data()['name'] == undefined || docSnap.data()['name'] == null || docSnap.data()['name'] == "") {
+          this.userName = ""
         } else {
-          // doc.data() will be undefined in this case
+          this.userName = docSnap.data()['name']
         }
-        //this.router.navigate(['/UserNotice']);
+        if (docSnap.data()['phone'] == undefined || docSnap.data()['phone'] == null || docSnap.data()['phone']== "") {
+          this.userPhone = ""
+        } else {
+          this.userPhone = docSnap.data()['phone']
+        }
+      } else {
+        // doc.data() will be undefined in this case
       }
-    }, 1000);
+      //this.router.navigate(['/UserNotice']);
+    }
 
 
   }
 
 	async Login(userid, password){
 
-    const auth = getAuth();
+    const auth = await getAuth();
     setPersistence(auth, browserSessionPersistence)
     .then(() => {
       return  signInWithEmailAndPassword(auth, userid, password)
@@ -129,6 +127,7 @@ export class AppComponent {
           const docRef = doc(this.firestore, "users", this.userUid);
           const docSnap = await getDoc(docRef);
           if (docSnap.exists()) {
+            this.notificationOnOff = docSnap.data()['notification_onoff']
             this.userGroup = docSnap.data()['group']
             if (docSnap.data()['name'] == undefined || docSnap.data()['name'] == null || docSnap.data()['name'] == "") {
               this.userName = ""

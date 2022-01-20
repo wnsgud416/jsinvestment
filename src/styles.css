@@ -86,6 +86,7 @@ mat-bottom-sheet-container{padding: 0 !important;}
 .Search_resulttext p{text-align: center; font-size: 14px; color: var(--sub-font-color); width: 100%;}
 .Search_resulttext mat-progress-spinner{position: relative; top: 50%; left: 50%; transform: translate(-50%,-50%); height: 150px !important; line-height: 150px !important; margin-top: 2vh;}
 .Search_resulttext mat-progress-spinner svg circle{stroke : var(--main-color); position: relative; top: 50%; }
+.angular-editor-toolbar-set{height:29px;}
 
 .mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background{background-color: var(--maindark-color);}
 .mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element, .mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element{background-color: var(--main-color);}
@@ -102,10 +103,10 @@ mat-bottom-sheet-container{padding: 0 !important;}
 .Table_CheckBox{min-width: 50px; width: 50px; padding: 0 !important;}
 .Table_CheckBox:nth-child(even){background: var(--main-whitefont-color);}
 .User_Total_Value{font-weight: bold !important;}
-.User_Total_Value.PlusNumber{color: var(--mainwhite-color) !important;}
-.User_Total_Value.MinusNumber{color: var(--red-color) !important;}
-.PlusNumber{color: var(--mainwhite-color) !important;}
-.MinusNumber{color: var(--red-color) !important;}
+.User_Total_Value.PlusNumber{color: var(--red-color) !important;}
+.User_Total_Value.MinusNumber{color: var(--mainwhite-color) !important;}
+.PlusNumber{color: var(--red-color) !important;}
+.MinusNumber{color: var(--mainwhite-color) !important;}
 .mat-drawer-inner-container::-webkit-scrollbar{display: contents !important;}
 div.mat-paginator-page-size {display: none;}
 div.mat-paginator-range-label{position: absolute; left: 50%; transform: translateX(-50%); margin: 0 !important; width: 60px; font-size: 12px; color: var(--main-whitefont-color) !important; font-weight: 500;}
@@ -209,8 +210,8 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 
 .Main_Setting_User{width: 90%; margin: 0 auto; text-align: center; color: var(--sub-font-color); margin-top: 1vh; font-size: 10px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
 .Main_Setting_User span{font-size: 12px; color: var(--maindark-color); display: inline-block; width: 70%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; top: 4px;}
-.Main_Setting_Logout{width: 100%; text-align: center; margin-top: 1vh;}
-.Main_Setting_Logout button{width: calc(100% - 10px); margin: 0 auto;}
+.Main_Setting_Logout{width:100%;text-align:center;margin-top:1.5vh;}
+.Main_Setting_Logout button{width:100%;margin:0 auto;}
 
 .Main_Setting mat-form-field{display: block; margin-bottom: 1vh;}
 .Main_Setting mat-form-field .mat-form-field-prefix .mat-icon{position: relative; top: 5px; margin-right: 5px; color: var(--main-color);}
@@ -231,6 +232,8 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 .User_MenuPanel_Title{height: 70px; width: 100%;}
 .User_MenuPanel_Title h3{font-size: 16px; color: #888; font-weight: 500; width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; border-bottom: 1px solid var(--sub-font-color);  height: 70px; line-height: 70px; padding: 0 16px; color: var(--main-font-color);}
 .User_MenuPanel_Title h3 mat-icon{position: relative; top: 5px; margin-right: 5px; color: var(--sub-font-color);}
+.User_MenuPanel_Title mat-form-field{position:absolute;right:0;top:14px;margin:0 16px;}
+.User_MenuPanel_Title mat-form-field *{font-size:12px;}
 .User_MenuPanel div.mat-paginator-container { display: block !important; position: absolute; bottom: 0; left: 0; background: var(--sub-font-color); height: 50px; line-height: 50px; min-height: 50px;}
 .User_MenuPanel div.mat-paginator-range-actions {display: block; text-align: center;}
 .User_MenuPanel div.mat-paginator-range-actions button{margin-right: 5%; margin-left: 5%;}
@@ -278,13 +281,13 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 
 .User_Recommended_Allbox{position: absolute; right: 0px; top: 0; text-align: right}
 .User_Recommended_Allbox .mat-form-field-flex{position: relative; top: 13px; height: 43px; line-height: 43px;}
-.User_Recommended_Allbox mat-form-field{margin: 0 auto; padding: 0 16px; height: 40px; line-height: 40px; width: 20%; min-width: 200px;}
+.User_Recommended_Allbox mat-form-field{margin: 0 auto; padding: 0 16px; height: 40px; line-height: 40px; width: 20%; min-width: 200px; position:relative; top: 0px;}
 .User_Recommended_Allbox > button{min-width: 40px; margin-right: 16px; height: 40px; line-height: 39px;}
 .User_Recommended_Allbox mat-form-field .mat-form-field-prefix .mat-icon{position: relative; top: -12px; margin-right: 5px; color: var(--main-color);}
 .User_Recommended_Allbox mat-form-field .mat-form-field-suffix span{ color: var(--sub-font-color); position: relative; top: -16px;}
 .User_Recommended_Allbox .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline{color: var(--mainwhite-color) !important;}
 .User_Recommended_Allbox .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label{color: var(--sub-font-color) !important;}
-.User_Recommended_Allbox input{white-space: nowrap; font-size: 14px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; text-align: right; position: relative; top: -13px; color: var(--sub-font-color) !important;}
+.User_Recommended_Allbox input{white-space: nowrap; font-size: 14px;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; text-align: right; position: relative; top: -8px; color: var(--sub-font-color) !important;}
 
 /*완료 수익률 (유저 메뉴)*/
 .User_Completion_TableBox{position: relative; width: 100%; height: calc(100vh - 264px); overflow-x: hidden; overflow-y: auto; background: var(--main-whitefont-color);}
@@ -550,7 +553,7 @@ button.mat-stroked-button.RedBtn:hover{background-color: var(--red-color); color
 .Admin_Notice_ModifyBox .mat-form-field-appearance-outline .mat-form-field-outline-thick{color: var(--sub-whitefont-color);}
 .Admin_Notice_ModifyBox .mat-form-field.mat-focused .mat-form-field-outline-thick{color: var(--main-color);}
 .Admin_Notice_ModifyBox .mat-form-field-label mat-label{ position: relative;top: -5px; font-size: 14px; right: 0; border-right: 0.5vw solid #fff; background: #fff}
-div.angular-editor{padding: 16px;  overflow: auto; height: calc(100vh - 64px - 50px - 122px - 10vh);}
+div.angular-editor{padding: 16px;  overflow: auto; height: calc(100vh - 64px - 55px - 122px - 10vh);}
 div.angular-editor-textarea{height: calc(100vh - 64px - 50px - 210px - 10vh);}
 div.angular-editor::-webkit-scrollbar{display: contents !important;}
 div.angular-editor-textarea::-webkit-scrollbar{display: contents !important;}
@@ -645,8 +648,7 @@ div.angular-editor-textarea::-webkit-scrollbar{display: contents !important;}
 	.Login_Bg{opacity: 0.8;}
 	.Main_Panel{height: calc(100vh - 54px);}
 	.Main_Menu{min-width: 100vw;}
-	.Main_Setting{min-width: 100vw;}
-	.Main_Setting{min-width: 100vw;}
+  .Main_Setting{min-width:100vw;padding-bottom:54px;}
 	.User_notice_TableBox{height: calc(100vh - 254px);}
 	.User_Recommended_TableBox{height: calc(100vh - 254px);}
 	.User_Completion_TableBox{height: calc(100vh - 254px);}
@@ -665,7 +667,7 @@ div.angular-editor-textarea::-webkit-scrollbar{display: contents !important;}
 	.Admin_InformationBox{height: calc(100vh - 206px);}
 	.Admin_Notice_EditBox{height: calc(100vh - 206px);}
 	.Admin_NoticeEdit_TableBox{height: calc(100vh - 254px);}
-	div.angular-editor{height: calc(100vh - 54px - 50px - 122px - 10vh);}
+	div.angular-editor{height: calc(100vh - 54px - 55px - 122px - 10vh);}
 	div.angular-editor-textarea{height: calc(100vh - 54px - 50px - 280px - 10vh);}
 	.Admin_Notice_ModifyBox{max-height: calc(100vh - 54px - 50px);}
 	.Admin_Stock_OptionBox{max-height: calc(100vh - 54px - 90px - 4vh);}

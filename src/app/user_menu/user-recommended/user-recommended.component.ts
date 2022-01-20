@@ -18,7 +18,8 @@ export interface PeriodicElement {
 	name : string;
 	currentPrice : string;
   buyingPrice: string;
-  created_at: string
+  created_at: string;
+  group: string;
 	yield : number;
 }
 
@@ -38,6 +39,7 @@ export class UserRecommendedComponent implements OnInit {
 
   interval;
   isLoading = true;
+  userGroup
 
   constructor(
     private firestore: Firestore,
@@ -59,23 +61,28 @@ export class UserRecommendedComponent implements OnInit {
       const docRef = doc(this.firestore, "users", user.uid);
       const docSnap = await getDoc(docRef);
       var userData: any = docSnap.data()
-      var userGroup = userData.group;
+      this.userGroup = userData.group;
 
       var stocks: any = [];
       querySnapshot.forEach((doc) => {
         stocks.push(doc.data());
       });
-      stocks.forEach(element => {
-        var same = false
-        element.group.forEach(groupData => {
-          if (groupData === userGroup) {
-            same =true
+      if (this.userGroup == '관리자') {
+        this.stockInfoData = stocks
+        this.displayedColumns = ['number', 'code', 'name', 'currentPrice', 'buyingPrice', 'group','created_at','yield'];
+      } else {
+        stocks.forEach(element => {
+          var same = false
+          element.group.forEach(groupData => {
+            if (groupData === this.userGroup) {
+              same =true
+            }
+          });
+          if (same != false) {
+            this.stockInfoData.push(element);
           }
         });
-        if (same != false) {
-          this.stockInfoData.push(element);
-        }
-      });
+      }
 
       var stockCodeArray:any = [];
       this.stockInfoData.forEach((element,i) => {

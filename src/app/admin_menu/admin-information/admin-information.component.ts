@@ -82,37 +82,19 @@ export class AdminInformationComponent implements OnInit {
 
     })
 
-    onSnapshot(
-      collection(this.firestore, "stockInfo"), { includeMetadataChanges: true }, async (collectionGroupData) => {
-        this.stockInfoData = [];
-        this.tableRowData = new MatTableDataSource([]);
-        collectionGroupData.forEach((doc) => {
-          this.stockInfoData.push(doc.data());
-        });
-
-        var stockCodeArray:any = [];
-        this.stockInfoData.forEach((element,i) => {
-          stockCodeArray.push(element.code)
-        });
-        await this.getStockInfo(stockCodeArray);
-        // this.interval = setInterval(() => {
-        //   this.getStockInfo(stockCodeArray)
-        // }, reflashValue);
-    });
-
-
     await getDocs(collection(this.firestore, "groups")).then((querySnapshot) => {
       var group: any = [];
       querySnapshot.forEach((doc) => {
         group.push(doc.data());
       });
       group.forEach(element => {
-        this.GroupData.push(element.name);
+        if (element.name != '관리자') {
+          this.GroupData.push(element.name);
+        }
       });
       // this.GroupData.unshift('전체');
     })
     this.yieldGroup = [this.GroupData[0]]
-
   }
 
   numChange(num) {
