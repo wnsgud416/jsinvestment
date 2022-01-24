@@ -19,7 +19,6 @@ export interface PeriodicElement {
 	currentPrice : string;
   buyingPrice: string;
   created_at: string;
-  group: string;
 	yield : number;
 }
 
@@ -48,21 +47,22 @@ export class UserRecommendedComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
-    const auth = getAuth();
+    const auth = await getAuth();
+
 
     var reflashValue:any
     await getDoc(doc(this.firestore, "admin", "reflashStock")).then(async (docData) => {
       var docValue :any = docData.data()
-      reflashValue = parseInt(docValue['value'])*1000
+      reflashValue = parseInt(docValue['value']) * 1000
 
-    });
-    await getDocs(collection(this.firestore, "stockInfo")).then(async (querySnapshot) => {
       var user:any = auth.currentUser;
       const docRef = doc(this.firestore, "users", user.uid);
       const docSnap = await getDoc(docRef);
       var userData: any = docSnap.data()
       this.userGroup = userData.group;
 
+    });
+    await getDocs(collection(this.firestore, "stockInfo")).then(async (querySnapshot) => {
       var stocks: any = [];
       querySnapshot.forEach((doc) => {
         stocks.push(doc.data());
@@ -161,8 +161,9 @@ export class UserRecommendedComponent implements OnInit {
       function numberWithCommas(x) {
             return x.toFixed(2);
       }
-      this.tableRowData = new MatTableDataSource(this.stockInfoData);
+      this.tableRowData = await new MatTableDataSource(this.stockInfoData);
       this.tableRowData.paginator = this.paginator;
+      this.isLoading = false;
     });
     this.actions$.pipe(ofType(Action.cmdTestFail)).pipe(take(1)).subscribe(async (result) => {
       this.stockInfoData.forEach((element,i) => {
@@ -170,7 +171,7 @@ export class UserRecommendedComponent implements OnInit {
         this.stockInfoData[i]['yield'] = "0"
         this.stockInfoData[i]['number'] = i+1
       });
-      this.tableRowData = new MatTableDataSource(this.stockInfoData);
+      this.tableRowData = await new MatTableDataSource(this.stockInfoData);
       this.tableRowData.paginator = this.paginator;
       this.isLoading = false;
     });
