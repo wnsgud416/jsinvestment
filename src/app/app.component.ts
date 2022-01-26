@@ -48,6 +48,8 @@ export class AppComponent {
   userGroup = "";
   refresh;
   notificationOnOff;
+  screan_height;
+  onScroll;
 
   constructor(
     private MatBottomSheet: MatBottomSheet,
@@ -65,6 +67,72 @@ export class AppComponent {
     this.firebaseAction()
   }
   async ngOnInit(){
+	  window.addEventListener('scroll', this.onScroll);
+	  
+	 this.screan_height = window.innerHeight
+
+	  /*모바일 및 웹 구분*/
+	var OS_Chack = navigator.userAgent.toLowerCase();
+	 console.log(navigator.userAgent.toLowerCase())
+
+	if(OS_Chack.indexOf("android") !== -1){
+		// android 일 때
+		console.log("android")		
+		document.body.style.setProperty('--full-screan',this.screan_height + 'px');
+	}
+	  else if(OS_Chack.indexOf("iphone") > -1 || OS_Chack.indexOf("ipad") > -1 || OS_Chack.indexOf("ipod") > -1 || OS_Chack.indexOf("macintosh") > -1){
+		  console.log("ios")
+		// iphone 일 때
+		if(OS_Chack.indexOf("macintosh") > -1){
+			console.log("macintosh")
+			document.body.style.setProperty('--full-screan',this.screan_height + 'px');
+			$(".OS_boot").addClass("os_iphone");
+			window.addEventListener("load",function() {
+				// Set a timeout...
+				setTimeout(function(){
+					// Hide the address bar!
+					window.scrollTo(0, 1);
+				}, 0);
+			});
+			
+		}
+		else{
+		
+		document.body.style.setProperty('--full-screan',this.screan_height + 'px');
+		$(".OS_boot").addClass("os_ios");
+		window.addEventListener("load",function() {
+			// Set a timeout...
+			setTimeout(function(){
+				// Hide the address bar!
+				window.scrollTo(0, 1);
+			}, 0);
+		});
+			}
+
+	}
+	  else if(OS_Chack.indexOf("mac") > -1 && OS_Chack.indexOf("safari") > -1){
+		  console.log("safari")
+		  document.body.style.setProperty('--full-screan',this.screan_height + 'px');
+		  $(".OS_boot").addClass("os_ios");
+		window.addEventListener("load",function() {
+			// Set a timeout...
+			setTimeout(function(){
+				// Hide the address bar!
+				window.scrollTo(0, 1);
+			}, 0);
+		});
+	  }
+	  else if(OS_Chack.indexOf("windows") !== -1){
+		  console.log("windows")
+
+	  }
+
+	  else{
+		  console.log("etc")
+	  }
+
+
+
     // 로딩 필요
 
     await getDoc(doc(this.firestore, "admin", "reflashStock")).then(async (docData) => {

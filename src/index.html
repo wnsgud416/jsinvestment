@@ -60,8 +60,6 @@
   <meta charset="utf-8">
   <title>Jsinvestment</title>
   <base href="/">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="apple-touch-icon" sizes="57x57" href="./assets/icons/favicon/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="./assets/icons/favicon/apple-icon-60x60.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="./assets/icons/favicon/apple-icon-72x72.png">
@@ -86,8 +84,13 @@
   <link rel="manifest" href="./manifest.json">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1976d2">
+  <meta name="viewport" content="width=device-width, minimal-ui, viewport-fit=cover">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">  
+  <meta name="apple-mobile-web-app-title" content="AMC Walking Dead Story Sync">
 </head>
-<body>
+<body onload="setTimeout(function() { window.scrollTo(0, 1) }, 100);" class="OS_boot">
   <app-root></app-root>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
