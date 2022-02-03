@@ -47,6 +47,7 @@ export class AdminInformationComponent implements OnInit {
   quickMenu
   allYield;
   interval
+  reflashValue;
 
   isLoading = true;
    constructor(
@@ -57,30 +58,13 @@ export class AdminInformationComponent implements OnInit {
 			  ) { }
 
   async ngOnInit(): Promise<void> {
-    var reflashValue:any
     await getDoc(doc(this.firestore, "admin", "reflashStock")).then(async (docData) => {
       var docValue :any = docData.data()
-      reflashValue = parseInt(docValue['value'])*1000
+      this.reflashValue = parseInt(docValue['value'])*1000
 
     });
-    await getDocs(collection(this.firestore, "stockInfo")).then(async (collectionGroupData) => {
-      this.stockInfoData = [];
-        this.tableRowData = new MatTableDataSource([]);
-        collectionGroupData.forEach((doc) => {
-          this.stockInfoData.push(doc.data());
-        });
 
-        var stockCodeArray:any = [];
-        this.stockInfoData.forEach((element,i) => {
-          stockCodeArray.push(element.code)
-        });
-
-        await this.getStockInfo(stockCodeArray)
-        this.interval = setInterval(async () => {
-          await this.getStockInfo(stockCodeArray)
-        }, reflashValue);
-
-    })
+    this.getStock();
 
     await getDocs(collection(this.firestore, "groups")).then((querySnapshot) => {
       var group: any = [];
@@ -138,6 +122,7 @@ export class AdminInformationComponent implements OnInit {
       data: {groupData: this.GroupData}
     }).afterDismissed().subscribe((result) => {
       this.selection.clear();
+      this.getStock()
     });
 
   }
@@ -148,6 +133,7 @@ export class AdminInformationComponent implements OnInit {
       data: {stockData:stockData,GroupData: this.GroupData,stockInfoData:this.stockInfoData}
     }).afterDismissed().subscribe((result) => {
       this.selection.clear();
+      this.getStock()
     });
 
   }
@@ -158,6 +144,7 @@ export class AdminInformationComponent implements OnInit {
       data: {stockData:stockData}
     }).afterDismissed().subscribe((result) => {
       this.selection.clear();
+      this.getStock()
     });
 
   }
@@ -167,6 +154,7 @@ export class AdminInformationComponent implements OnInit {
       data: {stockData:stockData, sellingPrice:sellValue.value}
     }).afterDismissed().subscribe((result) => {
       this.selection.clear();
+      this.getStock()
     });
   }
   manyGroupAuthClick() {
@@ -184,9 +172,11 @@ export class AdminInformationComponent implements OnInit {
             group: this.manyGroupAuth,
           })
           .then(()=>{
-            if(i ==index){
+            if (i == index) {
+              this.getStock()
               window.alert('그룹 수정을 완료했습니다.')
               this.selection.clear();
+
             }
           }).catch((error) =>{
             window.alert('그룹 수정중에 오류가 발생했습니다.')
@@ -210,7 +200,8 @@ export class AdminInformationComponent implements OnInit {
           this.selection.selected.forEach(async (data,i)=>{
             await deleteDoc(doc(this.firestore, "stockInfo", data.id))
             .then(()=>{
-              if(i ==index){
+              if (i == index) {
+                this.getStock()
                 window.alert('그룹 삭제를 완료했습니다.')
                 this.selection.clear();
               }
@@ -224,6 +215,27 @@ export class AdminInformationComponent implements OnInit {
 
   }
 
+
+  async getStock() {
+    await getDocs(collection(this.firestore, "stockInfo")).then(async (collectionGroupData) => {
+      this.stockInfoData = [];
+        this.tableRowData = new MatTableDataSource([]);
+        collectionGroupData.forEach((doc) => {
+          this.stockInfoData.push(doc.data());
+        });
+
+        var stockCodeArray:any = [];
+        this.stockInfoData.forEach((element,i) => {
+          stockCodeArray.push(element.code)
+        });
+
+        await this.getStockInfo(stockCodeArray)
+        this.interval = setInterval(async () => {
+          await this.getStockInfo(stockCodeArray)
+        }, this.reflashValue);
+
+    })
+  }
 
 getStockInfo(stockCodeArray) {
     var stockCurrentPrice
