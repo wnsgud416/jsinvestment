@@ -70,20 +70,26 @@
   <div *ngIf="tableRowData.filteredData.length>0">
     <tr class="Search_resulttext" *matNoDataRow>
       <td class="mat-cell" colspan="8" *ngIf="userGroup =='관리자'">
+        <mat-icon>search_off</mat-icon>
+        <p>"{{input.value}}"에 대한 검색결과가 없습니다.</p>
+      </td>
       <td class="mat-cell" colspan="7" *ngIf="userGroup !='관리자'">
       <mat-icon>search_off</mat-icon>
       <p>"{{input.value}}"에 대한 검색결과가 없습니다.</p>
       </td>
     </tr>
   </div>
-  <div *ngIf="stockInfoData.length==0">
+  <div *ngIf="tableRowData.filteredData.length==0">
     <tr class="Search_resulttext" *matNoDataRow>
       <td class="mat-cell" colspan="8" *ngIf="userGroup =='관리자'">
+        <mat-progress-spinner  *ngIf="isLoading==true" mode="indeterminate" ></mat-progress-spinner>
+        <p *ngIf="isLoading==true">추천주를 불러오는 중입니다.</p>
+        <p *ngIf="isLoading==false && tableRowData.filteredData.length==0">추천주가 없습니다.</p>
+      </td>
       <td class="mat-cell" colspan="7" *ngIf="userGroup !='관리자'">
-         <mat-progress-spinner  *ngIf="isLoading==true" mode="indeterminate" >
-      </mat-progress-spinner>
+         <mat-progress-spinner  *ngIf="isLoading==true" mode="indeterminate" ></mat-progress-spinner>
       <p *ngIf="isLoading==true">추천주를 불러오는 중입니다.</p>
-      <p *ngIf="isLoading==false">추천주가 없습니다.</p>
+      <p *ngIf="isLoading==false && tableRowData.filteredData.length==0">추천주가 없습니다.</p>
       </td>
     </tr>
   </div>

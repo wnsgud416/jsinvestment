@@ -165,6 +165,7 @@ export class UserRecommendedComponent implements OnInit {
       this.tableRowData.paginator = this.paginator;
       this.isLoading = false;
     });
+
     this.actions$.pipe(ofType(Action.cmdTestFail)).pipe(take(1)).subscribe(async (result) => {
       this.stockInfoData.forEach((element,i) => {
         this.stockInfoData[i]['currentPrice'] = "0"

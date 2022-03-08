@@ -4,7 +4,7 @@ const PROXY_CONFIG = [
       '/action'
   ],
   // target: 'http://192.168.1.104:8000',
-  target: 'http://52.78.129.172:8080',
+  target: 'http://3.37.61.181:8080',
   //target: 'http://172.30.1.47:8080',
   secure: true,
   changeOrigin: true,

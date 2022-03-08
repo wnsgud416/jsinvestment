@@ -42,8 +42,10 @@ export class UserCommunityComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await getDocs(collection(this.firestore, "groups")).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        var docData:any = doc.data()
-        this.allGroupData.push(docData['name']);
+        var docData: any = doc.data()
+        if (docData['name'] != "관리자") {
+          this.allGroupData.push(docData['name']);
+        }
       });
     })
 
@@ -52,9 +54,17 @@ export class UserCommunityComponent implements OnInit {
       const docRef = doc(this.firestore, "users", user.uid);
       const docSnap = await getDoc(docRef);
       var userData: any = docSnap.data()
-      this.userGroup = userData.group;
+    this.userGroup = userData.group;
+
+    if (userData.group === "관리자") {
+      this.choiceGroup = "일반회원"
+      this.getCommunityData("일반회원")
+    } else {
       this.choiceGroup = userData.group
-    this.getCommunityData(this.userGroup)
+      this.getCommunityData(this.userGroup)
+    }
+
+
       // await getDocs(collection(this.firestore, "/notices/public/community")).then((querySnapshot)=>{
       //   this.noticeTableData = []
       //   querySnapshot.forEach((doc) => {

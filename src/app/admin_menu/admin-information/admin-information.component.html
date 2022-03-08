@@ -136,19 +136,18 @@
 
 	  <div *ngIf="tableRowData.filteredData.length>0">
       <tr class="Search_resulttext" *matNoDataRow>
-        <td class="mat-cell" colspan="9">
+        <td class="mat-cell" colspan="10">
         <mat-icon>search_off</mat-icon>
         <p>"{{input.value}}"에 대한 검색결과가 없습니다.</p>
         </td>
       </tr>
     </div>
-    <div *ngIf="stockInfoData.length==0">
+    <div *ngIf="tableRowData.filteredData.length==0 ">
       <tr class="Search_resulttext" *matNoDataRow>
         <td class="mat-cell" colspan="10">
-         <mat-progress-spinner *ngIf="isLoading==true" mode="indeterminate" >
-      </mat-progress-spinner>
+         <mat-progress-spinner *ngIf="isLoading==true" mode="indeterminate" ></mat-progress-spinner>
         <p *ngIf="isLoading==true">종목 정보를 불러오는 중입니다.</p>
-        <p *ngIf="isLoading==false">종목 정보가 없습니다.</p>
+        <p *ngIf="isLoading==false && tableRowData.filteredData.length==0">종목 정보가 없습니다.</p>
         </td>
       </tr>
     </div>
@@ -158,20 +157,24 @@
 </div>
 
 
-<mat-menu #AdminInformation_OptionMenu="matMenu" class="AdminInformation_OptionFiled">
+<!-- <mat-menu #AdminInformation_OptionMenu="matMenu" class="AdminInformation_OptionFiled">
   <mat-form-field appearance="outline">
 			<mat-label>권한 부여</mat-label>
 			<mat-select multiple [(ngModel)]="oneGroupAuth">
 			  <mat-option *ngFor="let group of GroupData" value="{{group}}">{{group}}</mat-option>
 			</mat-select>
 		  </mat-form-field>
-</mat-menu>
+</mat-menu> -->
 
 <mat-menu #AdminInformation_OptionMenu2="matMenu" class="AdminInformation_OptionFiled">
   <mat-form-field appearance="outline">
 			<mat-label>권한 선택</mat-label>
 			<mat-select [(ngModel)]="yieldGroup">
-        <mat-option *ngFor="let group of GroupData" value="{{group}}">{{group}}</mat-option>
+        <mat-option (click)="yieldGroupSelect(group)" *ngFor="let group of GroupData" value="{{group}}">{{group}}</mat-option>
 			</mat-select>
-		  </mat-form-field>
+	</mat-form-field>
+  <button mat-menu-item (click)="getStock()">
+    <mat-icon>dialpad</mat-icon>
+    <span>초기화</span>
+  </button>
 </mat-menu>

@@ -100,11 +100,18 @@ export class AdminGroupNoticeComponent implements OnInit {
         sendToken.push(element.notification_token)
       }
     });
+    console.log(sendToken);
 
-    this.store.dispatch(Action.sendMessage({ sendToken:sendToken, messageText:this.messageText }))
-    this.actions$.pipe(ofType(Action.sendMessageSuccess)).pipe(take(1)).subscribe(async (result) => {
-      window.alert('메시지가 전송되었습니다.')
-    });
+    if (sendToken.length == 0) {
+      window.alert('메시지를 보낼 인원이 없습니다.\n알림설정을 하시거나 체크를 해제하세요.')
+    } else {
+      this.store.dispatch(Action.sendMessage({ sendToken:sendToken, messageText:this.messageText }))
+      this.actions$.pipe(ofType(Action.sendMessageSuccess)).pipe(take(1)).subscribe(async (result) => {
+        window.alert('메시지가 전송되었습니다.')
+      });
+    }
+
+
 
 
   }

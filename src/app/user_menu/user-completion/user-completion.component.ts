@@ -32,7 +32,9 @@ export class UserCompletionComponent implements OnInit {
 
   compliteData: any = [];
   docId: any = [];
+  GroupData: any = [];
   userGroup
+  selectGroup;
   isLoading = true;
 
   constructor(
@@ -41,6 +43,25 @@ export class UserCompletionComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
+    await getDocs(collection(this.firestore, "groups")).then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if (doc.data()['name'] != '관리자') {
+          this.GroupData.push(doc.data()['name']);
+        }
+      });
+    })
+
+    const auth = await getAuth();
+    var user:any = auth.currentUser;
+      const docRef = doc(this.firestore, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+      var userData: any = docSnap.data()
+      this.userGroup = userData.group;
+      this.selectGroup = userData.group;
+      if (userData.group == "관리자") {
+        this.selectGroup = "일반회원"
+      }
+
     this.getStockData()
 
   }
@@ -52,12 +73,10 @@ export class UserCompletionComponent implements OnInit {
   }
 
 
-
-
 	Completion_Detail(row,index){
     this.MatBottomSheet.open(UserCompletionDetailComponent, {
      panelClass: 'OptionModal',
-     data: {stocks:row.stocks,unit:row.unit,title:row.name, docId : this.docId[index],userGroup:this.userGroup}
+     data: {stocks:row.stocks,unit:row.unit,title:row.name, docId : this.docId[index],userGroup:this.userGroup,selectGroup:this.selectGroup}
     }).afterDismissed().subscribe((result) => {
       this.getStockData()
    });
@@ -66,15 +85,7 @@ export class UserCompletionComponent implements OnInit {
 
   async getStockData() {
     this.compliteData = [];
-    const auth = getAuth();
-
     await getDocs(collection(this.firestore, "completionStock")).then(async (querySnapshot) => {
-      var user:any = auth.currentUser;
-      const docRef = doc(this.firestore, "users", user.uid);
-      const docSnap = await getDoc(docRef);
-      var userData: any = docSnap.data()
-      this.userGroup = userData.group;
-
       var stocks: any = [];
       querySnapshot.forEach((doc) => {
 
@@ -88,25 +99,41 @@ export class UserCompletionComponent implements OnInit {
         var name
         var sumYield = 0;
 
+        var groupOn = false;
         element.forEach(stockData => {
-          unit = stockData.date.split('-');
-          name = stockData.date
-          sumYield += parseInt(stockData.yield)
-          stockInfoData.push(stockData)
-        });
 
-        this.compliteData.push({
-          unit: unit[1],
-          name: name,
-          sumYield: sumYield.toString(),
-          stocks: stockInfoData
-        })
+          stockData.group.forEach(groupData => {
+            if (groupData === this.selectGroup) {
+              groupOn = true
+            }
+          })
+          if (groupOn != false) {
+            unit = stockData.date.split('-');
+            name = stockData.date
+            sumYield += parseInt(stockData.yield)
+            stockInfoData.push(stockData)
+          }
+        });
+        if (stockInfoData.length != 0) {
+          this.compliteData.push({
+            unit: unit[1],
+            name: name,
+            sumYield: sumYield.toString(),
+            stocks: stockInfoData
+          })
+        }
+
       });
 
       this.tableRowData = new MatTableDataSource(this.compliteData);
       this.tableRowData.paginator = this.paginator;
       this.isLoading = false;
     })
+  }
+
+  stockGroupChange(group) {
+    this.selectGroup = group
+    this.getStockData()
   }
 
 

@@ -217,12 +217,15 @@ export class AdminInformationComponent implements OnInit {
 
 
   async getStock() {
+    this.isLoading = true;
+    this.yieldGroup = [];
     await getDocs(collection(this.firestore, "stockInfo")).then(async (collectionGroupData) => {
       this.stockInfoData = [];
         this.tableRowData = new MatTableDataSource([]);
         collectionGroupData.forEach((doc) => {
           this.stockInfoData.push(doc.data());
         });
+      this.stockInfoData.sort((a, b) => b.created_at.localeCompare(a.created_at));
 
         var stockCodeArray:any = [];
         this.stockInfoData.forEach((element,i) => {
@@ -238,7 +241,7 @@ export class AdminInformationComponent implements OnInit {
   }
 
 getStockInfo(stockCodeArray) {
-    var stockCurrentPrice
+  var stockCurrentPrice
     this.store.dispatch(Action.cmdTest({ stockCodeArray:stockCodeArray}))
     this.actions$.pipe(ofType(Action.cmdTestSuccess)).pipe(take(1)).subscribe((result) => {
       stockCurrentPrice = JSON.parse(result.result)
@@ -259,7 +262,6 @@ getStockInfo(stockCodeArray) {
         this.stockInfoData[i]['currentPrice'] = currentPrice
         this.stockInfoData[i]['yield'] = yieldData.toFixed(2)
         this.stockInfoData[i]['sellingPrice'] = "0"
-
       });
 
       $({ val : 0 }).animate({ val : SumYield }, {
@@ -280,10 +282,8 @@ getStockInfo(stockCodeArray) {
         complete: function() {
         var num = numberWithCommas(this.val);
             $(".User_Total_Value").val(num);
-
         }
       });
-
 
       function numberWithCommas(x) {
             return x.toFixed(2);
@@ -300,7 +300,19 @@ getStockInfo(stockCodeArray) {
       });
       this.tableRowData = new MatTableDataSource(this.stockInfoData);
     });
-  }
+}
+  yieldGroupSelect(group) {
+    var stockInfoData_group: any = [];
+    this.stockInfoData.forEach((stockData) => {
+      stockData.group.forEach(groupData => {
+        if (groupData === group) {
+          stockInfoData_group.push(stockData)
+        }
+      });
+    })
+    this.stockInfoData = stockInfoData_group
+    this.tableRowData = new MatTableDataSource(stockInfoData_group);
+}
 
   ngOnDestroy() {
     if (this.interval) {

@@ -52,13 +52,19 @@ export class UserCompletionDetailComponent implements OnInit {
       this.displayedColumns = ['code','name', 'buyingPrice', 'sellingPrice', 'yield', 'Data','Action'];
     }
 
+
     await getDocs(collection(this.firestore, "groups")).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        this.GroupData.push(doc.data()['name']);
+        if (doc.data()['name'] != '관리자') {
+          this.GroupData.push(doc.data()['name']);
+        }
       });
+      this.docId = this.data.docId
+      this.stockGroupChange(this.data.selectGroup)
+
     })
-    this.docId = this.data.docId
-    this.stockGroupChange(this.data.userGroup)
+
+
   }
 
   numChange(num) {

@@ -2,6 +2,14 @@
 
 	<div class="User_MenuPanel_Title">
 		<h3><mat-icon>format_list_numbered</mat-icon> 완료 수익률</h3>
+    <mat-form-field *ngIf="userGroup == '관리자'">
+      <mat-label>그룹 선택</mat-label>
+      <mat-select [(value)]="selectGroup">
+        <mat-option *ngFor="let groupName of GroupData" [value]="groupName" (click)="stockGroupChange(groupName)">
+        {{groupName}}
+        </mat-option>
+      </mat-select>
+      </mat-form-field>
 	</div>
 
 <div class="User_Completion_TableBox">

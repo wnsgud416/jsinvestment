@@ -49,8 +49,10 @@ export class AdminCommunityEditComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await getDocs(collection(this.firestore, "groups")).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        var docData:any = doc.data()
-        this.allGroupData.push(docData['name']);
+        var docData: any = doc.data()
+        if (docData['name'] != "관리자") {
+          this.allGroupData.push(docData['name']);
+        }
       });
     })
     onSnapshot(
