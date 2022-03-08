@@ -264,30 +264,7 @@ getStockInfo(stockCodeArray) {
         this.stockInfoData[i]['sellingPrice'] = "0"
       });
 
-      $({ val : 0 }).animate({ val : SumYield }, {
-        duration: 3000,
-        step: function() {
-        var num = numberWithCommas(this.val);
-        if(num > 0){
-            $(".User_Total_Value").val(num);
-            $(".User_Total_Value").removeClass("MinusNumber");
-            $(".User_Total_Value").addClass("PlusNumber");
-            }
-          else{
-            $(".User_Total_Value").val(num);
-            $(".User_Total_Value").removeClass("PlusNumber");
-            $(".User_Total_Value").addClass("MinusNumber");
-          }
-        },
-        complete: function() {
-        var num = numberWithCommas(this.val);
-            $(".User_Total_Value").val(num);
-        }
-      });
-
-      function numberWithCommas(x) {
-            return x.toFixed(2);
-      }
+      this.totalYieldCalculate(SumYield)
 
       this.tableRowData = new MatTableDataSource(this.stockInfoData);
       this.isLoading = false;
@@ -303,16 +280,50 @@ getStockInfo(stockCodeArray) {
 }
   yieldGroupSelect(group) {
     var stockInfoData_group: any = [];
+    var SumYield = 0;
     this.stockInfoData.forEach((stockData) => {
+      console.log(stockData);
+
       stockData.group.forEach(groupData => {
         if (groupData === group) {
           stockInfoData_group.push(stockData)
+          SumYield += parseFloat(stockData.yield)
         }
       });
     })
-    this.stockInfoData = stockInfoData_group
+    console.log(SumYield);
+
+    this.totalYieldCalculate(SumYield)
+
     this.tableRowData = new MatTableDataSource(stockInfoData_group);
-}
+  }
+
+  totalYieldCalculate(SumYield) {
+    $({ val : 0 }).animate({ val : SumYield }, {
+      duration: 2000,
+      step: function() {
+      var num = numberWithCommas(this.val);
+      if(num > 0){
+          $(".User_Total_Value").val(num);
+          $(".User_Total_Value").removeClass("MinusNumber");
+          $(".User_Total_Value").addClass("PlusNumber");
+          }
+        else{
+          $(".User_Total_Value").val(num);
+          $(".User_Total_Value").removeClass("PlusNumber");
+          $(".User_Total_Value").addClass("MinusNumber");
+        }
+      },
+      complete: function() {
+      var num = numberWithCommas(this.val);
+          $(".User_Total_Value").val(num);
+      }
+    });
+
+    function numberWithCommas(x) {
+          return x.toFixed(2);
+    }
+  }
 
   ngOnDestroy() {
     if (this.interval) {
