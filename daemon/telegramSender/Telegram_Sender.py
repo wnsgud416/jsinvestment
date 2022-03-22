@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+# -*- coding: euc-kr -*-
+
 import telegram
 import configparser
 import sys
@@ -6,6 +9,7 @@ import os
 class TelegramBot(object):
     global m_BotTocken
     global m_ChatId
+    global m_WebUrl
 
     def __init__(self):
         self.os_Type = self.get_platform()
@@ -25,7 +29,6 @@ class TelegramBot(object):
         }
         if sys.platform not in platforms:
             return sys.platform
-
         return platforms[sys.platform]
 
     def loadConfig(self):
@@ -35,7 +38,7 @@ class TelegramBot(object):
             ts_Conf_Path = self.currentPath + ".\\Conf\\Telegram.ini"
         elif str(self.os_Type) == "Linux":
             # ts_Conf_Path = self.currentPath + "/Conf/TS_JsInvest.ini"
-            ts_Conf_Path = "/usr/local/TS_TEST/Conf/Telegram.ini"
+            ts_Conf_Path = "./Conf/Telegram.ini"
         else:
             print("not support")
             exit(0)
@@ -44,10 +47,21 @@ class TelegramBot(object):
         ts_Config.sections()
         self.m_BotTocken = ts_Config["TELEGRAM"]["BOT_TOCKEN"]
         self.m_ChatId = ts_Config["TELEGRAM"]["CHAT_ID"]
-        print("##Tocken:"+self.m_BotTocken)
-        print("##Chat ID:"+self.m_ChatId )
+        self.m_WebUrl =ts_Config["TELEGRAM"]["WEB_URL"]
+        #print("##Tocken:"+self.m_BotTocken)
+        #print("##Chat ID:"+self.m_ChatId )
 
     def SendMessage(self,_strMessage):
         chat_token = "HTTP API"
+        Message=_strMessage + "\n" + self.m_WebUrl
         bot = telegram.Bot(token=str(self.m_BotTocken))
-        bot.sendMessage(chat_id=self.m_ChatId, text=_strMessage)
+        bot.sendMessage(chat_id=self.m_ChatId, text=Message)
+
+# pip install python-telegram-bot --upgrade
+# telegram - BotFather
+
+#yum install gcc openssl-devel bzip2-devel libffi-devel
+#wget https://www.python.org/ftp/python/3.8.1/Python-3.8.1.tgz
+#> cd Python-3.8.1
+#> ./configure --enable-optimizations
+#> make altinstall
