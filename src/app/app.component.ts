@@ -68,7 +68,7 @@ export class AppComponent {
   }
   async ngOnInit(){
 	  window.addEventListener('scroll', this.onScroll);
-	  
+
 	 this.screan_height = window.innerHeight
 
 	  /*모바일 및 웹 구분*/
@@ -77,7 +77,7 @@ export class AppComponent {
 
 	if(OS_Chack.indexOf("android") !== -1){
 		// android 일 때
-		console.log("android")		
+		console.log("android")
 		document.body.style.setProperty('--full-screan',this.screan_height + 'px');
 	}
 	  else if(OS_Chack.indexOf("iphone") > -1 || OS_Chack.indexOf("ipad") > -1 || OS_Chack.indexOf("ipod") > -1 || OS_Chack.indexOf("macintosh") > -1){
@@ -94,10 +94,10 @@ export class AppComponent {
 					window.scrollTo(0, 1);
 				}, 0);
 			});
-			
+
 		}
 		else{
-		
+
 		document.body.style.setProperty('--full-screan',this.screan_height + 'px');
 		$(".OS_boot").addClass("os_ios");
 		window.addEventListener("load",function() {
@@ -416,20 +416,32 @@ export class AppComponent {
     })
 
   }
-  notificationSetting() {
-    const messaging = getMessaging();
-    getToken(messaging, { vapidKey: 'BDOosaQYQY_sitFae-VLhiQtXhuj_UeFKaqqRd-_KFLBoZOMKobWGjhE9SJOK9uXN6aorTl0JcyDoe1Smls95zU' }).then(async (currentToken) => {
+  async notificationSetting(item) {
+    if (item === 'android') {
+      const messaging = getMessaging();
+      getToken(messaging, { vapidKey: 'BDOosaQYQY_sitFae-VLhiQtXhuj_UeFKaqqRd-_KFLBoZOMKobWGjhE9SJOK9uXN6aorTl0JcyDoe1Smls95zU' }).then(async (currentToken) => {
       if (currentToken) {
         const washingtonRef = doc(this.firestore, "users", this.userUid);
 
         await updateDoc(washingtonRef, {
           notification_token: currentToken,
         }).then(() => {
-          window.alert('이 기기로 알람을 설정했습니다.')
+          window.alert('안드로이드 / WEB으로 알람을 설정했습니다.')
         })
       }
     }).catch((err) => {
     });
+    }
+    // else {
+    //   const washingtonRef = doc(this.firestore, "users", this.userUid);
+
+    //     await updateDoc(washingtonRef, {
+    //       notification_token: "ios",
+    //     }).then(() => {
+    //       window.alert('IOS 기기로 알람을 설정했습니다.')
+    //     })
+    // }
+
 
   }
 

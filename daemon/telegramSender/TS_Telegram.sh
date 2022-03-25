@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#사전 설치
+#사전 설치 
 # pip3 install python-telegram-bot --upgrade
 # telegram - BotFather
 
@@ -10,8 +10,10 @@
 #> ./configure --enable-optimizations
 #> make altinstall
 
-DAEMON_NAME="Telegram_Main.py"
+DAEMON_NAME="/usr/local/jsinvest/server/telegrambot/Telegram_Main.py"
 PYTHON="/usr/bin/python3"
 MESSAGE=$@
 
 $PYTHON $DAEMON_NAME $MESSAGE
+
+

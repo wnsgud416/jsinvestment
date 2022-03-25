@@ -35,10 +35,10 @@ class TelegramBot(object):
         ts_Config = configparser.ConfigParser()
         ts_Conf_Path = ""
         if str(self.os_Type) == "Windows":
-            ts_Conf_Path = self.currentPath + ".\\Conf\\Telegram.ini"
+            ts_Conf_Path = self.currentPath + ".\\Conf\\TS_JsInvest.ini"
         elif str(self.os_Type) == "Linux":
             # ts_Conf_Path = self.currentPath + "/Conf/TS_JsInvest.ini"
-            ts_Conf_Path = "./Conf/Telegram.ini"
+            ts_Conf_Path = "/usr/local/jsinvest/server/telegrambot/Conf/Telegram.ini"
         else:
             print("not support")
             exit(0)
@@ -47,13 +47,13 @@ class TelegramBot(object):
         ts_Config.sections()
         self.m_BotTocken = ts_Config["TELEGRAM"]["BOT_TOCKEN"]
         self.m_ChatId = ts_Config["TELEGRAM"]["CHAT_ID"]
-        self.m_WebUrl =ts_Config["TELEGRAM"]["WEB_URL"]
+        self.m_WebUrl = ts_Config["TELEGRAM"]["WEB_URL"]
         #print("##Tocken:"+self.m_BotTocken)
         #print("##Chat ID:"+self.m_ChatId )
 
     def SendMessage(self,_strMessage):
         chat_token = "HTTP API"
-        Message=_strMessage + "\n" + self.m_WebUrl
+        Message= _strMessage+"\n"+self.m_WebUrl
         bot = telegram.Bot(token=str(self.m_BotTocken))
         bot.sendMessage(chat_id=self.m_ChatId, text=Message)
 
