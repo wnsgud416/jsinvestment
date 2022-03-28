@@ -20,6 +20,7 @@ export class AdminStockModifyComponent implements OnInit {
   buyingPrice;
   yield;
   sellingPrice;
+  buyingDate;
   GroupData: any = [];
 
   constructor(
@@ -37,6 +38,7 @@ export class AdminStockModifyComponent implements OnInit {
     this.GroupData = this.data.GroupData
     this.groupModel = this.data.stockData.group;
     this.sellingPrice = this.data.stockData.sellingPrice
+    this.buyingDate = this.data.stockData.created_at
 
   }
 
@@ -66,7 +68,9 @@ export class AdminStockModifyComponent implements OnInit {
         name: this.stockName,
         buyingPrice: this.buyingPrice,
         group: this.groupModel,
-        updated_at: dateTimeString
+        updated_at: dateTimeString,
+        created_at: this.buyingDate
+
       })
         .then(() => {
           window.alert('종목 정보 수정을 완료했습니다.')

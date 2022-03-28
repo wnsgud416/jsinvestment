@@ -100,7 +100,7 @@ export class AdminGroupNoticeComponent implements OnInit {
         sendToken.push(element.notification_token)
       }
     });
-    console.log(sendToken);
+    //console.log(sendToken);
 
     this.store.dispatch(Action.sendMessage({ sendToken:sendToken, messageText:this.messageText }))
       this.actions$.pipe(ofType(Action.sendMessageSuccess)).pipe(take(1)).subscribe(async (result) => {

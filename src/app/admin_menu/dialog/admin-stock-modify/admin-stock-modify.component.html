@@ -3,36 +3,42 @@
 	<h3><mat-icon class="Dialog_TitleIcon2">drive_file_rename_outline</mat-icon> <strong>주식 수정</strong> <mat-icon (click)="close()" class="Dialog_closeBtn">close</mat-icon></h3>
 
 	<div class="Admin_Stock_OptionBox">
-				<mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" style="width :16.66%">
+      <mat-label>추천 일자</mat-label>
+      <input matInput placeholder="추천 일자" [(ngModel)]="buyingDate" required>
+      </mat-form-field>
+				<mat-form-field appearance="outline" style="width :16.66%">
    				<mat-label>종목코드</mat-label>
    				<input matInput placeholder="종목코드" [(ngModel)]="stockCode" required>
    				</mat-form-field>
 
-   				<mat-form-field appearance="outline">
+   				<mat-form-field appearance="outline" style="width :16.66%">
    				<mat-label>종목명</mat-label>
    				<input matInput placeholder="종목명" [(ngModel)]="stockName" required readonly>
    				</mat-form-field>
 
-   				<mat-form-field appearance="outline">
+   				<mat-form-field appearance="outline" style="width :16.66%">
    				<mat-label>매수 단가</mat-label>
    					<span matPrefix>₩&nbsp;</span>
 					<input matInput placeholder="0" [(ngModel)]="buyingPrice" value="0">
 					<span matSuffix>&nbsp;원</span>
    				</mat-form-field>
 
-   				<mat-form-field appearance="outline" class="SeletedOpiton">
+   				<mat-form-field appearance="outline" class="SeletedOpiton" style="width :16.66%">
 					<mat-label>그룹 권한</mat-label>
 					<mat-select multiple required [(ngModel)]="groupModel">
 					  <mat-option *ngFor="let group of GroupData" value="{{group}}">{{group}}</mat-option>
 					</mat-select>
 				  </mat-form-field>
-         
-         		<mat-form-field appearance="outline">
+
+         		<mat-form-field appearance="outline" style="width :16.66%">
    				<mat-label>현재가</mat-label>
    					<span matPrefix>₩&nbsp;</span>
 					<input matInput [(ngModel)]="currentPrice" value="00" required readonly>
 					<span matSuffix>&nbsp;원</span>
    				</mat-form-field>
+
+
 
 	</div>
 

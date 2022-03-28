@@ -282,7 +282,7 @@ getStockInfo(stockCodeArray) {
     var stockInfoData_group: any = [];
     var SumYield = 0;
     this.stockInfoData.forEach((stockData) => {
-      console.log(stockData);
+      //console.log(stockData);
 
       stockData.group.forEach(groupData => {
         if (groupData === group) {
@@ -291,7 +291,7 @@ getStockInfo(stockCodeArray) {
         }
       });
     })
-    console.log(SumYield);
+    //console.log(SumYield);
 
     this.totalYieldCalculate(SumYield)
 
